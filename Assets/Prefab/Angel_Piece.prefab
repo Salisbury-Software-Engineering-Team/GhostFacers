@@ -71,8 +71,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4489877119218284}
   - component: {fileID: 95188733415439810}
-  - component: {fileID: 114855110259557392}
   - component: {fileID: 114306232266276674}
+  - component: {fileID: 114619373757332580}
   m_Layer: 0
   m_Name: Angel_Piece
   m_TagString: Untagged
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 868e07a816816429daeedf295cf20a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114855110259557392
+--- !u!114 &114619373757332580
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

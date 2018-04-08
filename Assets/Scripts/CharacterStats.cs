@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+public class CharacterStats : MonoBehaviour
 {
     //TODO: Finish adding stats
 
