@@ -71,8 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4489877119218284}
   - component: {fileID: 95188733415439810}
-  - component: {fileID: 114306232266276674}
-  - component: {fileID: 114619373757332580}
+  - component: {fileID: 114225355510586118}
   m_Layer: 0
   m_Name: Angel_Piece
   m_TagString: Untagged
@@ -99,8 +98,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1478016963685768}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.48970243, y: 0.5100898, z: 0.51008976, w: 0.48970237}
+  m_LocalPosition: {x: 200, y: 44.3, z: -176.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4217802834096288}
@@ -108,7 +107,7 @@ Transform:
   - {fileID: 4966048145502000}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 92.336006}
 --- !u!4 &4907954974198490
 Transform:
   m_ObjectHideFlags: 1
@@ -269,7 +268,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114306232266276674
+--- !u!114 &114225355510586118
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -277,17 +276,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1478016963685768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 868e07a816816429daeedf295cf20a16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114619373757332580
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1478016963685768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee9402698ecad00449f4e973a6340a04, type: 3}
+  m_Script: {fileID: 11500000, guid: 064ec854cf6f84547bdb3a32ead98ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
