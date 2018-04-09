@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b073d82ffe8a34dad7d1287380abb9, type: 3}
   m_Name: Empty
   m_EditorClassIdentifier: 
-  TileName: 
+  TileName: Empty
   TileImage: {fileID: 0}
-  ButtonColor: {r: 0, g: 0, b: 0, a: 0}
+  ButtonColor: {r: 0.1299365, g: 0.09991347, b: 0.9705882, a: 1}
   Type: 0
