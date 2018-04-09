@@ -1,29 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
-
-[Serializable]
-public enum TileType {
-    Empty,
-    Weapon,
-    Help,
-    Daemon,
-    Angel,
-};
 
 public class Tile : MonoBehaviour
 {
-    public List<GameObject> AdjTiles; // array of adj tiles 
+    [SerializeField]
+    private List<GameObject> AdjTiles; // array of adj tiles 
     private Vector3 CurrentPosition; // current position of the tile
     private Vector3 size; // size of tile
 
-    public TileType Type;
+    [SerializeField]
+    private TileType Type; // type of tile
 
     // Used for finding objects to the north, wouth, east and west of current object. 
     private float radius; // size of collider check
     private string strTileModelName = "Tile_Model"; // name eof tile model prefab
     private string strWallName = "Wall_Model"; // name of wall model prefab
+    private string strButtonName = "Tile_Button"; // name of button prefab
 
     private void Awake()
     {
@@ -43,8 +38,12 @@ public class Tile : MonoBehaviour
         Debug.Log("Clicked Tile");
     }
 
+    /*
+     * Called on inspector update
+     */
     private void OnValidate()
     {
+        RefreshUI();
     }
 
     /*
@@ -169,5 +168,28 @@ public class Tile : MonoBehaviour
             AdjTiles.Add(temp);
 
         //Debug.Log("Done Finding Neighbors");
+    }
+
+    /*
+     * Use this to change the visable type of the Tile when type enum is changed.
+     * Ex:
+     *  Display weapon tile visual when tile is change to weapon.
+     */
+    private void RefreshUI()
+    {
+        Image image = transform.Find(strButtonName).GetComponent<Image>();
+        // if type has image
+        if (Type.TileImage == null)
+        {
+            image.enabled = false;
+        }
+        else
+        {
+            image.enabled = true;
+            image.sprite = Type.TileImage;
+        }
+
+        // Set color
+        image.color = Type.ButtonColor;
     }
 }
