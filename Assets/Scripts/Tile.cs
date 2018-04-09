@@ -7,9 +7,11 @@ public class Tile : MonoBehaviour
     public List<GameObject> AdjTiles; // array of adj tiles 
     private Vector3 CurrentPosition; // current position of the tile
     private Vector3 size; // size of tile
-    private float radius = 10;
-    private string strTileModelName = "Tile_Model";
-    private string strWallName = "Wall_Model";
+
+    // Used for finding objects to the north, wouth, east and west of current object. 
+    private float radius; // size of collider check
+    private string strTileModelName = "Tile_Model"; // name eof tile model prefab
+    private string strWallName = "Wall_Model"; // name of wall model prefab
 
     private void Awake()
     {
@@ -17,8 +19,10 @@ public class Tile : MonoBehaviour
 
     private void Start()
     {
-        CurrentPosition = transform.position;
-        size = transform.Find(strTileModelName).GetComponent<Renderer>().bounds.size;
+        CurrentPosition = transform.position; // set current pos.
+        size = transform.Find(strTileModelName).GetComponent<Renderer>().bounds.size; // get current tiles model size
+        radius = size.x / 4;
+        Debug.Log(radius);
         FindNeighbors();
     }
 
@@ -40,11 +44,14 @@ public class Tile : MonoBehaviour
         float zOffset = size.z; // offset
         float xOffset = size.x;
 
+        // set all adj tiles to current tile pos
         Vector3 CurrentPositionNorthOffset = CurrentPosition;
         Vector3 CurrentPositionSouthOffset = CurrentPosition;
         Vector3 CurrentPositionEastOffset = CurrentPosition;
         Vector3 CurrentPositionWestOffset = CurrentPosition;
 
+        // adj adj tile check
+        // check will be placed at edge of current tile with a radius of the radius var.
         CurrentPositionNorthOffset.z += zOffset/2;
         CurrentPositionSouthOffset.z -= zOffset/2;
         CurrentPositionEastOffset.x += xOffset/2;
@@ -62,71 +69,93 @@ public class Tile : MonoBehaviour
         // Also does not add the current tile to teh list. 
         GameObject temp = null;
         bool wallFound = false;
+
+        // Add any tiles above
         for (int i = 0; i < hitCollidersNorth.Length; i++)
         {
+            //Wall found, then end check for adj tiles.
             if (hitCollidersNorth[i].gameObject.name == strWallName)
             {
                 wallFound = true;
                 temp = null;
                 break;
             }
+
+            // If object is named strModelName and not current object, then set as temp.
+            // Will only be added if no wall is found.
             if (hitCollidersNorth[i].gameObject.name == strTileModelName 
                 && hitCollidersNorth[i].gameObject.transform.parent.gameObject != transform.gameObject)
                 temp = hitCollidersNorth[i].gameObject.transform.parent.gameObject;
         }
-        if (!wallFound && temp != null)
+        if (!wallFound && temp != null && !AdjTiles.Contains(temp))
             AdjTiles.Add(temp);
 
         wallFound = false;
+
+        // Add any tiles below
         for (int i = 0; i < hitCollidersSouth.Length; i++)
         {
+            //Wall found, then end check for adj tiles.
             if (hitCollidersSouth[i].gameObject.name == strWallName)
             {
                 wallFound = true;
                 temp = null;
                 break;
             }
+
+            // If object is named strModelName and not current object, then set as temp.
+            // Will only be added if no wall is found.
             if (hitCollidersSouth[i].gameObject.name == strTileModelName 
                 && hitCollidersSouth[i].gameObject.transform.parent.gameObject != transform.gameObject)
                 temp = hitCollidersSouth[i].gameObject.transform.parent.gameObject;
         }
-        if (!wallFound && temp != null)
+        if (!wallFound && temp != null && !AdjTiles.Contains(temp))
             AdjTiles.Add(temp);
 
         wallFound = false;
 
+        // Add any tiles to the right
         for (int i = 0; i < hitCollidersEast.Length; i++)
         {
+            //Wall found, then end check for adj tiles.
             if (hitCollidersEast[i].gameObject.name == strWallName)
             {
                 wallFound = true;
                 temp = null;
                 break;
             }
+
+            // If object is named strModelName and not current object, then set as temp.
+            // Will only be added if no wall is found.
             if (hitCollidersEast[i].gameObject.name == strTileModelName 
                 && hitCollidersEast[i].gameObject.transform.parent.gameObject != transform.gameObject)
                 temp = hitCollidersEast[i].gameObject.transform.parent.gameObject;
         }
-        if (!wallFound && temp != null)
+        if (!wallFound && temp != null && !AdjTiles.Contains(temp))
             AdjTiles.Add(temp);
 
         wallFound = false;
 
+        //add any tiles to the left
         for (int i = 0; i < hitCollidersWest.Length; i++)
         {
+            //Wall found, then end check for adj tiles.
             if (hitCollidersWest[i].gameObject.name == strWallName)
             {
                 wallFound = true;
                 temp = null;
                 break;
             }
+
+            // If object is named strModelName and not current object, then set as temp.
+            // Will only be added if no wall is found.
             if (hitCollidersWest[i].gameObject.name == strTileModelName 
                 && hitCollidersWest[i].gameObject.transform.parent.gameObject != transform.gameObject)
                 temp = hitCollidersWest[i].gameObject.transform.parent.gameObject;
         }
-        if (!wallFound && temp != null)
+        if (!wallFound && temp != null && !AdjTiles.Contains(temp))
             AdjTiles.Add(temp);
 
-        Debug.Log("Done Finding Neighbors");
+        //Debug.Log("Done Finding Neighbors");
     }
 }
