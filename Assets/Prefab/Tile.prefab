@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4168166786025706}
-  - component: {fileID: 114897083654406272}
+  - component: {fileID: 114565234495512564}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114897083654406272}
+      - m_Target: {fileID: 0}
         m_MethodName: TestClicked
         m_Mode: 1
         m_Arguments:
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114897083654406272
+--- !u!114 &114565234495512564
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6d08e95c95774469d03a0a38532b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AdjTiles: []
 --- !u!222 &222142750904345818
 CanvasRenderer:
   m_ObjectHideFlags: 1
