@@ -267,4 +267,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064ec854cf6f84547bdb3a32ead98ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AvaliableMovementTiles: []

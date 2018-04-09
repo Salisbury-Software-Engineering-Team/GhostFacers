@@ -8,7 +8,6 @@ public enum TileTypes
     Daemon,
     Angel,
     SpecialWeapon,
-    Green,
 }
 
 [CreateAssetMenu]
