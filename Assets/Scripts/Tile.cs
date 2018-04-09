@@ -1,12 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+[Serializable]
+public enum TileType {
+    Empty,
+    Weapon,
+    Help,
+    Daemon,
+    Angel,
+};
 
 public class Tile : MonoBehaviour
 {
     public List<GameObject> AdjTiles; // array of adj tiles 
     private Vector3 CurrentPosition; // current position of the tile
     private Vector3 size; // size of tile
+
+    public TileType Type;
 
     // Used for finding objects to the north, wouth, east and west of current object. 
     private float radius; // size of collider check
@@ -22,7 +34,7 @@ public class Tile : MonoBehaviour
         CurrentPosition = transform.position; // set current pos.
         size = transform.Find(strTileModelName).GetComponent<Renderer>().bounds.size; // get current tiles model size
         radius = size.x / 4;
-        Debug.Log(radius);
+        //Debug.Log(radius);
         FindNeighbors();
     }
 
