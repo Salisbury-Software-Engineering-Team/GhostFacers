@@ -288,4 +288,3 @@ MonoBehaviour:
     type: 2}
   Tile: {fileID: 1681790383599024, guid: dfa6e80e73b5f434ebd013ab641ccf7a, type: 2}
   isMoveShowing: 0
-  TestMovement: 10

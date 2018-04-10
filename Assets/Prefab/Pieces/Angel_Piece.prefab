@@ -87,6 +87,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4540877240680958}
+  - component: {fileID: 114787573587773094}
+  - component: {fileID: 114869435563800004}
+  - component: {fileID: 54648595037216842}
   m_Layer: 0
   m_Name: Angel_Piece
   m_TagString: Untagged
@@ -280,6 +283,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1263287895914266}
   m_Mesh: {fileID: 4300006, guid: 967b64196f51d274999fbfbef6566720, type: 3}
+--- !u!54 &54648595037216842
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899706416692956}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65335798146187434
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -309,3 +327,34 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114787573587773094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899706416692956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 064ec854cf6f84547bdb3a32ead98ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvaliableMovementTiles: []
+  GameManager: {fileID: 1505867178309820, guid: 8f9bee77bc55b7549bbaa8eb5f2c7287,
+    type: 2}
+  Tile: {fileID: 1681790383599024, guid: dfa6e80e73b5f434ebd013ab641ccf7a, type: 2}
+  isMoveShowing: 0
+--- !u!114 &114869435563800004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899706416692956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b6d23740d363349b039cb7122426f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: []
+  GameManager: {fileID: 1505867178309820, guid: 8f9bee77bc55b7549bbaa8eb5f2c7287,
+    type: 2}
+  Piece: {fileID: 0}
