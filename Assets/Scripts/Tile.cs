@@ -14,6 +14,9 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private TileType Type; // type of tile
 
+    public GameObject Highlight; // hightlight sprite
+    public Button Button; 
+
     // Used for finding objects to the north, wouth, east and west of current object. 
     private float radius; // size of collider check
     private string strTileModelName = "Tile_Model"; // name eof tile model prefab
@@ -192,4 +195,6 @@ public class Tile : MonoBehaviour
         // Set color
         image.color = Type.ButtonColor;
     }
+
+    public List<GameObject> GetAdjTiles() { return AdjTiles; }
 }
