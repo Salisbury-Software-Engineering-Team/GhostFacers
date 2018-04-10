@@ -14,7 +14,8 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private TileType Type; // type of tile
 
-    public GameObject Highlight; // hightlight sprite
+    [SerializeField]
+    private GameObject Highlight; // hightlight sprite
     public Button Button; 
 
     // Used for finding objects to the north, wouth, east and west of current object. 
@@ -194,6 +195,15 @@ public class Tile : MonoBehaviour
 
         // Set color
         image.color = Type.ButtonColor;
+    }
+
+    /*
+     * Mkaes the Button clickable and turns on the Highlight sprite
+     */
+    public void HighlightTile(bool doShow)
+    {
+        Highlight.SetActive(doShow);
+        Button.enabled = doShow;
     }
 
     public List<GameObject> GetAdjTiles() { return AdjTiles; }

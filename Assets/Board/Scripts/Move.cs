@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class Move : MonoBehaviour
 {
@@ -22,14 +23,15 @@ public class Move : MonoBehaviour
 
     public void MovePiece(GameObject tile)
     {
-        Piece = GameManager.GetComponent<GameState>().CurrentPiece;
-        Debug.Log(Piece);
-        Debug.Log("Clicked Tile");
-        //Testing
-        Debug.Log(Piece.transform.gameObject);
-        Piece.transform.position = tile.transform.position;
-        Debug.Log(Piece.transform.position);
-        Piece.GetComponent<CharacterPiece>().ClearHighlights();
+        // if button is not blocked by player
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            Piece = GameManager.GetComponent<GameState>().CurrentPiece;
+            //Testing
+            //TODO: Animate**********
+            Piece.transform.position = tile.transform.position;
+            Piece.GetComponent<CharacterPiece>().ClearHighlights(); // clear button highlights
+        }
     }
 
     private void FindPath()
