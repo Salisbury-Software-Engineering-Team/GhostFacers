@@ -51,5 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6871eae4244ec47853dfa0ca677503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentPiece: {fileID: 0}
+  _currentPiece: {fileID: 0}
   TotalMovement: 10
+  Players: []

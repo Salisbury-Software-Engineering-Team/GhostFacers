@@ -31,6 +31,7 @@ public class Move : MonoBehaviour
             //TODO: Animate**********
             Piece.transform.position = tile.transform.position;
             Piece.GetComponent<CharacterPiece>().ClearHighlights(); // clear button highlights
+            Piece.GetComponent<CharacterPiece>().CurrentTile = tile;
         }
     }
 

@@ -8,7 +8,7 @@ public class CharacterPiece : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
-
+    public GameObject CurrentTile; // current tile piece is at
     [SerializeField]
     private GameObject GameManager;
 
@@ -37,9 +37,8 @@ public class CharacterPiece : MonoBehaviour
     private void DisplayAvaliableMovement(int move)
     {
         isMoveShowing = true; // set visiable to true
-        GameObject currentTile = GetCurrentTile();
-        GetAllAvaliableMovement(currentTile, move);
-        currentTile.GetComponent<Tile>().HighlightTile(false); // hide current tiles button
+        if (CurrentTile == null) { CurrentTile = GetCurrentTile(); } // if Current tile is not set
+        GetAllAvaliableMovement(CurrentTile, move);
     }
 
     /*
@@ -71,14 +70,25 @@ public class CharacterPiece : MonoBehaviour
 
     private void MovementRecursive(int move, int total, GameObject tile)
     {
+        // Used to check if another piece occupies tile.
+        Vector3 tempPos;
+        Collider[] hitColliders;
         // check each adj tile
         foreach (GameObject adj in tile.GetComponent<Tile>().GetAdjTiles())
         {
-            // add to list if not already in list
-            if (!AvaliableMovementTiles.Contains(adj))
+            tempPos = adj.transform.position;
+            tempPos.y += transform.GetChild(0).GetComponent<Collider>().bounds.size.y / 2;
+            hitColliders = Physics.OverlapSphere(tempPos, transform.GetChild(0).GetComponent<Collider>().bounds.size.x / 4);
+
+            // no piece at tile
+            if (hitColliders.Length == 0)
             {
-                AvaliableMovementTiles.Add(adj);
-                adj.GetComponent<Tile>().HighlightTile(true);
+                // add to list if not already in list
+                if (!AvaliableMovementTiles.Contains(adj))
+                {
+                    AvaliableMovementTiles.Add(adj);
+                    adj.GetComponent<Tile>().HighlightTile(true);
+                }
             }
         }
 

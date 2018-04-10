@@ -11,10 +11,9 @@ public class GameState : MonoBehaviour
         get { return _currentPiece;}
         set
         {
-            Debug.Log("Setting _currentPiece");
-            if (value != _currentPiece)
+            if (value != _currentPiece) // if current selected piece changed
             {
-                _currentPiece.GetComponent<CharacterPiece>().ClearHighlights();
+                _currentPiece.GetComponent<CharacterPiece>().ClearHighlights(); // clear highlights from old piece
                 _currentPiece = value;
             }
             else
@@ -29,10 +28,5 @@ public class GameState : MonoBehaviour
 	void Start()
     {
         _currentPiece = CurrentPiece;
-        foreach (var item in Players)
-        {
-            Debug.Log(item);
-
-        }
 	}
 }
