@@ -26,9 +26,6 @@ public class CharacterPiece : MonoBehaviour
     [SerializeField]
     private bool isMoveShowing = false; // for if the movement tiles are showing highlighted
 
-    [SerializeField]
-    private int TestMovement = 3; // testing ************************
-
     /*
      * Action to take when the user click on the piece
      *
@@ -44,7 +41,7 @@ public class CharacterPiece : MonoBehaviour
     {
         Debug.Log("Character Clicked");
         //TODO: ADD check if it is current users turn.
-        DisplayAvaliableMovement(TestMovement);
+        DisplayAvaliableMovement(GameManager.GetComponent<GameState>().TotalMovement);
 
         //TEsts*********************
         GameManager.GetComponent<GameState>().CurrentPiece = transform.gameObject;

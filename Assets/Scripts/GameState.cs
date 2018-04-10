@@ -6,6 +6,7 @@ public class GameState : MonoBehaviour
 {
     //[SerializeField]
     public GameObject CurrentPiece;
+    public int TotalMovement; //testing for movement
 
 	void Start ()
     {
