@@ -34,7 +34,7 @@ public class CharacterPiece : MonoBehaviour
     private void OnMouseUp()
     {
         //TEsts*********************
-        Stat.Weapons.Add(new Card("Testing", "Boom"));
+        //Stat.Weapons.Add(new Card("Testing", "Boom"));
         GameManager.GetComponent<GameState>().CurrentPiece = transform.gameObject;
         //TODO: ADD check if it is current users turn.
         DisplayAvaliableMovement(GameManager.GetComponent<GameState>().TotalMovement);

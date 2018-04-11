@@ -2,9 +2,8 @@
 using System;
 using UnityEngine;
 
-//[CreateAssetMenu]
-[Serializable]
-public class CharacterStat //: ScriptableObject
+[CreateAssetMenu]
+public class CharacterStat : ScriptableObject
 {
     public String Name;
 
@@ -19,5 +18,11 @@ public class CharacterStat //: ScriptableObject
     public List<Card> Weapons;
     [SerializeField]
     private List<Card> Help;
+
+    public SideType Side;
+
+    //Needs some type of effect script.
+
+
 
 }
