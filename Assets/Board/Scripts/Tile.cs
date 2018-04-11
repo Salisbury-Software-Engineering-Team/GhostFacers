@@ -13,6 +13,8 @@ public class Tile : MonoBehaviour
 
     [SerializeField]
     private TileType Type; // type of tile
+    [SerializeField]
+    private GameObject Portal; // link to portal
 
     [SerializeField]
     private GameObject Highlight; // hightlight sprite
@@ -35,6 +37,12 @@ public class Tile : MonoBehaviour
         radius = size.x / 4;
         //Debug.Log(radius);
         FindNeighbors();
+
+        // add portal as adj tile
+        if (Portal != null)
+        {
+            AdjTiles.Add(Portal);
+        }
     }
 
     public void TestClicked()
