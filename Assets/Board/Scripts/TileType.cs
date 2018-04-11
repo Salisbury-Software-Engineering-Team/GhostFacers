@@ -9,6 +9,7 @@ public enum TileTypes
     Angel,
     SpecialWeapon,
     Green,
+    Portal,
 }
 
 [CreateAssetMenu]

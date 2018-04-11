@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4574768857053386}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall_Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33475748234567374}
   - component: {fileID: 65347154164692528}
   - component: {fileID: 23248145745044880}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall_3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 public class CharacterPiece : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
+    private List<GameObject> BlockedMovementTiles; // tiles with player on them
     public GameObject CurrentTile; // current tile piece is at
     [SerializeField]
     private GameObject GameManager;
@@ -20,6 +22,14 @@ public class CharacterPiece : MonoBehaviour
 
     [SerializeField]
     public CharacterStat Stat; // stats for the piece
+
+    public NavMeshAgent Agent;
+
+    private void Start()
+    {
+        Agent = GetComponent<NavMeshAgent>();
+        BlockedMovementTiles = new List<GameObject>();
+    }
 
     private void OnMouseUp()
     {
@@ -38,7 +48,7 @@ public class CharacterPiece : MonoBehaviour
     {
         isMoveShowing = true; // set visiable to true
         if (CurrentTile == null) { CurrentTile = GetCurrentTile(); } // if Current tile is not set
-        GetAllAvaliableMovement(CurrentTile, move);
+        GetMovement(CurrentTile, move);
     }
 
     /*
@@ -61,47 +71,60 @@ public class CharacterPiece : MonoBehaviour
         // no tile found
         return null;
     }
-
-    private void GetAllAvaliableMovement(GameObject currentTile, int totalMove)
+ 
+    private void GetMovement(GameObject startTile, int totalMove)
     {
-        int currentMovement = 1;
-        MovementRecursive(currentMovement, totalMove, currentTile);
-    }
+        Queue<GameObject> check = new Queue<GameObject>();
+        check.Enqueue(startTile);
 
-    private void MovementRecursive(int move, int total, GameObject tile)
-    {
-        // Used to check if another piece occupies tile.
+        // check if player is in tile location
         Vector3 tempPos;
         Collider[] hitColliders;
-        // check each adj tile
-        foreach (GameObject adj in tile.GetComponent<Tile>().GetAdjTiles())
-        {
-            tempPos = adj.transform.position;
-            tempPos.y += transform.GetChild(0).GetComponent<Collider>().bounds.size.y / 2;
-            hitColliders = Physics.OverlapSphere(tempPos, transform.GetChild(0).GetComponent<Collider>().bounds.size.x / 4);
 
-            // no piece at tile
-            if (hitColliders.Length == 0)
+        AvaliableMovementTiles.Clear();
+        AvaliableMovementTiles.Add(startTile);
+
+        for (int k = 0; k < totalMove; k++)
+        {
+            Queue<GameObject> temp = new Queue<GameObject>();
+            foreach (GameObject current in check)
             {
-                // add to list if not already in list
-                if (!AvaliableMovementTiles.Contains(adj))
+                // loop for each adj tile
+                for (int i = 0; i < current.GetComponent<Tile>().GetAdjTiles().Count; i++)
                 {
-                    AvaliableMovementTiles.Add(adj);
-                    adj.GetComponent<Tile>().HighlightTile(true);
+                    GameObject next = current.GetComponent<Tile>().GetAdjTiles()[i];
+                    if (!AvaliableMovementTiles.Contains(next))
+                    {
+                        next.GetComponent<Tile>().HighlightTile(true);
+                        temp.Enqueue(next);
+                        AvaliableMovementTiles.Add(next);
+
+                        // look for another player piece
+                        tempPos = next.transform.position;
+                        tempPos.y += transform.GetChild(0).GetComponent<Collider>().bounds.size.y / 2;
+                        hitColliders = Physics.OverlapSphere(tempPos, transform.GetChild(0).GetComponent<Collider>().bounds.size.x / 4);
+
+                        // tile is blocked
+                        if (hitColliders.Length > 0)
+                        {
+                            BlockedMovementTiles.Add(next);
+                        }
+
+                    }
                 }
             }
+            check = temp;
         }
 
-        move++;
-
-        // recursive call if movement still left
-        if (move <= total)
+        // hide blocked tiles
+        foreach (GameObject tile in BlockedMovementTiles)
         {
-            foreach (GameObject adj in tile.GetComponent<Tile>().GetAdjTiles())
-            {
-                MovementRecursive(move, total, adj);
-            }
+            tile.GetComponent<Tile>().HighlightTile(false);
         }
+
+        //clear Blocked tiles list
+        BlockedMovementTiles.Clear();
+
     }
 
 
@@ -118,59 +141,3 @@ public class CharacterPiece : MonoBehaviour
         AvaliableMovementTiles.Clear();
     }
 }
-
-/********** Testiing a different way to get path might not be better, needs more testing
-//private List<MovementTiles> AvaliableMovementTiles = new List<MovementTiles>();
-[Serializable]
-private struct MovementTiles
-{
-    public int move; // current tiles movement
-    public GameObject tile; // tile object
-    public MovementTiles(int m, GameObject t) { move = m; tile = t; }
-}
-
- * Support Function for geting total movements
- * 
- * Still needs improvements !!!!
- *
-private void MovementRecursive(int move, int totalMove, GameObject currentTile)
-{
-    bool found;
-    List<GameObject> tiles = currentTile.GetComponent<Tile>().GetAdjTiles();
-    int currentMove = move;
-    foreach (GameObject tile in tiles)
-    {
-        found = false;
-        if (move <= totalMove)
-        {
-            //Debug.Log("Move Rec of inside IF " + move + " " + currentTile);
-            // current tiles move is smaller then tiles stored move
-            MovementTiles t;
-            for (int i = 0; i < AvaliableMovementTiles.Count; i++)
-            {
-                t = AvaliableMovementTiles[i];
-                if (t.tile == tile) // tile already in list
-                {
-                    found = true;
-                    if (currentMove < t.move) // tile found with smaller movement
-                    {
-                        t.move = currentMove;
-                        MovementRecursive(currentMove + 1, totalMove, tile);
-                    }
-                    break;
-                }
-            }
-
-            if (!found)
-            {
-                //tile not in list
-                MovementTiles temp;
-                temp.move = currentMove;
-                temp.tile = tile;
-                AvaliableMovementTiles.Add(temp);
-                temp.tile.GetComponent<Tile>().HighlightTile(true);
-                MovementRecursive(currentMove + 1, totalMove, tile);
-            }
-        }
-    }
-}*/
