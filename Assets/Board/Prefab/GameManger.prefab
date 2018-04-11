@@ -52,5 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentPiece: {fileID: 0}
-  TotalMovement: 12
+  TotalMovement: 15
   Players: []

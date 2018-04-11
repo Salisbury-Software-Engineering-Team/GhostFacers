@@ -11,7 +11,7 @@ NavMeshProjectSettings:
     cost: 1
   - name: Jump
     cost: 2
-  - name: 
+  - name: Portal
     cost: 1
   - name: 
     cost: 1
@@ -74,7 +74,7 @@ NavMeshProjectSettings:
   - serializedVersion: 2
     agentTypeID: 0
     agentRadius: 10
-    agentHeight: 2
+    agentHeight: 40
     agentSlope: 0
     agentClimb: 0.001
     ledgeDropHeight: 0
