@@ -28,6 +28,7 @@ public class CharacterPiece : MonoBehaviour
     private void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
+        BlockedMovementTiles = new List<GameObject>();
     }
 
     private void OnMouseUp()
