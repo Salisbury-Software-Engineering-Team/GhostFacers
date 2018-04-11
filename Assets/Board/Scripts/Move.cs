@@ -29,7 +29,8 @@ public class Move : MonoBehaviour
             Piece = GameManager.GetComponent<GameState>().CurrentPiece;
             //Testing
             //TODO: Animate**********
-            Piece.transform.position = tile.transform.position;
+            Piece.GetComponent<CharacterPiece>().Agent.SetDestination(tile.transform.position);
+            //Piece.transform.position = tile.transform.position;
             Piece.GetComponent<CharacterPiece>().ClearHighlights(); // clear button highlights
             Piece.GetComponent<CharacterPiece>().CurrentTile = tile;
         }

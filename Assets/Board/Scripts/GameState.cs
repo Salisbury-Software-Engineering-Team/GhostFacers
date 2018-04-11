@@ -11,7 +11,7 @@ public class GameState : MonoBehaviour
         get { return _currentPiece;}
         set
         {
-            if (value != _currentPiece) // if current selected piece changed
+            if (value != _currentPiece && _currentPiece != null) // if current selected piece changed
             {
                 _currentPiece.GetComponent<CharacterPiece>().ClearHighlights(); // clear highlights from old piece
                 _currentPiece = value;
