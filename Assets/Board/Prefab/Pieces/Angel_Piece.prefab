@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 114787573587773094}
   - component: {fileID: 114869435563800004}
   - component: {fileID: 54648595037216842}
+  - component: {fileID: 195258000516527436}
   m_Layer: 0
   m_Name: Angel_Piece
   m_TagString: Untagged
@@ -130,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1899706416692956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 161, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4598102487291300}
@@ -143,7 +144,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350409514277296}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -0, y: 62, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
@@ -152,7 +153,7 @@ Transform:
   - {fileID: 4972735813137712}
   m_Father: {fileID: 4540877240680958}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 180, z: 0}
 --- !u!4 &4972735813137712
 Transform:
   m_ObjectHideFlags: 1
@@ -339,10 +340,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AvaliableMovementTiles: []
+  CurrentTile: {fileID: 0}
   GameManager: {fileID: 1505867178309820, guid: 8f9bee77bc55b7549bbaa8eb5f2c7287,
     type: 2}
   Tile: {fileID: 1681790383599024, guid: dfa6e80e73b5f434ebd013ab641ccf7a, type: 2}
   isMoveShowing: 0
+  Stat:
+    Name: 
+    HealthLeft: 0
+    HealthTotal: 0
+    Movement: 0
+    Weapons: []
+    Help: []
+  Agent: {fileID: 0}
 --- !u!114 &114869435563800004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,3 +368,24 @@ MonoBehaviour:
   GameManager: {fileID: 1505867178309820, guid: 8f9bee77bc55b7549bbaa8eb5f2c7287,
     type: 2}
   Piece: {fileID: 0}
+--- !u!195 &195258000516527436
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899706416692956}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 100
+  m_Acceleration: 1000
+  avoidancePriority: 50
+  m_AngularSpeed: 400
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

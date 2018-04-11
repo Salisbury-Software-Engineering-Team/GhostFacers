@@ -35,7 +35,6 @@ public class CharacterPiece : MonoBehaviour
     {
         //TEsts*********************
         Stat.Weapons.Add(new Card("Testing", "Boom"));
-        Debug.Log("Here");
         GameManager.GetComponent<GameState>().CurrentPiece = transform.gameObject;
         //TODO: ADD check if it is current users turn.
         DisplayAvaliableMovement(GameManager.GetComponent<GameState>().TotalMovement);

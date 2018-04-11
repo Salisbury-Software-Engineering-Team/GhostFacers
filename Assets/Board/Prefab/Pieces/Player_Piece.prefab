@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 54834234570635252}
   - component: {fileID: 114888365444687108}
   - component: {fileID: 114391647278794074}
+  - component: {fileID: 195789171177232278}
   m_Layer: 0
   m_Name: Player_Piece
   m_TagString: Untagged
@@ -284,7 +285,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AvaliableMovementTiles: []
+  CurrentTile: {fileID: 0}
   GameManager: {fileID: 1505867178309820, guid: 8f9bee77bc55b7549bbaa8eb5f2c7287,
     type: 2}
   Tile: {fileID: 1681790383599024, guid: dfa6e80e73b5f434ebd013ab641ccf7a, type: 2}
   isMoveShowing: 0
+  Stat:
+    Name: 
+    HealthLeft: 0
+    HealthTotal: 0
+    Movement: 0
+    Weapons: []
+    Help: []
+  Agent: {fileID: 0}
+--- !u!195 &195789171177232278
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145992456057902}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 100
+  m_Acceleration: 10000
+  avoidancePriority: 50
+  m_AngularSpeed: 10000
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
