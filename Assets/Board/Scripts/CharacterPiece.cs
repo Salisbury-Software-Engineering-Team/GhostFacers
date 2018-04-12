@@ -10,25 +10,47 @@ public class CharacterPiece : MonoBehaviour
     [SerializeField]
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
-    public GameObject CurrentTile; // current tile piece is at
+    private GameObject CurrentTile; // current tile piece is at
     [SerializeField]
     private GameObject GameManager;
-
     [SerializeField]
     private GameObject Tile;
 
-    [SerializeField]
     private bool isMoveShowing = false; // for if the movement tiles are showing highlighted
 
-    [SerializeField]
     public CharacterStat Stat; // stats for the piece
 
     public NavMeshAgent Agent;
+
+    public GameObject CharacterModel;
+    public GameObject CharacterPlaceHolder;
+    [SerializeField]
+    private GameObject CharacterVisPlaceholder;
 
     private void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
         BlockedMovementTiles = new List<GameObject>();
+        AvaliableMovementTiles = new List<GameObject>();
+        Destroy(CharacterVisPlaceholder);
+        if (Stat != null) // creates character model based off of the stat model chosen
+        {
+            if (CharacterModel == null)
+            {
+                GameObject thisModel = Instantiate(Stat.Model, CharacterPlaceHolder.transform.position, CharacterPlaceHolder.transform.rotation, CharacterPlaceHolder.transform) as GameObject;
+                CharacterModel = thisModel;
+            }
+            else
+            {
+                Destroy(CharacterModel);
+                CharacterModel = Instantiate(Stat.Model, CharacterPlaceHolder.transform.position, CharacterPlaceHolder.transform.rotation, CharacterPlaceHolder.transform) as GameObject;
+            }
+        }
+    }
+
+    private void OnValidate()
+    {
+
     }
 
     private void OnMouseUp()
@@ -135,7 +157,6 @@ public class CharacterPiece : MonoBehaviour
 
     }
 
-
     /*
      * Hides Highlights and clears movement tile array.
      */
@@ -147,5 +168,10 @@ public class CharacterPiece : MonoBehaviour
             tile.GetComponent<Tile>().HighlightTile(false);
         }
         AvaliableMovementTiles.Clear();
+    }
+
+    public void SetCurrentTile(GameObject tile)
+    {
+        CurrentTile = tile;
     }
 }

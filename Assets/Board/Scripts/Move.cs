@@ -32,7 +32,7 @@ public class Move : MonoBehaviour
             Piece.GetComponent<CharacterPiece>().Agent.SetDestination(tile.transform.position);
             //Piece.transform.position = tile.transform.position;
             Piece.GetComponent<CharacterPiece>().ClearHighlights(); // clear button highlights
-            Piece.GetComponent<CharacterPiece>().CurrentTile = tile;
+            Piece.GetComponent<CharacterPiece>().SetCurrentTile(tile);
         }
     }
 

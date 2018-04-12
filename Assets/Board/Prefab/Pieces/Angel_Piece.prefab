@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4018410344785356}
   - component: {fileID: 33068479666169934}
   - component: {fileID: 23177728133328988}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere_MeshPart0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4972735813137712}
   - component: {fileID: 33556928894216064}
   - component: {fileID: 23552357681863834}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere_MeshPart2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4598102487291300}
   - component: {fileID: 95564281230436706}
   - component: {fileID: 65335798146187434}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AngelPiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4333776611714162}
   - component: {fileID: 33509616692903734}
   - component: {fileID: 23398994509708944}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere_MeshPart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 54648595037216842}
   - component: {fileID: 195258000516527436}
   - component: {fileID: 114489774548164096}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Angel_Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,6 +177,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -192,6 +193,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -209,6 +211,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -224,6 +227,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -241,6 +245,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -256,6 +261,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -364,14 +370,11 @@ MonoBehaviour:
     type: 2}
   Tile: {fileID: 1681790383599024, guid: dfa6e80e73b5f434ebd013ab641ccf7a, type: 2}
   isMoveShowing: 0
-  Stat:
-    Name: 
-    HealthLeft: 0
-    HealthTotal: 0
-    Movement: 0
-    Weapons: []
-    Help: []
+  Stat: {fileID: 0}
   Agent: {fileID: 0}
+  CharacterModel: {fileID: 0}
+  CharacterPlaceHolder: {fileID: 0}
+  CharacterVisPlaceholder: {fileID: 0}
 --- !u!114 &114869435563800004
 MonoBehaviour:
   m_ObjectHideFlags: 1

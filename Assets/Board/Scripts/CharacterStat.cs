@@ -21,6 +21,8 @@ public class CharacterStat : ScriptableObject
 
     public SideType Side;
 
+    public GameObject Model;
+
     //Needs some type of effect script.
 
 
