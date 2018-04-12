@@ -95,7 +95,15 @@ public class CharacterPiece : MonoBehaviour
                     GameObject next = current.GetComponent<Tile>().GetAdjTiles()[i];
                     if (!AvaliableMovementTiles.Contains(next))
                     {
-                        next.GetComponent<Tile>().HighlightTile(true);
+                        // Tile is portal, then skip current tile
+                        if (next.GetComponent<Tile>().Portal != null)
+                        {
+                            temp.Enqueue(next); // enque current tile
+                            AvaliableMovementTiles.Add(next); // add curent tile to movment list 
+                            next = next.GetComponent<Tile>().Portal; // make current tile = portal destination, then also add that tile
+                        }
+                        else { next.GetComponent<Tile>().HighlightTile(true); } // not a portal tile
+
                         temp.Enqueue(next);
                         AvaliableMovementTiles.Add(next);
 
@@ -116,7 +124,7 @@ public class CharacterPiece : MonoBehaviour
             check = temp;
         }
 
-        // hide blocked tiles
+        // hide blocked tiles. EX tiles with other character pieces on them.
         foreach (GameObject tile in BlockedMovementTiles)
         {
             tile.GetComponent<Tile>().HighlightTile(false);

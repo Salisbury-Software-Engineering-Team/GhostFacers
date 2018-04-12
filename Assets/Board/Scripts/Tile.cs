@@ -14,7 +14,7 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private TileType Type; // type of tile
     [SerializeField]
-    private GameObject Portal; // link to portal
+    public GameObject Portal; // link to portal
 
     [SerializeField]
     private GameObject Highlight; // hightlight sprite
