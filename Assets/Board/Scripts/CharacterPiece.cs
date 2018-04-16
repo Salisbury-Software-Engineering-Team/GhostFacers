@@ -5,14 +5,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
+[Serializable]
 public class CharacterPiece : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
     private GameObject CurrentTile; // current tile piece is at
-    [SerializeField]
-    private GameObject GameManager;
+
     [SerializeField]
     private GameObject Tile;
 
@@ -50,16 +50,15 @@ public class CharacterPiece : MonoBehaviour
 
     private void OnValidate()
     {
-
     }
 
     private void OnMouseUp()
     {
         //TEsts*********************
         //Stat.Weapons.Add(new Card("Testing", "Boom"));
-        GameManager.GetComponent<GameState>().CurrentPiece = transform.gameObject;
+        GameManager.instance.CurrentPiece = transform.gameObject;
         //TODO: ADD check if it is current users turn.
-        DisplayAvaliableMovement(GameManager.GetComponent<GameState>().TotalMovement);
+        DisplayAvaliableMovement(GameManager.instance.TotalMovement);
 
     }
 

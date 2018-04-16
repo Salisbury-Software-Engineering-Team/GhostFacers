@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameState : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
+    public static GameManager instance = null; // GameManager object for players to access
+
     [SerializeField]
     private GameObject _currentPiece;
     public GameObject CurrentPiece
@@ -27,6 +29,22 @@ public class GameState : MonoBehaviour
 
 	void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
         _currentPiece = CurrentPiece;
 	}
+
+    private void Init()
+    {
+    }
+
+
 }

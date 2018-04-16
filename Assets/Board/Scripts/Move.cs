@@ -10,8 +10,7 @@ public class Move : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> Path;
-    [SerializeField]
-    private GameObject GameManager;
+
     [SerializeField]
     private GameObject Piece;
 
@@ -23,10 +22,12 @@ public class Move : MonoBehaviour
 
     public void MovePiece(GameObject tile)
     {
+        Debug.Log("Here");
         // if button is not blocked by player
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Piece = GameManager.GetComponent<GameState>().CurrentPiece;
+            Piece = GameManager.instance.CurrentPiece;
+            Debug.Log(Piece);
             //Testing
             //TODO: Animate**********
             Piece.GetComponent<CharacterPiece>().Agent.SetDestination(tile.transform.position);
