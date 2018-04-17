@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
     public SideType CurrentSide; // Current sides turn
     public TurnManager Turn; // manages a character turn once they hit roll.
 
+    //Testing ************** Delete When Done
+    public Text PhaseText;
+    public Text CurrentPlayerText;
+    public Text CurrentPieceText;
+
     [SerializeField] private List<Player> GoodPlayers;
     [SerializeField] private List<Player> EvilPlayers;
     [SerializeField] private Player CurrentPlayer;
@@ -33,7 +38,7 @@ public class GameManager : MonoBehaviour
         set
         {
             // Turn started changed
-            if (value != TurnStarted)
+            if (value != _turnStarted)
             {
                 //TEsing ***************************** Change later
                 RollButton.enabled = !value;
@@ -63,11 +68,18 @@ public class GameManager : MonoBehaviour
         GoodPlayersTurn();
 	}
 
+    private void Update()
+    {
+        //Testing ********
+        CurrentPieceText.text = "Current Piece " + CurrentPiece.gameObject.ToString();
+        CurrentPlayerText.text = "Current Player " + CurrentPlayer.gameObject.ToString();
+    }
+
     private void Init()
     {
         WinningSide = -1;
         TurnStarted = false;
-        Turn = new TurnManager();
+        Turn = this.GetComponent<TurnManager>();
     }
 
     private void StartGame()
@@ -106,10 +118,11 @@ public class GameManager : MonoBehaviour
             {
                 // TODO: Display Current Players piece info
 
-                if (piece.canMove && !TurnStarted) // piece can still roll.
+                if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
                     RollButton.enabled = true;
                     piece.Selected(true);
+       
                     return piece;
                 }
                 else
@@ -136,6 +149,7 @@ public class GameManager : MonoBehaviour
             foreach (CharacterPiece piece in play.Pieces)
             {
                 piece.SetupTurn();
+                Debug.Log(play + " Piece: " + piece.canMove);
             }
         }
     }

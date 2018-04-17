@@ -10,12 +10,6 @@ public class Move : MonoBehaviour
 {
     [SerializeField] private CharacterPiece Piece; // Piece to move
 
-    private void Start()
-    {
-        //Piece = this.transform.gameObject;
-        //Debug.Log("Asigned" + Piece);
-    }
-
     /// <summary>
     /// Nav Mesh is used to find a path to the selcted tile by using the agent var from
     /// the character piece.
@@ -31,9 +25,33 @@ public class Move : MonoBehaviour
             //TODO: Animate**********
             Piece.canMove = false;
             Piece.Agent.SetDestination(tile.transform.position);
-            Piece.ClearHighlights(); // clear button highlights
             Piece.SetCurrentTile(tile);
-            Piece.doneMove = true;
+            Piece.StartCoroutine(WaitForAgent());
         }
+    }
+
+    /// <summary>
+    /// Waits for the character piece to finish moving and then sets the character piece to doneMoving.
+    /// This is so the player has to wait for the animation to complete before moving to the draw card phase.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitForAgent()
+    {
+        yield return new WaitUntil(() => pathComplete() == true); // wait for the character to reach the selected tile
+        Piece.ClearHighlights(); // clear button highlights
+        Piece.doneMove = true;
+    }
+
+    private bool pathComplete()
+    {
+        if (Vector3.Distance(Piece.Agent.destination, Piece.Agent.transform.position) <= Piece.Agent.stoppingDistance)
+        {
+            if (!Piece.Agent.hasPath || Piece.Agent.velocity.sqrMagnitude == 0f)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -3,39 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
-{
+{ 
     private CharacterPiece Piece;
 
     public void BeginTurn(int move)
     {
+        StartCoroutine(TurnLoop(move));
+    }
+
+    IEnumerator TurnLoop(int move)
+    {
         Piece = GameManager.instance.CurrentPiece;
-        Debug.Log("Begin Turn");
-        MovementPhase(move);
-        DrawPhase();
-        AttackPhase();
-        EndTurnPhase();
+        yield return StartCoroutine(MovementPhase(move));
+        Debug.Log("Here");
+        yield return DrawPhase();
+        yield return AttackPhase();
+        yield return EndTurnPhase();
     }
 
-    private void MovementPhase(int move)
+    IEnumerator MovementPhase(int move)
     {
+        GameManager.instance.PhaseText.text = "Phase: Movement";
         Piece.DisplayAvaliableMovement(move); // display movement 
-        while (!Piece.doneMove) { } // wait for piece to finish moving
+        yield return new WaitUntil(() => Piece.doneMove == true);
+        Debug.Log("pIECE" +Piece.doneMove);
     }
 
-    private void DrawPhase()
+    IEnumerator DrawPhase()
     {
-
+        return null;
     }
 
-    private void AttackPhase()
+    IEnumerator AttackPhase()
     {
-
+        return null;
     }
 
-    private void EndTurnPhase()
+    IEnumerator EndTurnPhase()
     {
+        GameManager.instance.PhaseText.text = "Phase: End Turn";
         GameManager.instance.TurnStarted = false;
         Piece.EndTurn();
+        return null;
     }
 
 }

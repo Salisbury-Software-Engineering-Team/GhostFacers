@@ -22,7 +22,9 @@ public class CharacterPiece : MonoBehaviour
     public bool canMove; // piece can still roll if true
     public bool doneMove; // once character is done moving;
 
-    private void Start()
+        
+
+    private void Awake()
     {
         Init();
         Destroy(CharacterVisPlaceholder);

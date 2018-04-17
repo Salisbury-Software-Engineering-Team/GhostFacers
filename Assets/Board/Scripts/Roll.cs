@@ -28,7 +28,7 @@ public class Roll : MonoBehaviour
     /// </summary>
     public void RollDice()
     {
-        if (GameManager.instance.CurrentPiece != null)
+        if (GameManager.instance.CurrentPiece != null && GameManager.instance.CurrentPiece.canMove)
         {
             System.DateTime localDate = System.DateTime.Now;
             System.Random rand = new System.Random(localDate.Millisecond);
