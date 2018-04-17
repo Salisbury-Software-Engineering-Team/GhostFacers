@@ -33,6 +33,7 @@ public class Move : MonoBehaviour
             Piece.Agent.SetDestination(tile.transform.position);
             Piece.ClearHighlights(); // clear button highlights
             Piece.SetCurrentTile(tile);
+            Piece.doneMove = true;
         }
     }
 }

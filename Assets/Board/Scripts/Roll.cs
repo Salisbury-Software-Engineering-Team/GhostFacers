@@ -34,7 +34,8 @@ public class Roll : MonoBehaviour
             System.Random rand = new System.Random(localDate.Millisecond);
             Movement = rand.Next(MaxRoll-1) + 2;
             rolled = true;
-            GameManager.instance.CurrentPiece.DisplayAvaliableMovement(Movement);
+            GameManager.instance.TurnStarted = true;
+            GameManager.instance.Turn.BeginTurn(Movement);
         }
     }
 	

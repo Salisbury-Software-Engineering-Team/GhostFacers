@@ -20,6 +20,7 @@ public class CharacterPiece : MonoBehaviour
     public GameObject CharacterModel; // For character model
     public GameObject CharacterPlaceHolder; // For character model transfomation template
     public bool canMove; // piece can still roll if true
+    public bool doneMove; // once character is done moving;
 
     private void Start()
     {
@@ -49,6 +50,7 @@ public class CharacterPiece : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
+        doneMove = false;
     }
 
     private void OnMouseUp()
@@ -169,5 +171,24 @@ public class CharacterPiece : MonoBehaviour
     public void Selected(bool isSelected)
     {
         transform.Find("Selected").gameObject.SetActive(isSelected);
+    }
+
+    /// <summary>
+    /// Call this once the character piece has finished its turn to reset any vars that 
+    /// need to be used again
+    /// </summary>
+    public void EndTurn()
+    {
+        doneMove = false; // reset done move so it can be used in anouth turn
+    }
+
+    /// <summary>
+    /// Call this at the begining of the player turn to make sure all vars are propely set for each
+    /// players piece.
+    /// </summary>
+    public void SetupTurn()
+    {
+        doneMove = false;
+        canMove = true;
     }
 }

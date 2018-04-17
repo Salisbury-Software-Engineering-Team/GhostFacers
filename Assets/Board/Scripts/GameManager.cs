@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,20 +11,42 @@ public class GameManager : MonoBehaviour
     public CharacterPiece CurrentPiece
     {
         get { return _currentPiece; }
-        set { _currentPiece = SetCurrentPiece(value); }
+        set
+        {
+            if (!_turnStarted)
+                _currentPiece = SetCurrentPiece(value);
+        }
     }
 
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
+    public TurnManager Turn; // manages a character turn once they hit roll.
 
     [SerializeField] private List<Player> GoodPlayers;
     [SerializeField] private List<Player> EvilPlayers;
     [SerializeField] private Player CurrentPlayer;
+    [SerializeField] private Button RollButton;
+    [SerializeField] private bool _turnStarted;
+    public bool TurnStarted
+    {
+        get { return _turnStarted; }
+        set
+        {
+            // Turn started changed
+            if (value != TurnStarted)
+            {
+                //TEsing ***************************** Change later
+                RollButton.enabled = !value;
+                _turnStarted = value;
+            }
+        }
+    }
 
     private int WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
 
 	private void Start()
     {
+        Init();
         if (instance == null)
         {
             instance = this;
@@ -35,21 +58,26 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         _currentPiece = CurrentPiece;
+
+        // TEsting *********************
+        GoodPlayersTurn();
 	}
 
     private void Init()
     {
         WinningSide = -1;
+        TurnStarted = false;
+        Turn = new TurnManager();
     }
 
     private void StartGame()
     {
         //TODO: Setup
 
+            GoodPlayersTurn();
         while (WinningSide == -1)
         {
-            GoodPlayersTurn();
-            EvilPlayersTurn();
+            //EvilPlayersTurn();
         }
     }
 
@@ -67,6 +95,7 @@ public class GameManager : MonoBehaviour
         {
             //_currentPiece.ClearHighlights();
             _currentPiece.Selected(false);
+            RollButton.enabled = false;
         }
 
         // Means the piece belongs to the current sides turn
@@ -77,9 +106,9 @@ public class GameManager : MonoBehaviour
             {
                 // TODO: Display Current Players piece info
 
-                if (piece.canMove) // piece can still roll.
+                if (piece.canMove && !TurnStarted) // piece can still roll.
                 {
-                    //piece.DisplayAvaliableMovement(TotalMovement);
+                    RollButton.enabled = true;
                     piece.Selected(true);
                     return piece;
                 }
@@ -102,6 +131,13 @@ public class GameManager : MonoBehaviour
     private void GoodPlayersTurn()
     {
         CurrentSide = SideType.Good;
+        foreach (Player play in GoodPlayers)
+        {
+            foreach (CharacterPiece piece in play.Pieces)
+            {
+                piece.SetupTurn();
+            }
+        }
     }
 
     private void EvilPlayersTurn()
