@@ -8,11 +8,7 @@ using UnityEngine.EventSystems;
 
 public class Move : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> Path;
-
-    [SerializeField]
-    private GameObject Piece;
+    [SerializeField] private CharacterPiece Piece; // Piece to move
 
     private void Start()
     {
@@ -20,26 +16,23 @@ public class Move : MonoBehaviour
         //Debug.Log("Asigned" + Piece);
     }
 
+    /// <summary>
+    /// Nav Mesh is used to find a path to the selcted tile by using the agent var from
+    /// the character piece.
+    /// </summary>
+    /// <param name="tile">Destination tile selected</param>
     public void MovePiece(GameObject tile)
     {
-        Debug.Log("Here");
         // if button is not blocked by player
         if (EventSystem.current.IsPointerOverGameObject())
         {
             Piece = GameManager.instance.CurrentPiece;
-            Debug.Log(Piece);
-            //Testing
+
             //TODO: Animate**********
-            Piece.GetComponent<CharacterPiece>().Agent.SetDestination(tile.transform.position);
-            //Piece.transform.position = tile.transform.position;
-            Piece.GetComponent<CharacterPiece>().ClearHighlights(); // clear button highlights
-            Piece.GetComponent<CharacterPiece>().SetCurrentTile(tile);
+            Piece.canMove = false;
+            Piece.Agent.SetDestination(tile.transform.position);
+            Piece.ClearHighlights(); // clear button highlights
+            Piece.SetCurrentTile(tile);
         }
     }
-
-    private void FindPath()
-    {
-        //List<GameObject> allPaths = Piece.GetComponent<CharacterPiece>().All
-    }
-
 }

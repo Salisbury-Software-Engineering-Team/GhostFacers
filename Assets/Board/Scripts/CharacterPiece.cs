@@ -8,30 +8,22 @@ using UnityEngine.EventSystems;
 [Serializable]
 public class CharacterPiece : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] private GameObject CharacterVisPlaceholder; 
+    [SerializeField] private GameObject Tile; // prefab for tiles
+
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
     private GameObject CurrentTile; // current tile piece is at
 
-    [SerializeField]
-    private GameObject Tile;
-
-    private bool isMoveShowing = false; // for if the movement tiles are showing highlighted
-
     public CharacterStat Stat; // stats for the piece
-
-    public NavMeshAgent Agent;
-
-    public GameObject CharacterModel;
-    public GameObject CharacterPlaceHolder;
-    [SerializeField]
-    private GameObject CharacterVisPlaceholder;
+    public NavMeshAgent Agent; // For character movement
+    public GameObject CharacterModel; // For character model
+    public GameObject CharacterPlaceHolder; // For character model transfomation template
+    public bool canMove; // piece can still roll if true
 
     private void Start()
     {
-        Agent = GetComponent<NavMeshAgent>();
-        BlockedMovementTiles = new List<GameObject>();
-        AvaliableMovementTiles = new List<GameObject>();
+        Init();
         Destroy(CharacterVisPlaceholder);
         if (Stat != null) // creates character model based off of the stat model chosen
         {
@@ -48,26 +40,27 @@ public class CharacterPiece : MonoBehaviour
         }
     }
 
-    private void OnValidate()
+    /// <summary>
+    /// Set all vars.
+    /// </summary>
+    private void Init()
     {
+        canMove = false;
+        Agent = GetComponent<NavMeshAgent>();
+        BlockedMovementTiles = new List<GameObject>();
+        AvaliableMovementTiles = new List<GameObject>();
     }
 
     private void OnMouseUp()
     {
-        //TEsts*********************
-        //Stat.Weapons.Add(new Card("Testing", "Boom"));
-        GameManager.instance.CurrentPiece = transform.gameObject;
-        //TODO: ADD check if it is current users turn.
-        DisplayAvaliableMovement(GameManager.instance.TotalMovement);
-
+        GameManager.instance.CurrentPiece = this;
     }
 
     /*
      * Display the total movement tiles
      */
-    private void DisplayAvaliableMovement(int move)
+    public void DisplayAvaliableMovement(int move)
     {
-        isMoveShowing = true; // set visiable to true
         if (CurrentTile == null) { CurrentTile = GetCurrentTile(); } // if Current tile is not set
         GetMovement(CurrentTile, move);
     }
@@ -161,7 +154,6 @@ public class CharacterPiece : MonoBehaviour
      */
     public void ClearHighlights()
     {
-        isMoveShowing = false;
         foreach (GameObject tile in AvaliableMovementTiles)
         {
             tile.GetComponent<Tile>().HighlightTile(false);
@@ -172,5 +164,10 @@ public class CharacterPiece : MonoBehaviour
     public void SetCurrentTile(GameObject tile)
     {
         CurrentTile = tile;
+    }
+
+    public void Selected(bool isSelected)
+    {
+        transform.Find("Selected").gameObject.SetActive(isSelected);
     }
 }
