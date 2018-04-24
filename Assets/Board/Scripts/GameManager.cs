@@ -13,14 +13,17 @@ public class GameManager : MonoBehaviour
         get { return _currentPiece; }
         set
         {
-            if (!_turnStarted)
-                _currentPiece = SetCurrentPiece(value);
+            _currentPiece = SetCharacterPieceTurn(value);
         }
     }
 
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
-    public TurnManager Turn; // manages a character turn once they hit roll.
+    private TurnManager _turn; // manages a character turn once they hit roll.
+    public TurnManager Turn
+    {
+        get { return _turn; }
+    }
 
     //Testing ************** Delete When Done
     public Text PhaseText;
@@ -71,7 +74,8 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //Testing ********
-        CurrentPieceText.text = "Current Piece " + CurrentPiece.gameObject.ToString();
+        if (_currentPiece != null)
+            CurrentPieceText.text = "Current Piece " + _currentPiece.gameObject.ToString();
         CurrentPlayerText.text = "Current Player " + CurrentPlayer.gameObject.ToString();
     }
 
@@ -79,7 +83,7 @@ public class GameManager : MonoBehaviour
     {
         WinningSide = -1;
         TurnStarted = false;
-        Turn = this.GetComponent<TurnManager>();
+        _turn = this.GetComponent<TurnManager>();
     }
 
     private void StartGame()
@@ -100,15 +104,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="piece">Piece to display info about when selected</param>
     /// <returns>Character piece if can roll, else null</returns>
-    private CharacterPiece SetCurrentPiece(CharacterPiece piece)
+    private CharacterPiece SetCharacterPieceTurn(CharacterPiece piece)
     {
         // hide current pieces highlights
+        // ****************Might be able to remove this ************************
         if (_currentPiece != null)
         {
             //_currentPiece.ClearHighlights();
-            _currentPiece.Selected(false);
+            _currentPiece.DisplaySelected(false);
             RollButton.enabled = false;
         }
+        //************************************************************************
 
         // Means the piece belongs to the current sides turn
         if (CurrentSide == piece.Stat.Side)
@@ -116,13 +122,13 @@ public class GameManager : MonoBehaviour
             // Piece belongs to Current Player
             if (CurrentPlayer != null && CurrentPlayer.Pieces != null && CurrentPlayer.Pieces.Contains(piece))
             {
-                // TODO: Display Current Players piece info
+                // TODO: Display Current Players piece info **********************
 
                 if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
                     RollButton.enabled = true;
-                    piece.Selected(true);
-       
+                    piece.DisplaySelected(true);
+
                     return piece;
                 }
                 else

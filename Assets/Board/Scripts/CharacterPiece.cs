@@ -13,7 +13,11 @@ public class CharacterPiece : MonoBehaviour
 
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
-    private GameObject CurrentTile; // current tile piece is at
+    private Tile _currentTile; // current tile piece is at
+    public Tile CurrentTile
+    {
+        get { return _currentTile; }
+    }
 
     public CharacterStat Stat; // stats for the piece
     public NavMeshAgent Agent; // For character movement
@@ -22,7 +26,11 @@ public class CharacterPiece : MonoBehaviour
     public bool canMove; // piece can still roll if true
     public bool doneMove; // once character is done moving;
 
-        
+    private Attack _attackScript;
+    public Attack AttackScript
+    {
+        get { return _attackScript; }
+    }  
 
     private void Awake()
     {
@@ -53,6 +61,7 @@ public class CharacterPiece : MonoBehaviour
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
         doneMove = false;
+        _attackScript = GetComponent<Attack>();
     }
 
     private void OnMouseUp()
@@ -65,14 +74,14 @@ public class CharacterPiece : MonoBehaviour
      */
     public void DisplayAvaliableMovement(int move)
     {
-        if (CurrentTile == null) { CurrentTile = GetCurrentTile(); } // if Current tile is not set
-        GetMovement(CurrentTile, move);
+        if (_currentTile == null) { _currentTile = GetCurrentTile(); } // if Current tile is not set
+        GetMovement(_currentTile.gameObject, move);
     }
 
     /*
      * Find the current tile object that the piece is on.
      */
-    private GameObject GetCurrentTile()
+    private Tile GetCurrentTile()
     {
         float radius = transform.GetChild(0).GetComponent<Collider>().bounds.size.x / 4;
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
@@ -82,7 +91,7 @@ public class CharacterPiece : MonoBehaviour
             {
                 //Debug.Log("Found Tile");
                 //Debug.Log(item.gameObject.transform.parent.gameObject);
-                return item.gameObject.transform.parent.gameObject;
+                return item.gameObject.transform.parent.gameObject.GetComponent<Tile>();
             }
         }
 
@@ -127,7 +136,7 @@ public class CharacterPiece : MonoBehaviour
 
                         // look for another player piece
                         tempPos = next.transform.position;
-                        tempPos.y += transform.GetChild(0).GetComponent<Collider>().bounds.size.y / 2;
+                        tempPos.y += transform.GetChild(0).GetComponent<Collider>().bounds.size.y / 2; // half the hieght of the piece collider
                         hitColliders = Physics.OverlapSphere(tempPos, transform.GetChild(0).GetComponent<Collider>().bounds.size.x / 4);
 
                         // tile is blocked
@@ -167,10 +176,10 @@ public class CharacterPiece : MonoBehaviour
 
     public void SetCurrentTile(GameObject tile)
     {
-        CurrentTile = tile;
+        _currentTile = tile.GetComponent<Tile>();
     }
 
-    public void Selected(bool isSelected)
+    public void DisplaySelected(bool isSelected)
     {
         transform.Find("Selected").gameObject.SetActive(isSelected);
     }
