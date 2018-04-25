@@ -23,6 +23,8 @@ public class CharacterStat : ScriptableObject
 
     public GameObject Model;
 
+    public Color PieceColor;
+
     //Needs some type of effect script.
 
 

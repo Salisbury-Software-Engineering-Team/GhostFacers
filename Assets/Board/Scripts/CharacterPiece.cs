@@ -42,6 +42,9 @@ public class CharacterPiece : MonoBehaviour
                 Destroy(CharacterModel);
                 CharacterModel = Instantiate(Stat.Model, CharacterPlaceHolder.transform.position, CharacterPlaceHolder.transform.rotation, CharacterPlaceHolder.transform) as GameObject;
             }
+            //***********************TESTIng *******************************Remove Later***********************
+            for (int i = 0; i < CharacterModel.transform.childCount; i ++)
+                CharacterModel.transform.GetChild(i).GetComponent<MeshRenderer>().material.color = Stat.PieceColor;
         }
     }
 
@@ -56,6 +59,7 @@ public class CharacterPiece : MonoBehaviour
         AvaliableMovementTiles = new List<GameObject>();
         doneMove = false;
     }
+
 
     private void OnMouseUp()
     {

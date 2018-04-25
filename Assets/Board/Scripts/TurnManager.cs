@@ -31,12 +31,13 @@ public class TurnManager : MonoBehaviour
         get { return _turnPhase; }
     }
 
-    public GameObject BtnAttackUI;
+    public GameObject BtnDontMove;
     private Attack _Attack;
 
-    private void Start()
+    private void Awake()
     {
         _Attack = GetComponent<Attack>();
+        BtnDontMove.SetActive(false);
     }
 
     public void BeginTurn(int move)
@@ -63,6 +64,7 @@ public class TurnManager : MonoBehaviour
     {
         _turnPhase = Phase.Movement;
         GameManager.instance.PhaseText.text = "Phase: Movement";
+        BtnDontMove.SetActive(true);
         _piece.DisplayAvaliableMovement(move); // display movement 
         yield return new WaitUntil(() => _piece.doneMove == true);
     }
@@ -89,6 +91,13 @@ public class TurnManager : MonoBehaviour
         _piece.EndTurn();
         GameManager.instance.CurrentPlayer.TotalPiecesLeftToMove--;
         return null;
+    }
+
+    public void DontMove()
+    {
+        BtnDontMove.SetActive(false);
+        _piece.ClearHighlights();
+        _piece.doneMove = true;
     }
 
 }

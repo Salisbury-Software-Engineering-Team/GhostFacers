@@ -21,7 +21,7 @@ public class Move : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
         {
             Piece = GameManager.instance.CurrentPiece;
-
+            GameManager.instance.Turn.BtnDontMove.SetActive(false);
             //TODO: Animate**********
             Piece.canMove = false;
             Piece.Agent.SetDestination(tile.transform.position);
