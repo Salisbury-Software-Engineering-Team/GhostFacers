@@ -134,6 +134,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -149,6 +150,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -215,7 +217,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114391647278794074, guid: dbaa04ee8dc77e84b8b99b3df88dc917,
+      - m_Target: {fileID: 114201999929835194, guid: 1060b1077a0478445a1ea44a87cc4164,
           type: 2}
         m_MethodName: MovePiece
         m_Mode: 2
@@ -302,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AdjTiles: []
   Type: {fileID: 11400000, guid: ba29644af2182834a91cee41e26012d6, type: 2}
+  Portal: {fileID: 0}
   Highlight: {fileID: 1464457489597488}
   Button: {fileID: 114334291987573308}
 --- !u!114 &114944592865082524

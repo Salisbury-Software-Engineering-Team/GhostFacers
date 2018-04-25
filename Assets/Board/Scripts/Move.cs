@@ -8,37 +8,50 @@ using UnityEngine.EventSystems;
 
 public class Move : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> Path;
-    [SerializeField]
-    private GameObject GameManager;
-    [SerializeField]
-    private GameObject Piece;
+    [SerializeField] private CharacterPiece Piece; // Piece to move
 
-    private void Start()
-    {
-        //Piece = this.transform.gameObject;
-        //Debug.Log("Asigned" + Piece);
-    }
-
+    /// <summary>
+    /// Nav Mesh is used to find a path to the selcted tile by using the agent var from
+    /// the character piece.
+    /// </summary>
+    /// <param name="tile">Destination tile selected</param>
     public void MovePiece(GameObject tile)
     {
         // if button is not blocked by player
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Piece = GameManager.GetComponent<GameState>().CurrentPiece;
-            //Testing
+            Piece = GameManager.instance.CurrentPiece;
+            GameManager.instance.Turn.BtnDontMove.SetActive(false);
             //TODO: Animate**********
-            Piece.GetComponent<CharacterPiece>().Agent.SetDestination(tile.transform.position);
-            //Piece.transform.position = tile.transform.position;
-            Piece.GetComponent<CharacterPiece>().ClearHighlights(); // clear button highlights
-            Piece.GetComponent<CharacterPiece>().SetCurrentTile(tile);
+            Piece.canMove = false;
+            Piece.Agent.SetDestination(tile.transform.position);
+            Piece.SetCurrentTile(tile);
+            Piece.StartCoroutine(WaitForAgent());
         }
     }
 
-    private void FindPath()
+    /// <summary>
+    /// Waits for the character piece to finish moving and then sets the character piece to doneMoving.
+    /// This is so the player has to wait for the animation to complete before moving to the draw card phase.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitForAgent()
     {
-        //List<GameObject> allPaths = Piece.GetComponent<CharacterPiece>().All
+        yield return new WaitUntil(() => pathComplete() == true); // wait for the character to reach the selected tile
+        Piece.ClearHighlights(); // clear button highlights
+        Piece.doneMove = true;
     }
 
+    private bool pathComplete()
+    {
+        if (Vector3.Distance(Piece.Agent.destination, Piece.Agent.transform.position) <= Piece.Agent.stoppingDistance)
+        {
+            if (!Piece.Agent.hasPath || Piece.Agent.velocity.sqrMagnitude == 0f)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

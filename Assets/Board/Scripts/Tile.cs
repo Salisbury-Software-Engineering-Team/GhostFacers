@@ -6,29 +6,21 @@ using System;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> AdjTiles; // array of adj tiles 
+    public Button Button; 
+
+    [SerializeField] private List<GameObject> AdjTiles; // array of adj tiles 
+    [SerializeField] private GameObject Highlight; // hightlight sprite
+    [SerializeField] private TileType Type; // type of tile
+    [SerializeField] public GameObject Portal; // link to portal
+
     private Vector3 CurrentPosition; // current position of the tile
     private Vector3 size; // size of tile
-
-    [SerializeField]
-    private TileType Type; // type of tile
-    [SerializeField]
-    public GameObject Portal; // link to portal
-
-    [SerializeField]
-    private GameObject Highlight; // hightlight sprite
-    public Button Button; 
 
     // Used for finding objects to the north, wouth, east and west of current object. 
     private float radius; // size of collider check
     private string strTileModelName = "Tile_Model"; // name eof tile model prefab
     private string strWallName = "Wall_Model"; // name of wall model prefab
     private string strButtonName = "Tile_Button"; // name of button prefab
-
-    private void Awake()
-    {
-    }
 
     private void Start()
     {
@@ -43,11 +35,6 @@ public class Tile : MonoBehaviour
         {
             AdjTiles.Add(Portal);
         }
-    }
-
-    public void TestClicked()
-    {
-        Debug.Log("Clicked Tile");
     }
 
     /*
