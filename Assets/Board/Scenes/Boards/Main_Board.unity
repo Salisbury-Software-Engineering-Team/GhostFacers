@@ -20811,7 +20811,7 @@ MonoBehaviour:
   xSpeed: 0.1
   ySpeed: 10
   yMinLimit: 0
-  yMaxLimit: 40
+  yMaxLimit: 90
   distanceMin: 50
   distanceMax: 1000
   smoothTime: 5
