@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    //
+    /// <summary>
+    /// 
+    /// </summary>
     public Transform target;
     public float distance = 5.0f;
     public float ScrollSpeed = 50.0f;
