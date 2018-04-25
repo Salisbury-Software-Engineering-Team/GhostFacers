@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Different type of Phases a Turn can be in
@@ -15,12 +16,27 @@ public enum Phase
 }
 
 public class TurnManager : MonoBehaviour
-{ 
-    private CharacterPiece Piece;
-    private Phase _turnPhase;
+{
+    //Character piece
+    [SerializeField] private CharacterPiece _piece;
+    public CharacterPiece Piece
+    {   
+        get { return _piece; }
+    }
+
+    //What phase the turn is curently in
+    [SerializeField] private Phase _turnPhase;
     public Phase TurnPhase
     {
         get { return _turnPhase; }
+    }
+
+    public GameObject BtnAttackUI;
+    private Attack _Attack;
+
+    private void Start()
+    {
+        _Attack = GetComponent<Attack>();
     }
 
     public void BeginTurn(int move)
@@ -31,11 +47,12 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator TurnLoop(int move)
     {
-        Piece = GameManager.instance.CurrentPiece;
-        yield return StartCoroutine(MovementPhase(move));
-        Debug.Log("Here");
+        _piece = GameManager.instance.CurrentPiece;
+        yield return MovementPhase(move);
         yield return DrawPhase();
+        Debug.Log("Begin Attacking");
         yield return AttackPhase();
+        Debug.Log("Done Attacking");
         yield return EndTurnPhase();
         _turnPhase = Phase.None;
     }
@@ -44,9 +61,8 @@ public class TurnManager : MonoBehaviour
     {
         _turnPhase = Phase.Movement;
         GameManager.instance.PhaseText.text = "Phase: Movement";
-        Piece.DisplayAvaliableMovement(move); // display movement 
-        yield return new WaitUntil(() => Piece.doneMove == true);
-        Debug.Log("pIECE" +Piece.doneMove);
+        _piece.DisplayAvaliableMovement(move); // display movement 
+        yield return new WaitUntil(() => _piece.doneMove == true);
     }
 
     IEnumerator DrawPhase()
@@ -58,9 +74,9 @@ public class TurnManager : MonoBehaviour
     IEnumerator AttackPhase()
     {
         _turnPhase = Phase.Attack;
-        Debug.Log("Begin Attacking");
-        GameManager.instance.CurrentPiece.AttackScript.BeginAttack();
-        yield return new WaitUntil(() => Piece.AttackScript.doneAttack == true);
+        GameManager.instance.PhaseText.text = "Phase: Attack";
+        _Attack.BeginAttack(Piece); // start the attack
+        yield return new WaitUntil(() => _Attack.doneAttack == true); // wait till attack sone
     }
 
     IEnumerator EndTurnPhase()
@@ -68,7 +84,7 @@ public class TurnManager : MonoBehaviour
         _turnPhase = Phase.EndTurn;
         GameManager.instance.PhaseText.text = "Phase: End Turn";
         GameManager.instance.TurnStarted = false;
-        Piece.EndTurn();
+        _piece.EndTurn();
         return null;
     }
 

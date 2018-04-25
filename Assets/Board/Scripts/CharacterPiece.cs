@@ -26,12 +26,6 @@ public class CharacterPiece : MonoBehaviour
     public bool canMove; // piece can still roll if true
     public bool doneMove; // once character is done moving;
 
-    private Attack _attackScript;
-    public Attack AttackScript
-    {
-        get { return _attackScript; }
-    }  
-
     private void Awake()
     {
         Init();
@@ -61,7 +55,6 @@ public class CharacterPiece : MonoBehaviour
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
         doneMove = false;
-        _attackScript = GetComponent<Attack>();
     }
 
     private void OnMouseUp()

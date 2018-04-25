@@ -6,6 +6,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null; // GameManager object for players to access
+    private Attack _Attack;
+    private TurnManager _turn; // manages a character turn once they hit roll.
+    public TurnManager Turn
+    {
+        get { return _turn; }
+    }
 
     [SerializeField] private CharacterPiece _currentPiece;
     public CharacterPiece CurrentPiece
@@ -13,17 +19,13 @@ public class GameManager : MonoBehaviour
         get { return _currentPiece; }
         set
         {
-            _currentPiece = SetCharacterPieceTurn(value);
+            if (value != _currentPiece)
+                DetermineSelecetion(value);
         }
     }
 
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
-    private TurnManager _turn; // manages a character turn once they hit roll.
-    public TurnManager Turn
-    {
-        get { return _turn; }
-    }
 
     //Testing ************** Delete When Done
     public Text PhaseText;
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
         WinningSide = -1;
         TurnStarted = false;
         _turn = this.GetComponent<TurnManager>();
+        _Attack = GetComponent<Attack>();
     }
 
     private void StartGame()
@@ -104,18 +107,46 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="piece">Piece to display info about when selected</param>
     /// <returns>Character piece if can roll, else null</returns>
-    private CharacterPiece SetCharacterPieceTurn(CharacterPiece piece)
+    private void DetermineSelecetion(CharacterPiece piece)
     {
-        // hide current pieces highlights
-        // ****************Might be able to remove this ************************
+        Debug.Log("Selected Piece " + piece + " Turn Phase: " + _turn.TurnPhase);
+        if (_turnStarted)
+        {
+            // Hnadle differently not sure how yet......
+            if (_turn.TurnPhase == Phase.Attack)
+            {
+                // piece is attackable
+                if (_Attack.AttackablePieces.Contains(piece))
+                {
+                    Debug.Log("Piece Selcted is attackable");
+                    if (_Attack.PieceToAttack != null)
+                        _Attack.PieceToAttack.DisplaySelected(false);
+                    piece.DisplaySelected(true);
+                    _currentPiece = piece;
+                    _Attack.PieceToAttack = piece;
+                }
+            }
+        }
+        else
+        {
+            SetCurrentPiece(piece);
+        }
+    }
+
+    /// <summary>
+    /// Sets the Current selected piece only if it belongs to the current players turn. Also Displays any 
+    /// info about  the current piece. CuurentPiece will be used to determine if charater can roll.
+    ///         
+    /// </summary>
+    /// <param name="piece">Piece to display info about when selected</param>
+    /// <returns>Character piece if can roll, else null</returns>
+    private void SetCurrentPiece(CharacterPiece piece)
+    {
         if (_currentPiece != null)
         {
-            //_currentPiece.ClearHighlights();
             _currentPiece.DisplaySelected(false);
             RollButton.enabled = false;
         }
-        //************************************************************************
-
         // Means the piece belongs to the current sides turn
         if (CurrentSide == piece.Stat.Side)
         {
@@ -128,22 +159,21 @@ public class GameManager : MonoBehaviour
                 {
                     RollButton.enabled = true;
                     piece.DisplaySelected(true);
-
-                    return piece;
+                    _currentPiece = piece;
                 }
                 else
-                    return null;
+                    _currentPiece = null;
             }
             else // Piece belongs to friend info
             {
                 // TODO: Display character info about the piece as friend
-                return null;
+                _currentPiece = null;
             }
         }
         else // Piece beongs to enemy
         {
             //TODO: Display emey piece info
-            return null;
+            _currentPiece = null;
         }
     }
 
