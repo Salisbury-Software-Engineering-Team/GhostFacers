@@ -53,7 +53,9 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Begin Attacking");
         yield return AttackPhase();
         Debug.Log("Done Attacking");
+        Debug.Log("Begin EndTurn");
         yield return EndTurnPhase();
+        Debug.Log("Done Turn");
         _turnPhase = Phase.None;
     }
 
@@ -85,6 +87,7 @@ public class TurnManager : MonoBehaviour
         GameManager.instance.PhaseText.text = "Phase: End Turn";
         GameManager.instance.TurnStarted = false;
         _piece.EndTurn();
+        GameManager.instance.CurrentPlayer.TotalPiecesLeftToMove--;
         return null;
     }
 

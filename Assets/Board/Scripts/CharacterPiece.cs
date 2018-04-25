@@ -184,6 +184,7 @@ public class CharacterPiece : MonoBehaviour
     public void EndTurn()
     {
         doneMove = false; // reset done move so it can be used in anouth turn
+        DisplaySelected(false); // remove highlight
     }
 
     /// <summary>

@@ -34,7 +34,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<Player> GoodPlayers;
     [SerializeField] private List<Player> EvilPlayers;
-    [SerializeField] private Player CurrentPlayer;
+    [SerializeField] private Player _currentPlayer;
+    public Player CurrentPlayer
+    {
+        get { return _currentPlayer; }
+    }
     [SerializeField] private Button RollButton;
     [SerializeField] private bool _turnStarted;
     public bool TurnStarted
@@ -69,9 +73,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         _currentPiece = CurrentPiece;
 
-        // TEsting *********************
-        GoodPlayersTurn();
-	}
+        StartCoroutine(StartGame());
+    }
 
     private void Update()
     {
@@ -89,14 +92,16 @@ public class GameManager : MonoBehaviour
         _Attack = GetComponent<Attack>();
     }
 
-    private void StartGame()
+    private IEnumerator StartGame()
     {
         //TODO: Setup
 
-            GoodPlayersTurn();
         while (WinningSide == -1)
         {
-            //EvilPlayersTurn();
+            Debug.Log("Good Turn");
+            yield return GoodPlayersTurn();
+            Debug.Log("Evil Turn");
+            yield return EvilPlayersTurn();
         }
     }
 
@@ -177,22 +182,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void GoodPlayersTurn()
+    private IEnumerator GoodPlayersTurn()
     {
         CurrentSide = SideType.Good;
         foreach (Player play in GoodPlayers)
         {
-            foreach (CharacterPiece piece in play.Pieces)
-            {
-                piece.SetupTurn();
-                Debug.Log(play + " Piece: " + piece.canMove);
-            }
+            _currentPlayer = play;
+            play.SetUpTurn();
+            yield return new WaitUntil(() => play.TotalPiecesLeftToMove == 0);
         }
+        //yield return new WaitUntil(() => _Attack.doneAttack == true); // wait till all good have done turn
     }
 
-    private void EvilPlayersTurn()
+    private IEnumerator EvilPlayersTurn()
     {
         CurrentSide = SideType.Evil;
+        foreach (Player play in EvilPlayers)
+        {
+            _currentPlayer = play;
+            play.SetUpTurn();
+            yield return new WaitUntil(() => play.TotalPiecesLeftToMove == 0);
+        }
     }
 
 

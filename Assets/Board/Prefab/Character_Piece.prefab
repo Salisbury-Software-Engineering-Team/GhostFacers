@@ -260,6 +260,7 @@ MonoBehaviour:
   CharacterModel: {fileID: 0}
   CharacterPlaceHolder: {fileID: 1495029512966896}
   canMove: 0
+  doneMove: 0
 --- !u!114 &114770403284291832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -298,7 +299,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1864700206455928}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 10
+  m_Radius: 5
   m_Speed: 100
   m_Acceleration: 10000
   avoidancePriority: 50
@@ -310,4 +311,4 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0

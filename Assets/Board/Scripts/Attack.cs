@@ -5,25 +5,35 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     public List<CharacterPiece> AttackablePieces; // Listof attaackable piece 
-    private CharacterPiece PieceAttacking;
+    private CharacterPiece _PieceAttacking;
     public CharacterPiece PieceToAttack;
     public bool doneAttack;
     public GameObject BtnAttackUI;
+
+    private void Start()
+    {
+        Init();
+    }
+
+    private void Init()
+    {
+        BtnAttackUI.SetActive(false);
+    }
 
     public void BeginAttack(CharacterPiece pieceAttacking)
     {
         BtnAttackUI.SetActive(true);
         doneAttack = false;
-        PieceAttacking = pieceAttacking;
+        _PieceAttacking = pieceAttacking;
         Debug.Log("Attacking ");
         DeteremineAttackablePieces();
     }
 
     private void DeteremineAttackablePieces()
     {
-        Tile currentTile = PieceAttacking.GetComponent<CharacterPiece>().CurrentTile;
+        Tile currentTile = _PieceAttacking.GetComponent<CharacterPiece>().CurrentTile;
         List<GameObject> adjTiles = currentTile.GetAdjTiles();
-        float radius = PieceAttacking.transform.GetChild(0).GetComponent<Collider>().bounds.size.x / 4; // 1/4 the width of the model collider
+        float radius = _PieceAttacking.transform.GetChild(0).GetComponent<Collider>().bounds.size.x / 4; // 1/4 the width of the model collider
         Vector3 pos;
         Collider[] hitColliders;
 
@@ -31,7 +41,7 @@ public class Attack : MonoBehaviour
         foreach (GameObject adj in adjTiles)
         {
             pos = adj.transform.position;
-            pos.y += PieceAttacking.transform.GetChild(0).GetComponent<Collider>().bounds.size.y / 2; // half the hieght of the model collider
+            pos.y += _PieceAttacking.transform.GetChild(0).GetComponent<Collider>().bounds.size.y / 2; // half the hieght of the model collider
 
             hitColliders = Physics.OverlapSphere(pos, radius);
 
@@ -68,11 +78,21 @@ public class Attack : MonoBehaviour
 
     }
 
+    public void DontAttackPiece()
+    {
+        EndAttack();
+    }
+
+    /// <summary>
+    /// This handles the end of the attack phase turn by reseting variables.
+    /// </summary>
     private void EndAttack()
     {
+        BtnAttackUI.SetActive(false); // turn off attack button 
         AttackablePieces.Clear();
-        PieceToAttack.DisplaySelected(false);
-        PieceAttacking = null;
+        if (PieceToAttack != null)
+            PieceToAttack.DisplaySelected(false); // unselected the attack piece
+        _PieceAttacking = null;
         PieceToAttack = null;
         doneAttack = true;
     }
