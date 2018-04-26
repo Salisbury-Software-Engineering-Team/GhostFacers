@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public Transform target;
     public float distance = 5.0f;
     public float ScrollSpeed = 50.0f;
@@ -28,6 +25,8 @@ public class CameraMovement : MonoBehaviour
     float velocityX = 0.0f;
     float velocityY = 0.0f;
 
+    float hitDistanceCheck = 10.0f;
+
 
     // Use this for initialization
     void Start()
@@ -41,10 +40,14 @@ public class CameraMovement : MonoBehaviour
         {
             GetComponent<Rigidbody>().freezeRotation = true;
         }
+
+        //target = GameManager.instance.CurrentPiece.transform;
     }
 
     void LateUpdate()
     {
+        if (GameManager.instance.CurrentPiece)
+            target = GameManager.instance.CurrentPiece.transform;
         if (target)
         {
             if (Input.GetMouseButton(0))
@@ -65,7 +68,7 @@ public class CameraMovement : MonoBehaviour
             distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed, distanceMin, distanceMax);
 
             RaycastHit hit;
-            if (Physics.Linecast(target.position, transform.position, out hit))
+            if (Physics.Linecast(target.position, transform.position, out hit) && (distance - hit.distance) < hitDistanceCheck)
             {
                 distance -= hit.distance;
             }
