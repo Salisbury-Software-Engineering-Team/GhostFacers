@@ -12,8 +12,8 @@ public class CharacterStat : ScriptableObject
     [SerializeField] private int HealthTotal;
     [SerializeField] private int Movement;
 
-    [SerializeField] private readonly int MaxWeapons;
-    [SerializeField] private readonly int MaxHelp;
+    [SerializeField] private int MaxWeapons;
+    [SerializeField] private int MaxHelp;
 
     [SerializeField] private List<Card> Weapons;
     [SerializeField] private List<Card> Help;
