@@ -2,6 +2,14 @@
 using System;
 using UnityEngine;
 
+public enum PieceType
+{
+    Ghost,
+    Death,
+    Angel,
+    ArchAngel,
+}
+
 [CreateAssetMenu]
 public class CharacterStat : ScriptableObject
 {
@@ -20,6 +28,7 @@ public class CharacterStat : ScriptableObject
     [SerializeField] private List<Effect> ActiveEffects;
 
     public SideType Side;
+    public PieceType Type;
 
     public GameObject Model;
     public Color PieceColor;
