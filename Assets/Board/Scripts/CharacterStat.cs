@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum PieceType
 {
+    None,
+    Human,
     Ghost,
     Death,
     Angel,
