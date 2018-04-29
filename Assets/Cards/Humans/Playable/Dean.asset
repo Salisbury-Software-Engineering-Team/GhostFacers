@@ -11,8 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
   m_Name: Dean
   m_EditorClassIdentifier: 
+  Summonable: 1
   Name: Dean
   Health: 16
   Attack: 3
-  artwork: {fileID: 0}
-  Description: 3 Weapon 1 Help
+  artwork: {fileID: 21300000, guid: 70cc707711496ab4e92c264527ee64ec, type: 3}
+  Description: 1 Help 3 Weapons
+  _EffectPhase: 0

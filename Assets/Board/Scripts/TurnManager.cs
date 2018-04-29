@@ -12,6 +12,7 @@ public enum Phase
     Movement,
     Draw,
     Attack,
+    Defend,
     EndTurn,
 }
 
