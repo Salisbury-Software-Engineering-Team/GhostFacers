@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
+  m_Name: Dean
+  m_EditorClassIdentifier: 
+  Summonable: 1
+  Name: Dean
+  Health: 16
+  Attack: 3
+  Help: 1
+  Weapon: 3
+  Inventory: 4
+  artwork: {fileID: 21300000, guid: 70cc707711496ab4e92c264527ee64ec, type: 3}
+  backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
+  Description: 
+  Deck: 1
+  _EffectPhase: 0
