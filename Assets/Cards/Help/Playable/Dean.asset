@@ -22,4 +22,5 @@ MonoBehaviour:
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: 
   Deck: 1
+  Type: {fileID: 11400000, guid: ba29644af2182834a91cee41e26012d6, type: 2}
   _EffectPhase: 0

@@ -31,13 +31,15 @@ public class Card : ScriptableObject
 
     public Sprite artwork;
     public Sprite backImage;
-
+    //Hi
     public string Description;
     //for humans, says number of weapons and help character can hold
     //for other cards, says their effect or is left blank
     //non-humans can hold up to 2 cards by default
 
     [SerializeField] public cardType Deck;
+
+    public TileType Type;
 
     //What phase the card effect can be used in (None for non effect cards)
     [SerializeField] private Phase _EffectPhase;

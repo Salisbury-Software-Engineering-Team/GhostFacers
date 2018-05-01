@@ -18,6 +18,7 @@ public class CardDisplay : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        
         string des = "";
         des += card.Help.ToString();
         des += " Help ";
@@ -67,6 +68,11 @@ public class CardDisplay : MonoBehaviour {
         }
 
         back.GetComponent<SpriteRenderer>().color = Color.red;
+    }
+
+    private void OnValidate()
+    {
+        back.color = card.Type.ButtonColor;
     }
 
 }
