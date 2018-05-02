@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Name: Player
-  HealthLeft: 10
+  HealthLeft: 5
   HealthTotal: 10
   Movement: 0
+  Attack: 5
   MaxWeapons: 0
   MaxHelp: 0
   Weapons: []

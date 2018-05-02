@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private int WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
 
-	private void Start()
+	private void Awake()
     {
         Init();
         if (instance == null)
@@ -72,7 +72,10 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         _currentPiece = CurrentPiece;
+    }
 
+    private void Start()
+    {
         StartCoroutine(StartGame());
     }
 

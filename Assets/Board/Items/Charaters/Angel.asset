@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Name: Angel
   m_EditorClassIdentifier: 
   Name: Angel
-  HealthLeft: 0
+  HealthLeft: 5
   HealthTotal: 0
   Movement: 0
+  Attack: 3
+  MaxWeapons: 0
+  MaxHelp: 0
   Weapons: []
   Help: []
+  ActiveEffects: []
   Side: 0
+  Type: 0
   Model: {fileID: 100000, guid: 967b64196f51d274999fbfbef6566720, type: 3}
+  PieceColor: {r: 0, g: 0, b: 0, a: 0}
