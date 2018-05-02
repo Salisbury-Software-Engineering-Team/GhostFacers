@@ -15,7 +15,8 @@ MonoBehaviour:
   HealthLeft: 5
   HealthTotal: 0
   Movement: 0
-  Attack: 3
+  Attack: 9
+  BaseAttack: 0
   MaxWeapons: 0
   MaxHelp: 0
   Weapons: []

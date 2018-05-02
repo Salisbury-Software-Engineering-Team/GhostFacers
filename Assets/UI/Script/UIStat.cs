@@ -58,9 +58,10 @@ public class UIStat : MonoBehaviour
     {
         if (GameManager.instance.CurrentPiece != CurrentPiece) // current piece seleced changed
         {
+            Debug.Log("Current Piece changed");
             CurrentPiece = GameManager.instance.CurrentPiece;
-            CurrentPieceHealth = CurrentPiece.Stat.HealthLeft;
-            CurrentPieceAttack = CurrentPiece.Stat.Attack;
+            CurrentPieceHealth = (CurrentPiece != null) ? CurrentPiece.Stat.HealthLeft : 0;
+            CurrentPieceAttack = (CurrentPiece != null) ? CurrentPiece.Stat.Attack : 0;
             return true;
         }
         else if (CurrentPiece != null) // current piece did not change and is not null
@@ -77,6 +78,9 @@ public class UIStat : MonoBehaviour
         return false;
 }
 
+    /// <summary>
+    /// Displays the current selced pieces health bar
+    /// </summary>
     private void DisplayHealth()
     {
         int health = CurrentPiece.Stat.HealthLeft;
@@ -110,34 +114,37 @@ public class UIStat : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Displays the current selected pieces attack bar.
+    /// </summary>
     private void DisplayAttack()
     {
-        int attack = CurrentPiece.Stat.Attack;
+        int attack = CurrentPiece.Stat.Attack; // attack points
         int currentChildCount = AttackPanel.transform.childCount; // get the current amount of health being displayed
 
-        // need to add or remove hearts
+        // need to add or remove swords
         if (currentChildCount != attack)
         {
             GameObject image;
 
-            // add hearts
+            // add swords
             if (attack > currentChildCount)
             {
-                for (int i = currentChildCount; i < attack; i++) // add the difference of hearts
+                for (int i = currentChildCount; i < attack; i++) // add the difference of swords
                 {
                     image = Instantiate(ImagePrefab, AttackPanel.transform);
                     image.GetComponent<Image>().sprite = AttackSprite;
                 }
             }
-            else // remove hearts
+            else // remove swords
             {
-                for (int i = 0; i < currentChildCount - attack; i++) // remove the difference of hearts
+                for (int i = 0; i < currentChildCount - attack; i++) // remove the difference of swords
                 {
                     Destroy(AttackPanel.transform.GetChild(i).gameObject);
                 }
             }
 
-            // resize the width to mathc height
+            // resize the width to match height
             RectTransform trans = AttackPanel.GetComponent<RectTransform>();
             trans.sizeDelta = new Vector2(attack * trans.sizeDelta.y, trans.sizeDelta.y);
         }

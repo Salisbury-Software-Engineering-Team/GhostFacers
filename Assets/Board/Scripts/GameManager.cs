@@ -101,9 +101,9 @@ public class GameManager : MonoBehaviour
 
         while (WinningSide == -1)
         {
-            Debug.Log("Good Turn");
+            //Debug.Log("Good Turn");
             yield return GoodPlayersTurn();
-            Debug.Log("Evil Turn");
+            //Debug.Log("Evil Turn");
             yield return EvilPlayersTurn();
         }
     }
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
     /// <returns>Character piece if can roll, else null</returns>
     private void DetermineSelecetion(CharacterPiece piece)
     {
-        Debug.Log("Selected Piece " + piece + " Turn Phase: " + _turn.TurnPhase);
+        //Debug.Log("Selected Piece " + piece + " Turn Phase: " + _turn.TurnPhase);
         if (_turnStarted)
         {
             // Hnadle differently not sure how yet......
@@ -129,16 +129,14 @@ public class GameManager : MonoBehaviour
                     Debug.Log("Piece Selcted is attackable");
                     if (_Attack.PieceToAttack != null)
                         _Attack.PieceToAttack.DisplaySelected(false);
-                    piece.DisplaySelected(true);
-                    _currentPiece = piece;
+                    //piece.DisplaySelected(true);
+                    //_currentPiece = piece;
                     _Attack.PieceToAttack = piece;
                 }
             }
         }
-        else
-        {
-            SetCurrentPiece(piece);
-        }
+        SetCurrentPiece(piece); // select piece
+
     }
 
     /// <summary>
