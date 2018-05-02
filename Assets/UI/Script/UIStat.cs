@@ -6,6 +6,8 @@ public class UIStat : MonoBehaviour
 {
     public GameObject AttackPanel;
     public GameObject HealthPanel;
+    public Sprite HealthSprite;
+    public Sprite AttackSprite;
 
     private CharacterPiece CurrentPiece;
 
@@ -22,6 +24,16 @@ public class UIStat : MonoBehaviour
         {
             CurrentPiece = GameManager.instance.CurrentPiece;
         }
+    }
+
+    private void OnValidate()
+    {
+        RectTransform trans = HealthPanel.GetComponent<RectTransform>();
+        int healthCount = HealthPanel.transform.childCount;
+
+        trans.sizeDelta = new Vector2(healthCount * trans.sizeDelta.y, trans.sizeDelta.y);
+
+        Debug.Log("Changed Size");
     }
 
     private void DisplayCharacterStat()

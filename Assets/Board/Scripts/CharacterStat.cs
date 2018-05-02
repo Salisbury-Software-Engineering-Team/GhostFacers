@@ -18,9 +18,10 @@ public class CharacterStat : ScriptableObject
     public String Name;
 
     //TODO: Finish adding stats
-    [SerializeField] private int HealthLeft;
+    public int HealthLeft;
     [SerializeField] private int HealthTotal;
-    [SerializeField] private int Movement;
+    public int Movement;
+    public int Attack;
 
     [SerializeField] private int MaxWeapons;
     [SerializeField] private int MaxHelp;
