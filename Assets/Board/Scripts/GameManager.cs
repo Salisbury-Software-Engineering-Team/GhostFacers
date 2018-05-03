@@ -167,20 +167,22 @@ public class GameManager : MonoBehaviour
                     piece.DisplaySelected(true);
                     _currentPiece = piece;
                 }
-                else
-                    _currentPiece = null;
+                //else
+                    //_currentPiece = null;
             }
             else // Piece belongs to friend info
             {
                 // TODO: Display character info about the piece as friend
-                _currentPiece = null;
+                //_currentPiece = null;
             }
         }
         else // Piece beongs to enemy
         {
             //TODO: Display emey piece info
-            _currentPiece = null;
+            //_currentPiece = null;
         }
+
+        _currentPiece = piece;
     }
 
     private IEnumerator GoodPlayersTurn()

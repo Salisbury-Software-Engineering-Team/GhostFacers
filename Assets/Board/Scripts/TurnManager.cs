@@ -63,6 +63,7 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator MovementPhase(int move)
     {
+        _piece.canMove = false;
         _turnPhase = Phase.Movement;
         GameManager.instance.PhaseText.text = "Phase: Movement";
         BtnDontMove.SetActive(true);
@@ -87,7 +88,6 @@ public class TurnManager : MonoBehaviour
     IEnumerator EndTurnPhase()
     {
         _turnPhase = Phase.EndTurn;
-        GameManager.instance.PhaseText.text = "Phase: End Turn";
         GameManager.instance.TurnStarted = false;
         _piece.EndTurn();
         GameManager.instance.CurrentPlayer.TotalPiecesLeftToMove--;

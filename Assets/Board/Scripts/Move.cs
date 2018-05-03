@@ -20,10 +20,9 @@ public class Move : MonoBehaviour
         // if button is not blocked by player
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Piece = GameManager.instance.CurrentPiece;
+            Piece = GameManager.instance.Turn.Piece;
             GameManager.instance.Turn.BtnDontMove.SetActive(false);
             //TODO: Animate**********
-            Piece.canMove = false;
             Piece.Agent.SetDestination(tile.transform.position);
             Piece.SetCurrentTile(tile);
             Piece.StartCoroutine(WaitForAgent());
