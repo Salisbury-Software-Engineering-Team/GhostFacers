@@ -11,12 +11,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9402698ecad00449f4e973a6340a04, type: 3}
   m_Name: Evil Test
   m_EditorClassIdentifier: 
-  Name: Player
-  HealthLeft: 0
-  HealthTotal: 0
+  Name: Evil
+  Health: 0
+  m_Health: 12
   Movement: 0
+  Attack: 0
+  m_Attack: 3
+  m_Weapons: 0
+  m_MaxHelp: 0
   Weapons: []
   Help: []
+  ActiveEffects: []
   Side: 1
+  Type: 0
   Model: {fileID: 100000, guid: 4371eecbdd03fa647b3ccb48ff45749a, type: 3}
   PieceColor: {r: 0.7794118, g: 0.30374137, b: 0.30374137, a: 0}

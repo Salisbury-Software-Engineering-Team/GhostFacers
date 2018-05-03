@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Name: Dean
   m_EditorClassIdentifier: 
   Name: Dean
-  HealthLeft: 5
-  HealthTotal: 10
+  Health: 16
+  m_Health: 16
   Movement: 0
   Attack: 5
-  BaseAttack: 0
-  MaxWeapons: 0
-  MaxHelp: 0
+  m_Attack: 5
+  m_Weapons: 0
+  m_MaxHelp: 0
   Weapons: []
   Help: []
   ActiveEffects: []
   Side: 0
-  Type: 0
+  Type: 1
   Model: {fileID: 100000, guid: 4371eecbdd03fa647b3ccb48ff45749a, type: 3}
-  PieceColor: {r: 0, g: 0, b: 0, a: 0}
+  PieceColor: {r: 0.24826989, g: 0.4664718, b: 0.8235294, a: 0}

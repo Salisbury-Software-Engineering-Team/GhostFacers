@@ -69,6 +69,8 @@ public class Attack : MonoBehaviour
             BtnAttackUI.SetActive(false); // turn off attack button 
             //TODO: *************Finish attacking******************
             Debug.Log("Attacking Piece : " + PieceToAttack);
+            //Testing
+            PieceToAttack.Stat.Health = 0;
             EndAttack();
         }
         else

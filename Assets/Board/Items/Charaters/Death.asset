@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: Death
   m_EditorClassIdentifier: 
   Name: Death
-  HealthLeft: 10
-  HealthTotal: 10
+  Health: 0
+  m_Health: 10
   Movement: 0
-  Attack: 4
-  BaseAttack: 4
-  MaxWeapons: 0
-  MaxHelp: 0
+  Attack: 2
+  m_Attack: 2
+  m_Weapons: 0
+  m_MaxHelp: 0
   Weapons: []
   Help: []
   ActiveEffects: []

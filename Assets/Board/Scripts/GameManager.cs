@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         get { return _currentPlayer; }
     }
     [SerializeField] private Button RollButton;
+
     [SerializeField] private bool _turnStarted;
     public bool TurnStarted
     {
@@ -98,6 +99,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartGame()
     {
         //TODO: Setup
+        SetupPiecesForNewGame();
 
         while (WinningSide == -1)
         {
@@ -105,6 +107,25 @@ public class GameManager : MonoBehaviour
             yield return GoodPlayersTurn();
             //Debug.Log("Evil Turn");
             yield return EvilPlayersTurn();
+        }
+    }
+
+    private void SetupPiecesForNewGame()
+    {
+        foreach (Player play in GoodPlayers)
+        {
+            foreach (CharacterPiece piece in play.Pieces)
+            {
+                piece.Stat.SetupStats();
+            }
+        }
+
+        foreach (Player play in EvilPlayers)
+        {
+            foreach (CharacterPiece piece in play.Pieces)
+            {
+                piece.Stat.SetupStats();
+            }
         }
     }
 

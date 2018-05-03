@@ -40,6 +40,7 @@ public class Card : ScriptableObject
     [SerializeField] public cardType Deck;
 
     public TileType Type;
+    public CharacterStat Stat;
 
     //What phase the card effect can be used in (None for non effect cards)
     [SerializeField] private Phase _EffectPhase;
