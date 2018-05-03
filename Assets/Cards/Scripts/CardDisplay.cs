@@ -13,7 +13,7 @@ public class CardDisplay : MonoBehaviour {
     public Image artworkImage;
     public Image back;
     
-    public Text healthText;
+    public Text healthText; //if card.Health == 0 then display = NULL
     public Text attackText;
 
     // Use this for initialization
@@ -38,36 +38,17 @@ public class CardDisplay : MonoBehaviour {
         artworkImage.sprite = card.artwork;
         back.sprite = card.backImage;
 
-        healthText.text = card.Health.ToString();
-        attackText.text = card.Attack.ToString();
-
-        //used to change card colors
-        //card.artwork.color = new Color(255, 0, 0, 1);
-
-        back.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 1);
-        switch (card.Deck)
+        if(card.Health == 0 && card.Attack == 0)
         {
-            case cardType.Angel:
-                back.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 1);
-                break;
-            case cardType.Monster:
-                back.GetComponent<SpriteRenderer>().color = new Color(0, 255, 0, 1);
-                break;
-            case cardType.Demon:
-                back.GetComponent<SpriteRenderer>().color = new Color(173, 96, 0, 1);
-                break;
-            case cardType.Help:
-                back.GetComponent<SpriteRenderer>().color = new Color(255, 255, 0, 1);
-                break;
-            case cardType.Weapon:
-                back.GetComponent<SpriteRenderer>().color = new Color(255, 0, 255, 1);
-                break;
-            default:
-                back.GetComponent<SpriteRenderer>().color = new Color(0, 0, 255, 1);
-                break;
+            healthText.text = null;
+            attackText.text = null;
+        }
+        else
+        {
+            healthText.text = card.Health.ToString();
+            attackText.text = card.Attack.ToString();
         }
 
-        back.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     private void OnValidate()

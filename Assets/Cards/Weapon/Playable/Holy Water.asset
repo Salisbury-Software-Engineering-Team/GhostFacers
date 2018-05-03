@@ -9,18 +9,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
-  m_Name: Dean
+  m_Name: Holy Water
   m_EditorClassIdentifier: 
-  Summonable: 1
-  Name: Dean
-  Health: 16
-  Attack: 3
-  Help: 1
-  Weapon: 3
-  Inventory: 4
-  artwork: {fileID: 21300000, guid: 70cc707711496ab4e92c264527ee64ec, type: 3}
+  Summonable: 0
+  Name: Holy Water
+  Health: 0
+  Attack: 0
+  Help: 0
+  Weapon: 0
+  Inventory: 0
+  artwork: {fileID: 21300000, guid: fabde8ca9d2ec6c48a7f58fdf4b2ef5d, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: 
-  Deck: 1
-  Type: {fileID: 11400000, guid: 92dfc6b3958e1d24ebcf9fb28710565f, type: 2}
-  _EffectPhase: 0
+  Description: Deal 2 damage to a demon
+  Deck: 2
+  Type: {fileID: 11400000, guid: 821357684c8f3b540a5055a27f1be98c, type: 2}
+  _EffectPhase: 1

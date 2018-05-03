@@ -21,8 +21,8 @@ public class Card : ScriptableObject
     public bool Summonable; //used for displaying card
 
     public string Name;
-    public string Health;
-    public string Attack;
+    public int Health;
+    public int Attack;
 
     //Inventories (only used for summonable cards)
     public int Help; //for humans
@@ -49,7 +49,7 @@ public class Card : ScriptableObject
     }
 
     //used for summonable cards
-    public Card(string N, string H, string A, string D, Phase E) { Name = N; Health = H; Attack = A; Description = D; Summonable = true; Inventory = 2; _EffectPhase = E; }
+    public Card(string N, int H, int A, string D, Phase E) { Name = N; Health = H; Attack = A; Description = D; Summonable = true; Inventory = 2; _EffectPhase = E; }
     //used for effect cards that can't be summoned
     //public Card(string N, string D, Phase E) { Name = N; Description = D; Summonable = false; _EffectPhase = E; }
 
