@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("Piece Selcted is attackable");
                     if (_Attack.PieceToAttack != null)
                         _Attack.PieceToAttack.DisplaySelected(false);
-                    //piece.DisplaySelected(true);
+                    piece.DisplaySelected(true); // highlight selecteced piece
                     //_currentPiece = piece;
                     _Attack.PieceToAttack = piece;
                 }
@@ -148,11 +148,13 @@ public class GameManager : MonoBehaviour
     /// <returns>Character piece if can roll, else null</returns>
     private void SetCurrentPiece(CharacterPiece piece)
     {
-        if (_currentPiece != null)
+        if (_currentPiece != null && _currentPiece != Turn.Piece)
         {
             _currentPiece.DisplaySelected(false);
-            RollButton.enabled = false;
         }
+
+        RollButton.enabled = false;
+
         // Means the piece belongs to the current sides turn
         if (CurrentSide == piece.Stat.Side)
         {
@@ -167,21 +169,8 @@ public class GameManager : MonoBehaviour
                     piece.DisplaySelected(true);
                     _currentPiece = piece;
                 }
-                //else
-                    //_currentPiece = null;
-            }
-            else // Piece belongs to friend info
-            {
-                // TODO: Display character info about the piece as friend
-                //_currentPiece = null;
             }
         }
-        else // Piece beongs to enemy
-        {
-            //TODO: Display emey piece info
-            //_currentPiece = null;
-        }
-
         _currentPiece = piece;
     }
 

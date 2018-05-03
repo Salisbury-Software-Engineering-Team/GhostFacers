@@ -91,6 +91,7 @@ public class TurnManager : MonoBehaviour
         GameManager.instance.TurnStarted = false;
         _piece.EndTurn();
         GameManager.instance.CurrentPlayer.TotalPiecesLeftToMove--;
+        _piece = null;
         return null;
     }
 

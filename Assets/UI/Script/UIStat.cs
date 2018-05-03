@@ -62,9 +62,6 @@ public class UIStat : MonoBehaviour
         HealthPanel.SetActive(false);
 
         //hide current turn
-        NamePanelTurn.SetActive(true);
-        AttackPanelTurn.SetActive(true);
-        HealthPanelTurn.SetActive(true);
         NamePanelTurn.SetActive(false);
         AttackPanelTurn.SetActive(false);
         HealthPanelTurn.SetActive(false);
@@ -121,7 +118,7 @@ public class UIStat : MonoBehaviour
     private void DisplayHealth(CharacterPiece piece, GameObject healthPanel)
     {
         int health = CurrentPiece.Stat.HealthLeft;
-        int currentChildCount = HealthPanel.transform.childCount; // get the current amount of health being displayed
+        int currentChildCount = healthPanel.transform.childCount; // get the current amount of health being displayed
 
         // need to add or remove hearts
         if (currentChildCount != health)
@@ -133,7 +130,7 @@ public class UIStat : MonoBehaviour
             {
                 for (int i = currentChildCount; i < health; i++) // add the difference of hearts
                 {
-                    image = Instantiate(ImagePrefab, HealthPanel.transform);
+                    image = Instantiate(ImagePrefab, healthPanel.transform);
                     image.GetComponent<Image>().sprite = HealthSprite;
                 }
             }
@@ -141,7 +138,7 @@ public class UIStat : MonoBehaviour
             {
                 for (int i = 0; i < currentChildCount - health; i++) // remove the difference of hearts
                 {
-                    Destroy(HealthPanel.transform.GetChild(i).gameObject);
+                    Destroy(healthPanel.transform.GetChild(i).gameObject);
                 }
             }
         }
@@ -181,7 +178,7 @@ public class UIStat : MonoBehaviour
 
     private void DisplayCharacterStatTurn()
     {
-        NamePanel.transform.GetChild(0).GetComponent<Text>().text = CurrentPieceTurn.Stat.name;
+        NamePanelTurn.transform.GetChild(0).GetComponent<Text>().text = CurrentPieceTurn.Stat.name;
         DisplayHealth(CurrentPieceTurn, HealthPanelTurn);
         DisplayAttack(CurrentPieceTurn, AttackPanelTurn);
 
@@ -202,6 +199,11 @@ public class UIStat : MonoBehaviour
                 TurnStarted = true;
                 CurrentPieceTurnHealth = (CurrentPieceTurn != null) ? CurrentPieceTurn.Stat.HealthLeft : 0;
                 CurrentPieceTurnAttack = (CurrentPieceTurn != null) ? CurrentPieceTurn.Stat.Attack : 0;
+                
+                // Hide Panels b/c Turn started on selected piece
+                NamePanel.SetActive(false);
+                AttackPanel.SetActive(false);
+                HealthPanel.SetActive(false);
                 return true;
             }
             else if (CurrentPieceTurnHealth != CurrentPieceTurn.Stat.HealthLeft || CurrentPieceTurnAttack != CurrentPieceTurn.Stat.Attack)

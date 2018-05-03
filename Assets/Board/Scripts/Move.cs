@@ -23,6 +23,7 @@ public class Move : MonoBehaviour
             Piece = GameManager.instance.Turn.Piece;
             GameManager.instance.Turn.BtnDontMove.SetActive(false);
             //TODO: Animate**********
+            GameManager.instance.CurrentPiece = Piece;
             Piece.Agent.SetDestination(tile.transform.position);
             Piece.SetCurrentTile(tile);
             Piece.StartCoroutine(WaitForAgent());
