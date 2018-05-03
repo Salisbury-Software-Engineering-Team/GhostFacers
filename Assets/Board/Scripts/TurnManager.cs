@@ -50,6 +50,7 @@ public class TurnManager : MonoBehaviour
     IEnumerator TurnLoop(int move)
     {
         _piece = GameManager.instance.CurrentPiece;
+        Debug.Log("Begin Movement");
         yield return MovementPhase(move);
         yield return DrawPhase();
         Debug.Log("Begin Attacking");

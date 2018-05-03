@@ -38,6 +38,7 @@ public class Move : MonoBehaviour
     private IEnumerator WaitForAgent()
     {
         yield return new WaitUntil(() => pathComplete() == true); // wait for the character to reach the selected tile
+
         Piece.ClearHighlights(); // clear button highlights
         Piece.doneMove = true;
     }
