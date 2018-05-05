@@ -22,6 +22,7 @@ MonoBehaviour:
   Weapons: []
   Help: []
   ActiveEffects: []
+  AttackablePieces: 0600000000000000000000000000000000000000
   Side: 0
   Type: 1
   Model: {fileID: 100000, guid: 4371eecbdd03fa647b3ccb48ff45749a, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Death
   m_EditorClassIdentifier: 
   Name: Death
-  Health: 0
+  Health: 10
   m_Health: 10
   Movement: 0
   Attack: 2
@@ -22,6 +22,7 @@ MonoBehaviour:
   Weapons: []
   Help: []
   ActiveEffects: []
+  AttackablePieces: 0100000002000000030000000400000005000000
   Side: 1
   Type: 3
   Model: {fileID: 100000, guid: 1b3d5407b99c49f4caaea9b9ca1e1f49, type: 3}
