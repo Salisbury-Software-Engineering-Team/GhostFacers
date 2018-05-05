@@ -27,7 +27,8 @@ public class Player : MonoBehaviour
         TotalPiecesLeftToMove = TotalPieceCount;
         foreach (CharacterPiece piece in Pieces)
         {
-            piece.SetupTurn();
+            if (piece)
+                piece.SetupTurn();
         }
     }
 

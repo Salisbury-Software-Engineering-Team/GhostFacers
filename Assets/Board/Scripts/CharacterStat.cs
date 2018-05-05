@@ -10,6 +10,7 @@ public enum PieceType
     Death,
     Angel,
     ArchAngel,
+    Monster,
 }
 
 [CreateAssetMenu]
@@ -30,6 +31,8 @@ public class CharacterStat : ScriptableObject
     [SerializeField] private List<Card> Weapons;
     [SerializeField] private List<Card> Help;
     [SerializeField] private List<Effect> ActiveEffects;
+
+    public List<PieceType> AttackablePieces; // list of all attackable piece this piece can attack.
 
     public SideType Side;
     public PieceType Type;

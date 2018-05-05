@@ -1,16 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
 {
+    private enum AttackDice
+    {
+        Empty = 0,
+        Miss_1 = 1,
+        Miss_2= 2,
+        Hit_1 = 3,
+        Hit_2 = 4,
+        Human = 5,
+        Monster = 6,
+    }
+
     public List<CharacterPiece> AttackablePieces; // Listof attaackable piece 
     private CharacterPiece _PieceAttacking;
     public CharacterPiece PieceToAttack;
-    public bool doneAttack;
-    public GameObject BtnAttackUI;
 
-    private void Start()
+    private bool _doneAttack;
+    public bool DoneAttack { get { return _doneAttack; } }
+
+    public GameObject BtnAttackUI;
+    public GameObject AttackDiceUI;
+    public GameObject AttackDicePanel;
+    public GameObject AttackDicePrefab;
+    public Text TotalDamgeText;
+    public GameObject CannotAttackMessageUI;
+
+    private bool _DoneAttackRoll;
+    [SerializeField] private bool _AppliedAttack;
+
+    [SerializeField] private List<AttackDice> _AttackDiceList;
+    private int _AttackAmount;
+
+    private void Awake()
     {
         Init();
     }
@@ -18,12 +45,26 @@ public class Attack : MonoBehaviour
     private void Init()
     {
         BtnAttackUI.SetActive(false);
+        AttackDiceUI.SetActive(false);
+        _DoneAttackRoll = false;
+        _AppliedAttack = false;
+        _AttackAmount = 0;
+        TotalDamgeText.gameObject.SetActive(false);
     }
 
-    public void BeginAttack(CharacterPiece pieceAttacking)
+    private void Update()
+    {
+        if (AttackDiceUI.activeInHierarchy)
+            DisplayAttackDice();
+        if (_DoneAttackRoll && !_AppliedAttack)
+            ApplyAttack();
+    }
+
+    public void SetupAttack(CharacterPiece pieceAttacking)
     {
         BtnAttackUI.SetActive(true);
-        doneAttack = false;
+        _doneAttack = false;
+        TotalDamgeText.text = "Total Damge: 0";
         _PieceAttacking = pieceAttacking;
         Debug.Log("Attacking ");
         DeteremineAttackablePieces();
@@ -59,25 +100,44 @@ public class Attack : MonoBehaviour
             EndAttack();
     }
 
-    public void AttackPiece()
+    public void BeginAttack()
     {
-        Debug.Log(PieceToAttack);
-        Debug.Log(AttackablePieces);
         // Enemy Selected
         if (PieceToAttack != null)
         {
-            BtnAttackUI.SetActive(false); // turn off attack button 
-            //TODO: *************Finish attacking******************
-            Debug.Log("Attacking Piece : " + PieceToAttack);
-            //Testing
-            PieceToAttack.Stat.Health = 0;
-            EndAttack();
+            if (canAttackPiece()) //piece is attackable
+            {
+                GameManager.instance.CanSelectePiece = false;
+                BtnAttackUI.SetActive(false); // turn off attack button
+                AttackDiceUI.SetActive(true); // turn on dice roll ui
+            }
+            else // can not attack piece, display message why.
+            {
+                CannotAttackMessageUI.gameObject.SetActive(true);
+            }
         }
         else
         {
-            Debug.Log("No Piece to Attack Selected: ");
+            Debug.Log("No Piece Selected");
         }
+    }
 
+    /// <summary>
+    /// Determine if the piece to attack is attackable by the current piece.
+    /// 
+    /// ex: Death cannot be attacked unless the piece holds a certain card.
+    ///     This card will add Death to the atttackable piece types when the card is being held.
+    /// </summary>
+    /// <returns>True if piece can be attacked.</returns>
+    private bool canAttackPiece()
+    {
+        // check to see if piece can be attacked by type.
+        foreach (PieceType type in _PieceAttacking.Stat.AttackablePieces)
+        {
+            if (type == PieceToAttack.Stat.Type)
+                return true; // piece is attackable type
+        }
+        return false; // can not attack piece
     }
 
     public void DontAttackPiece()
@@ -90,13 +150,131 @@ public class Attack : MonoBehaviour
     /// </summary>
     private void EndAttack()
     {
+        GameManager.instance.CanSelectePiece = true;
         BtnAttackUI.SetActive(false); // turn off attack button 
+        AttackDiceUI.SetActive(false); // turn off dice
         AttackablePieces.Clear();
         if (PieceToAttack != null)
             PieceToAttack.DisplaySelected(false); // unselected the attack piece
         _PieceAttacking = null;
         PieceToAttack = null;
-        doneAttack = true;
+        _DoneAttackRoll = false;
+        _AttackDiceList.Clear();
+        _AttackAmount = 0;
+        _AppliedAttack = false;
+
+        _doneAttack = true;
     }
 
+    private void DisplayAttackDice()
+    {
+        int currentAmountOfDice = AttackDicePanel.transform.childCount;
+        _AttackAmount = _PieceAttacking.Stat.Attack;
+
+        // need to display more of lesss dice
+        if (currentAmountOfDice != _AttackAmount)
+        {
+            if (currentAmountOfDice < _AttackAmount) // need to add more dice
+            {
+                for (int i = currentAmountOfDice; i < _AttackAmount; i++)
+                {
+                    Instantiate(AttackDicePrefab, AttackDicePanel.transform);
+                }
+            }
+            else // need less dice
+            {
+                for (int i = 0; i < currentAmountOfDice - _AttackAmount; i++)
+                {
+                    Destroy(AttackDicePanel.transform.GetChild(i).gameObject);
+                }
+            }
+        }
+
+        if (_AttackDiceList.Count == 0)
+            ResetDice();
+        else
+        {
+            // display the list of dice rolls
+            int index = 0;
+            foreach (Text text in AttackDicePanel.GetComponentsInChildren<Text>())
+            {
+                text.text = _AttackDiceList[index].ToString();
+                index++;
+            }
+        }
+    }
+
+    private void ResetDice()
+    {
+        // set all dice to 0. Tempory till we get pictures
+        foreach (Text text in AttackDicePanel.GetComponentsInChildren<Text>())
+        {
+            text.text = AttackDice.Empty.ToString();
+        }
+    }
+
+    public void RollAttackDice()
+    {
+        _AttackDiceList.Clear();
+        for (int i = 0; i < _AttackAmount; i++)
+        {
+            int size = Enum.GetNames(typeof(AttackDice)).Length;
+            int randomSelection = UnityEngine.Random.Range(1, size);
+            _AttackDiceList.Add((AttackDice)randomSelection);
+        }
+        _DoneAttackRoll = true;
+    }
+
+    public bool SelectPieceToAttack(CharacterPiece piece)
+    {
+        if (AttackablePieces.Contains(piece)) // piece is attackable
+        {
+            PieceToAttack = piece;
+            return true;
+        }
+        else // piece not attackable
+        {
+            if (PieceToAttack) // remove piece to attack becasue user selected different piece that could not be selected
+            {
+                PieceToAttack = null;
+            }
+            return false;
+        }
+    }
+
+    //TODO: Handle increasing attack dice when playing effect cards.
+    public void AddAttackDice()
+    {
+
+    }
+
+    public void AttackDone()
+    {
+        EndAttack();
+    }
+
+    private void ApplyAttack()
+    {
+        int amountOfDamageDone = 0;
+        foreach (AttackDice dice in _AttackDiceList)
+        {
+            if (dice == AttackDice.Hit_1 || dice == AttackDice.Hit_2) // hit applied for humans and monsters
+            {
+                amountOfDamageDone++;
+            }
+            else if (dice == AttackDice.Human && (_PieceAttacking.Stat.Type == PieceType.Human || _PieceAttacking.Stat.Type == PieceType.Angel))
+            {
+                // rolled human and piece attacking is human
+                amountOfDamageDone++;
+            }
+            else if (dice == AttackDice.Monster && _PieceAttacking.Stat.Type != PieceType.Human && _PieceAttacking.Stat.Type != PieceType.Angel)
+            {
+                //rolled dice is monster and piece attacking is monster, then hit piece
+                amountOfDamageDone++;
+            }
+        }
+        PieceToAttack.DecreaseHealth(amountOfDamageDone); // apply damge
+        _AppliedAttack = true;
+        TotalDamgeText.text = "Total Damge: " +amountOfDamageDone;
+    }
 }

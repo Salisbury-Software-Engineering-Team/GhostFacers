@@ -19,10 +19,11 @@ public class GameManager : MonoBehaviour
         get { return _currentPiece; }
         set
         {
-            if (value != _currentPiece)
+            if (value != _currentPiece && CanSelectePiece)
                 DetermineSelecetion(value);
         }
     }
+    public bool CanSelectePiece;
 
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
         TurnStarted = false;
         _turn = this.GetComponent<TurnManager>();
         _Attack = GetComponent<Attack>();
+        CanSelectePiece = true;
     }
 
     private IEnumerator StartGame()
@@ -116,7 +118,8 @@ public class GameManager : MonoBehaviour
         {
             foreach (CharacterPiece piece in play.Pieces)
             {
-                piece.Stat.SetupStats();
+                if (piece)
+                    piece.Stat.SetupStats();
             }
         }
 
@@ -145,14 +148,11 @@ public class GameManager : MonoBehaviour
             if (_turn.TurnPhase == Phase.Attack)
             {
                 // piece is attackable
-                if (_Attack.AttackablePieces.Contains(piece))
+                if (_Attack.SelectPieceToAttack(piece))
                 {
-                    Debug.Log("Piece Selcted is attackable");
                     if (_Attack.PieceToAttack != null)
                         _Attack.PieceToAttack.DisplaySelected(false);
                     piece.DisplaySelected(true); // highlight selecteced piece
-                    //_currentPiece = piece;
-                    _Attack.PieceToAttack = piece;
                 }
             }
         }

@@ -200,4 +200,20 @@ public class CharacterPiece : MonoBehaviour
         doneMove = false;
         canMove = true;
     }
+
+    /// <summary>
+    /// Decrease the characters health by the passed amount. Also Handle any damge reducing abilities here.
+    /// </summary>
+    /// <param name="amount"></param>
+    public void DecreaseHealth(int amount)
+    {
+        if (Stat.Health-amount > 0)
+        {
+            Stat.Health = Stat.Health - amount;
+        }
+        else
+        {
+            Stat.Health = 0;
+        }
+    }
 }
