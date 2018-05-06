@@ -28,11 +28,6 @@ public class GameManager : MonoBehaviour
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
 
-    //Testing ************** Delete When Done
-    public Text PhaseText;
-    public Text CurrentPlayerText;
-    public Text CurrentPieceText;
-
     [SerializeField] private List<Player> GoodPlayers;
     [SerializeField] private List<Player> EvilPlayers;
     [SerializeField] private Player _currentPlayer;
@@ -60,6 +55,8 @@ public class GameManager : MonoBehaviour
 
     private int WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
 
+    [SerializeField] private Text _CurrentSideText;
+
 	private void Awake()
     {
         Init();
@@ -83,10 +80,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //Testing ********
-        if (_currentPiece != null)
-            CurrentPieceText.text = "Current Piece " + _currentPiece.gameObject.ToString();
-        CurrentPlayerText.text = "Current Player " + CurrentPlayer.gameObject.ToString();
+        if (_CurrentSideText)
+            _CurrentSideText.text = "Turn: " + CurrentSide;
     }
 
     private void Init()
@@ -96,6 +91,7 @@ public class GameManager : MonoBehaviour
         _turn = this.GetComponent<TurnManager>();
         _Attack = GetComponent<Attack>();
         CanSelectePiece = true;
+        RollButton.gameObject.SetActive(false);
     }
 
     private IEnumerator StartGame()
@@ -174,6 +170,7 @@ public class GameManager : MonoBehaviour
             _currentPiece.DisplaySelected(false);
         }
 
+        RollButton.gameObject.SetActive(false);
         RollButton.enabled = false;
 
         // Means the piece belongs to the current sides turn
@@ -186,6 +183,7 @@ public class GameManager : MonoBehaviour
 
                 if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
+                    RollButton.gameObject.SetActive(true);
                     RollButton.enabled = true;
                     piece.DisplaySelected(true);
                     _currentPiece = piece;

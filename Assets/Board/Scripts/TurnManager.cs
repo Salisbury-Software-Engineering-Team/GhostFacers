@@ -66,7 +66,6 @@ public class TurnManager : MonoBehaviour
     {
         _piece.canMove = false;
         _turnPhase = Phase.Movement;
-        GameManager.instance.PhaseText.text = "Phase: Movement";
         BtnDontMove.SetActive(true);
         _piece.DisplayAvaliableMovement(move); // display movement 
         yield return new WaitUntil(() => _piece.doneMove == true);
@@ -81,7 +80,6 @@ public class TurnManager : MonoBehaviour
     IEnumerator AttackPhase()
     {
         _turnPhase = Phase.Attack;
-        GameManager.instance.PhaseText.text = "Phase: Attack";
         _Attack.SetupAttack(Piece); // start the attack
         yield return new WaitUntil(() => _Attack.DoneAttack == true); // wait till attack sone
     }
