@@ -15,8 +15,8 @@ MonoBehaviour:
   Health: 10
   m_Health: 10
   Movement: 0
-  Attack: 2
-  m_Attack: 2
+  Attack: 6
+  m_Attack: 6
   m_Weapons: 0
   m_MaxHelp: 0
   Weapons: []

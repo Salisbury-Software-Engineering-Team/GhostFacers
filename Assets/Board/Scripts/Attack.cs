@@ -24,12 +24,15 @@ public class Attack : MonoBehaviour
     private bool _doneAttack;
     public bool DoneAttack { get { return _doneAttack; } }
 
-    public GameObject BtnAttackUI;
-    public GameObject AttackDiceUI;
-    public GameObject AttackDicePanel;
-    public GameObject AttackDicePrefab;
-    public Text TotalDamgeText;
-    public GameObject CannotAttackMessageUI;
+
+    [SerializeField] private GameObject BtnAttackUI;
+    [SerializeField] private GameObject AttackDiceUI;
+    [SerializeField] private GameObject AttackDicePanel;
+    [SerializeField] private GameObject AttackDicePrefab;
+    [SerializeField] private Text TotalDamgeText;
+    [SerializeField] private GameObject CannotAttackMessageUI;
+    [SerializeField] private Text _AttackPieceText;
+    [SerializeField] private Text _HelpText;
 
     private bool _DoneAttackRoll;
     [SerializeField] private bool _AppliedAttack;
@@ -58,6 +61,8 @@ public class Attack : MonoBehaviour
             DisplayAttackDice();
         if (_DoneAttackRoll && !_AppliedAttack)
             ApplyAttack();
+        if (_AttackPieceText && PieceToAttack)
+            _AttackPieceText.text = "Attacking: " + PieceToAttack.Stat.Name;
     }
 
     public void SetupAttack(CharacterPiece pieceAttacking)
@@ -168,6 +173,8 @@ public class Attack : MonoBehaviour
 
     private void DisplayAttackDice()
     {
+        if (_HelpText) // display help message to roll dice
+            _HelpText.text = "Roll to Attack";
         int currentAmountOfDice = AttackDicePanel.transform.childCount;
         _AttackAmount = _PieceAttacking.Stat.Attack;
 

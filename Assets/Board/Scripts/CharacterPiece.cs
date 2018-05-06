@@ -26,6 +26,9 @@ public class CharacterPiece : MonoBehaviour
     public bool canMove; // piece can still roll if true
     public bool doneMove; // once character is done moving;
 
+    [SerializeField] private bool _Died;
+    public bool Died { get { return _Died; } }
+
     private void Awake()
     {
         Init();
@@ -58,6 +61,13 @@ public class CharacterPiece : MonoBehaviour
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
         doneMove = false;
+        _Died = false;
+    }
+
+    private void Update()
+    {
+        if (_Died)
+            PieceDied();
     }
 
 
@@ -214,6 +224,19 @@ public class CharacterPiece : MonoBehaviour
         else
         {
             Stat.Health = 0;
+            _Died = true;
         }
+    }
+
+    /// <summary>
+    /// Handle how a piece dies.
+    /// </summary>
+    private void PieceDied()
+    {
+        //_Died = true;
+
+        // TEmpory ***************
+        gameObject.transform.position = new Vector3(1000, 1000, 1000); // move piece away from board;
+        //gameObject.SetActive(false);
     }
 }

@@ -32,13 +32,15 @@ public class TurnManager : MonoBehaviour
         get { return _turnPhase; }
     }
 
-    public GameObject BtnDontMove;
+    [SerializeField] private GameObject _BtnDontMove;
+    [SerializeField] private Text _HelpText;
     private Attack _Attack;
 
     private void Awake()
     {
         _Attack = GetComponent<Attack>();
-        BtnDontMove.SetActive(false);
+        _BtnDontMove.SetActive(false);
+        _HelpText.text = "Select Piece to Move";
     }
 
     public void BeginTurn(int move)
@@ -64,21 +66,24 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator MovementPhase(int move)
     {
+        _HelpText.text = "Move Piece";
         _piece.canMove = false;
         _turnPhase = Phase.Movement;
-        BtnDontMove.SetActive(true);
+        _BtnDontMove.SetActive(true);
         _piece.DisplayAvaliableMovement(move); // display movement 
         yield return new WaitUntil(() => _piece.doneMove == true);
     }
 
     IEnumerator DrawPhase()
     {
+        _HelpText.text = "Draw a Card";
         _turnPhase = Phase.Draw;
         return null;
     }
 
     IEnumerator AttackPhase()
     {
+        _HelpText.text = "Select Piece to Attack";
         _turnPhase = Phase.Attack;
         _Attack.SetupAttack(Piece); // start the attack
         yield return new WaitUntil(() => _Attack.DoneAttack == true); // wait till attack sone
@@ -86,6 +91,7 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator EndTurnPhase()
     {
+        _HelpText.text = "Select Piece to Move";
         _turnPhase = Phase.EndTurn;
         GameManager.instance.TurnStarted = false;
         _piece.EndTurn();
@@ -96,9 +102,14 @@ public class TurnManager : MonoBehaviour
 
     public void DontMove()
     {
-        BtnDontMove.SetActive(false);
+        _BtnDontMove.SetActive(false);
         _piece.ClearHighlights();
         _piece.doneMove = true;
+    }
+
+    public void Moving()
+    {
+        _BtnDontMove.SetActive(false);
     }
 
 }
