@@ -237,6 +237,6 @@ public class CharacterPiece : MonoBehaviour
 
         // TEmpory ***************
         gameObject.transform.position = new Vector3(1000, 1000, 1000); // move piece away from board;
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

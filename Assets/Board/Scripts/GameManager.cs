@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private SideType WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
+    [SerializeField] private SideType WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
 
     [SerializeField] private Button RollButton;
     [SerializeField] private Text _CurrentSideText;

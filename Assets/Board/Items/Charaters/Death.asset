@@ -23,7 +23,7 @@ MonoBehaviour:
   Help: []
   ActiveEffects: []
   AttackablePieces: 0100000002000000030000000400000005000000
-  Side: 1
+  Side: 2
   Type: 3
   Model: {fileID: 100000, guid: 1b3d5407b99c49f4caaea9b9ca1e1f49, type: 3}
   PieceColor: {r: 1, g: 0, b: 0, a: 0}

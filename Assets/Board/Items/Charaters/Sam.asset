@@ -22,7 +22,8 @@ MonoBehaviour:
   Weapons: []
   Help: []
   ActiveEffects: []
-  Side: 0
+  AttackablePieces: 
+  Side: 1
   Type: 1
   Model: {fileID: 100000, guid: 4371eecbdd03fa647b3ccb48ff45749a, type: 3}
   PieceColor: {r: 0, g: 0, b: 0, a: 0}
