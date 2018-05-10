@@ -20,13 +20,13 @@ public class CardDisplay : MonoBehaviour {
     void Start () {
         
         string des = "";
-        des += card.Help.ToString();
+        des += card.stat.Help.ToString();
         des += " Help ";
-        des += card.Weapon.ToString();
+        des += card.stat.Weapon.ToString();
         des += " Weapon";
 
         nameText.text = card.Name;
-        if (!card.Summonable || (card.Help == 0 && card.Weapon == 0))
+        if (!card.Summonable || (card.stat.Help == 0 && card.stat.Weapon == 0))
         {
             descriptionText.text = card.Description;
         }
@@ -38,15 +38,15 @@ public class CardDisplay : MonoBehaviour {
         artworkImage.sprite = card.artwork;
         back.sprite = card.backImage;
 
-        if(card.Health == 0 && card.Attack == 0)
+        if(card.stat.Health == 0 && card.stat.Attack == 0)
         {
             healthText.text = null;
             attackText.text = null;
         }
         else
         {
-            healthText.text = card.Health.ToString();
-            attackText.text = card.Attack.ToString();
+            healthText.text = card.stat.Health.ToString();
+            attackText.text = card.stat.Attack.ToString();
         }
 
     }

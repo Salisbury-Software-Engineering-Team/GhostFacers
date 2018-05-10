@@ -11,16 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
   m_Name: Leviathan
   m_EditorClassIdentifier: 
-  Summonable: 0
-  Name: 
-  Health: 0
-  Attack: 0
+  Summonable: 1
+  Name: Leviathan
+  Health: 4
+  Attack: 2
   Help: 0
   Weapon: 0
-  Inventory: 0
-  artwork: {fileID: 0}
-  backImage: {fileID: 0}
+  Inventory: 2
+  artwork: {fileID: 21300000, guid: 602598bd796bd0e419f4e4e322b85dbe, type: 3}
+  backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: 
-  Deck: 0
-  Type: {fileID: 0}
+  Deck: 5
+  Type: {fileID: 11400000, guid: 7035a94dff1fdbd4997c02a259030116, type: 2}
   _EffectPhase: 0

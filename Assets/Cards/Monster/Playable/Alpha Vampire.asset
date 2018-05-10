@@ -11,16 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
   m_Name: Alpha Vampire
   m_EditorClassIdentifier: 
-  Summonable: 0
-  Name: 
-  Health: 0
-  Attack: 0
+  Summonable: 1
+  Name: Alpha Vampire
+  Health: 8
+  Attack: 3
   Help: 0
   Weapon: 0
-  Inventory: 0
-  artwork: {fileID: 0}
-  backImage: {fileID: 0}
-  Description: 
-  Deck: 0
-  Type: {fileID: 0}
-  _EffectPhase: 0
+  Inventory: 2
+  artwork: {fileID: 21300000, guid: a6dd17d96e8b35c49bc4a23bc272baf0, type: 3}
+  backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
+  Description: If dealing the killing blow then the opponent falls under the opposite
+    player's control
+  Deck: 2
+  Type: {fileID: 11400000, guid: 821357684c8f3b540a5055a27f1be98c, type: 2}
+  _EffectPhase: 3
