@@ -4,7 +4,7 @@ using UnityEngine;
 
 //make an enum variable for when card effect can be played (can also be summonable) (look in turnManager file for phases)
 
-public enum cardType
+public enum CardType
 {
     None,
     Help,
@@ -14,6 +14,15 @@ public enum cardType
     Monster,
 }
 
+public class CharacterStat
+{
+    public int Health;
+    public int Attack;
+    public int Help;
+    public int Weapon;
+    public int Inventory;
+}
+
 //[Serializable]
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards")]
 public class Card : ScriptableObject
@@ -21,6 +30,7 @@ public class Card : ScriptableObject
     public bool Summonable; //used for displaying card
 
     public string Name;
+    /*
     public int Health;
     public int Attack;
 
@@ -28,6 +38,9 @@ public class Card : ScriptableObject
     public int Help; //for humans
     public int Weapon; //for humans
     public int Inventory; //for everyone but humans
+    */
+
+    public CharacterStat stat;
 
     public Sprite artwork;
     public Sprite backImage;
@@ -37,7 +50,7 @@ public class Card : ScriptableObject
     //for other cards, says their effect or is left blank
     //non-humans can hold up to 2 cards by default
 
-    [SerializeField] public cardType Deck;
+    [SerializeField] public CardType Deck;
 
     public TileType Type;
     public CharacterStat Stat;
@@ -50,7 +63,7 @@ public class Card : ScriptableObject
     }
 
     //used for summonable cards
-    public Card(string N, int H, int A, string D, Phase E) { Name = N; Health = H; Attack = A; Description = D; Summonable = true; Inventory = 2; _EffectPhase = E; }
+    public Card(string N, int H, int A, string D, Phase E) { Name = N; stat.Health = H; stat.Attack = A; Description = D; Summonable = true; stat.Inventory = 2; _EffectPhase = E; }
     //used for effect cards that can't be summoned
     //public Card(string N, string D, Phase E) { Name = N; Description = D; Summonable = false; _EffectPhase = E; }
 
