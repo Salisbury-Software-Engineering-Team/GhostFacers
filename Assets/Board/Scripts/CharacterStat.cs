@@ -21,12 +21,18 @@ public class CharacterStat : ScriptableObject
     //TODO: Finish adding stats
     [HideInInspector] public int Health;
     [SerializeField] private int m_Health;
+    public int StartHealth { get { return m_Health; } }
+
     public int Movement;
+
     [HideInInspector] public int Attack;
     [SerializeField] private int m_Attack;
+    public int StartAttack { get { return m_Attack; } }
 
     [SerializeField] private int m_Weapons;
-    [SerializeField] private int m_MaxHelp;
+    public int MaxWeapons {  get { return m_Weapons; } }
+    [SerializeField] private int m_Help;
+    public int MaxHelp {  get { return m_Help; } }
 
     [SerializeField] private List<Card> Weapons;
     [SerializeField] private List<Card> Help;

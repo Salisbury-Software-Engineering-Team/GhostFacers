@@ -14,15 +14,6 @@ public enum CardType
     Monster,
 }
 
-public class CharacterStat
-{
-    public int Health;
-    public int Attack;
-    public int Help;
-    public int Weapon;
-    public int Inventory;
-}
-
 //[Serializable]
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards")]
 public class Card : ScriptableObject
@@ -39,8 +30,6 @@ public class Card : ScriptableObject
     public int Weapon; //for humans
     public int Inventory; //for everyone but humans
     */
-
-    public CharacterStat stat;
 
     public Sprite artwork;
     public Sprite backImage;
@@ -63,7 +52,15 @@ public class Card : ScriptableObject
     }
 
     //used for summonable cards
-    public Card(string N, int H, int A, string D, Phase E) { Name = N; stat.Health = H; stat.Attack = A; Description = D; Summonable = true; stat.Inventory = 2; _EffectPhase = E; }
+    public Card(string N, int H, int A, string D, Phase E)
+    {
+        Name = N;
+        Stat.Health = H;
+        Stat.Attack = A;
+        Description = D;
+        Summonable = true;
+        _EffectPhase = E;
+    }
     //used for effect cards that can't be summoned
     //public Card(string N, string D, Phase E) { Name = N; Description = D; Summonable = false; _EffectPhase = E; }
 
