@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject Highlight; // hightlight sprite
     [SerializeField] private TileType Type; // type of tile
     [SerializeField] public GameObject Portal; // link to portal
-
+    [SerializeField] private bool _Clickable = false;
     private Vector3 CurrentPosition; // current position of the tile
     private Vector3 size; // size of tile
 
@@ -44,6 +44,7 @@ public class Tile : MonoBehaviour
     {
         RefreshUI();
     }
+
 
     /*
      * Find adj Tiles

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9402698ecad00449f4e973a6340a04, type: 3}
+  m_Name: Death
+  m_EditorClassIdentifier: 
+  Name: Death
+  Health: 10
+  m_Health: 10
+  Movement: 0
+  Attack: 6
+  m_Attack: 6
+  m_Weapons: 0
+  m_MaxHelp: 0
+  Weapons: []
+  Help: []
+  ActiveEffects: []
+  AttackablePieces: 0100000002000000030000000400000005000000
+  Side: 2
+  Type: 3
+  Model: {fileID: 100000, guid: 1b3d5407b99c49f4caaea9b9ca1e1f49, type: 3}
+  PieceColor: {r: 1, g: 0, b: 0, a: 0}

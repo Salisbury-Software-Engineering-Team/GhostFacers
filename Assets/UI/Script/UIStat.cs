@@ -44,8 +44,6 @@ public class UIStat : MonoBehaviour
             CurrentPiece = GameManager.instance.CurrentPiece;
         }
 
-        Debug.Log(CurrentPiece);
-
         // Hide Panels bc no character is selected
         AttackPanel.SetActive(false);
         HealthPanel.SetActive(false);

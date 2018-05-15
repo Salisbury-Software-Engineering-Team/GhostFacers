@@ -9,7 +9,7 @@ public enum SideType
     Evil,
 }
 
-public class Player : MonoBehaviour
+public class Player
 {
     public List<CharacterPiece> Pieces;
     private List<CharacterPiece> DeadPieces;
@@ -22,6 +22,14 @@ public class Player : MonoBehaviour
     /* TODO:::
      * Add an event to handle when a piece dies. Will be called from charcter script.
      */
+
+    public Player(List<CharacterPiece> p, SideType s)
+    {
+        Pieces = p;
+        Side = s;
+    }
+
+    public Player(SideType s) : this(new List<CharacterPiece>(), s) { }
 
     private void Start()
     {

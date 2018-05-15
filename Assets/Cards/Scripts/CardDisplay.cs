@@ -51,9 +51,14 @@ public class CardDisplay : MonoBehaviour {
 
     }
 
-    private void OnValidate()
+    /*private void OnValidate()
     {
+        Debug.Log(back);
+        Debug.Log(back.color);
+        Debug.Log(card);
+        Debug.Log(card.Type);
+        Debug.Log(card.Type.ButtonColor);
         back.color = card.Type.ButtonColor;
-    }
+    }*/
 
 }

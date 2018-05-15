@@ -6,15 +6,24 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null; // GameManager object for players to access
-    private Attack _Attack; // Attack script
-    private TurnManager _turn; // manages a character turn once they hit roll.
-    public TurnManager Turn
-    {
-        get { return _turn; }
-    }
 
     public bool CanSelectePiece; // Determine if piece can be selected
-    [SerializeField] private CharacterPiece _currentPiece;
+    public int TotalMovement; //testing for movement
+    public SideType CurrentSide; // Current sides turn
+
+    [SerializeField] private List<Player> _GoodPlayers; // lIst of all good players
+    [SerializeField] private List<Player> _EvilPlayers; // list of all Evil players
+    [SerializeField] private Button _RollButton;
+    [SerializeField] private Text _CurrentSideText; // displays which sides turn it is
+    [SerializeField] private bool _DoStartNewGame = false;
+    [SerializeField] private Tile _GoodHomeTile; // middle tile for good side
+    [SerializeField] private Tile _EvilHomeTile; // middle tile for evil side
+    [SerializeField] private GameObject _Camera;
+    private Attack _Attack; // Attack script
+    private SideType _WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
+    private float _CameraDisForPiecePlacement = 200.0f;
+
+    private CharacterPiece _currentPiece;
     public CharacterPiece CurrentPiece
     {
         get { return _currentPiece; }
@@ -25,12 +34,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public int TotalMovement; //testing for movement
-    public SideType CurrentSide; // Current sides turn
+    private TurnManager _turn; // manages a character turn once they hit roll.
+    public TurnManager Turn
+    {
+        get { return _turn; }
+    }
 
-    [SerializeField] private List<Player> GoodPlayers; // lIst of all good players
-    [SerializeField] private List<Player> EvilPlayers; // list of all Evil players
-    [SerializeField] private Player _currentPlayer; // current player
+    private Player _currentPlayer; // current player
     public Player CurrentPlayer
     {
         get { return _currentPlayer; }
@@ -46,16 +56,11 @@ public class GameManager : MonoBehaviour
             if (value != _turnStarted)
             {
                 //TEsing ***************************** Change later
-                RollButton.enabled = !value;
+                _RollButton.enabled = !value;
                 _turnStarted = value;
             }
         }
     }
-
-    [SerializeField] private SideType WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
-
-    [SerializeField] private Button RollButton;
-    [SerializeField] private Text _CurrentSideText;
 
 	private void Awake()
     {
@@ -89,18 +94,21 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        WinningSide = SideType.None;
+        _WinningSide = SideType.None;
         TurnStarted = false;
         _turn = this.GetComponent<TurnManager>();
         _Attack = GetComponent<Attack>();
         CanSelectePiece = true;
-        RollButton.gameObject.SetActive(false);
+        _RollButton.gameObject.SetActive(false);
     }
 
     private IEnumerator StartGame()
     {
-        SetupPiecesForNewGame(); // call setup
-        while (WinningSide == SideType.None) // loop till a side has no pieces left
+        if (_DoStartNewGame) // new game
+            yield return SetupPiecesForNewGame();
+        else // loaded game
+            yield return SetupPiecesForContinuedGame();
+        while (_WinningSide == SideType.None) // loop till a side has no pieces left
         {
             if (CurrentSide == SideType.Good) // good turn
                 yield return GoodPlayersTurn();
@@ -109,9 +117,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SetupPiecesForNewGame()
+    /// <summary>
+    /// Start a new game.
+    /// </summary>
+    private IEnumerator SetupPiecesForNewGame()
     {
-        foreach (Player play in GoodPlayers)
+        _GoodPlayers = new List<Player>();
+        _EvilPlayers = new List<Player>();
+
+        List<CharacterPiece> goodPieces = new List<CharacterPiece>();
+        List<CharacterPiece> evilPieces = new List<CharacterPiece>();
+
+        //Create same and dean
+        CharacterStat stat = Resources.Load("Characters/Sam", typeof(CharacterStat)) as CharacterStat;
+        Debug.Log(stat);
+        CharacterPiece sam = CharacterPiece.MakePiece("Sam", stat);
+        goodPieces.Add(sam);
+
+        //create evil pieces
+        //CharacterPiece death = new CharacterPiece(Resources.Load("Death") as CharacterStat);
+        //goodPieces.Add(death);
+
+        _GoodPlayers.Add(new Player(goodPieces, SideType.Good));
+        _EvilPlayers.Add(new Player(evilPieces, SideType.Evil));
+
+        GoodSidePlacePieces();
+        return null;
+    }
+
+    /// <summary>
+    /// Loading a game that is already in progress.
+    /// </summary>
+    private IEnumerator SetupPiecesForContinuedGame()
+    {
+        foreach (Player play in _GoodPlayers)
         {
             foreach (CharacterPiece piece in play.Pieces)
             {
@@ -120,13 +159,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        foreach (Player play in EvilPlayers)
+        foreach (Player play in _EvilPlayers)
         {
             foreach (CharacterPiece piece in play.Pieces)
             {
                 piece.Stat.SetupStats();
             }
         }
+        return null;
     }
 
     /// <summary>
@@ -171,8 +211,8 @@ public class GameManager : MonoBehaviour
             _currentPiece.DisplaySelected(false);
         }
 
-        RollButton.gameObject.SetActive(false);
-        RollButton.enabled = false;
+        _RollButton.gameObject.SetActive(false);
+        _RollButton.enabled = false;
 
         // Means the piece belongs to the current sides turn
         if (CurrentSide == piece.Stat.Side)
@@ -184,8 +224,8 @@ public class GameManager : MonoBehaviour
 
                 if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
-                    RollButton.gameObject.SetActive(true);
-                    RollButton.enabled = true;
+                    _RollButton.gameObject.SetActive(true);
+                    _RollButton.enabled = true;
                     piece.DisplaySelected(true);
                     _currentPiece = piece;
                 }
@@ -196,7 +236,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GoodPlayersTurn()
     {
-        foreach (Player play in GoodPlayers)
+        foreach (Player play in _GoodPlayers)
         {
             _currentPlayer = play;
             play.SetUpTurn();
@@ -207,7 +247,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EvilPlayersTurn()
     {;
-        foreach (Player play in EvilPlayers)
+        foreach (Player play in _EvilPlayers)
         {
             _currentPlayer = play;
             play.SetUpTurn();
@@ -220,27 +260,27 @@ public class GameManager : MonoBehaviour
     {
         int goodDead = 0;
         int evilDead = 0;
-        foreach (Player play in GoodPlayers)
+        foreach (Player play in _GoodPlayers)
         {
             if (play.TotalPieceCount == 0)
                 goodDead++;
         }
 
-        if (goodDead == GoodPlayers.Count)
+        if (goodDead == _GoodPlayers.Count)
         {
-            WinningSide = SideType.Evil;
+            _WinningSide = SideType.Evil;
             return true;
         }
 
-        foreach (Player play in EvilPlayers)
+        foreach (Player play in _EvilPlayers)
         {
             if (play.TotalPieceCount == 0)
                 evilDead++;
         }
 
-        if (evilDead == EvilPlayers.Count)
+        if (evilDead == _EvilPlayers.Count)
         {
-            WinningSide = SideType.Good;
+            _WinningSide = SideType.Good;
             return true;
         }
 
@@ -255,5 +295,20 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void GoodSidePlacePieces()
+    {
+        _Camera.GetComponent<CameraMovement>().target = _GoodHomeTile.transform;
+        _Camera.GetComponent<CameraMovement>().distance = _CameraDisForPiecePlacement;
+
+        foreach (CharacterPiece piece in _GoodPlayers[0].Pieces)
+        {
+
+        }
+    }
+
+    private void DisplayGoodSideHomeTiles()
+    {
+
+    }
 
 }

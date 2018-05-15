@@ -29,6 +29,14 @@ public class CharacterPiece : MonoBehaviour
     [SerializeField] private bool _Died;
     public bool Died { get { return _Died; } }
 
+    public static CharacterPiece MakePiece(string name, CharacterStat stat)
+    {
+        GameObject ob = new GameObject(name);
+        CharacterPiece piece = ob.AddComponent<CharacterPiece>();
+        piece.Stat = stat;
+        return piece;
+    }
+
     private void Awake()
     {
         Init();
