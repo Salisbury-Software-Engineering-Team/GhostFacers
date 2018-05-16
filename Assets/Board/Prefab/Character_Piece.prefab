@@ -257,12 +257,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterVisPlaceholder: {fileID: 1321564994486612}
   Tile: {fileID: 1117360556265574, guid: dfa6e80e73b5f434ebd013ab641ccf7a, type: 2}
-  Stat: {fileID: 11400000, guid: b42e9a1404328484e9945816a6a2f45c, type: 2}
+  Stat: {fileID: 0}
   Agent: {fileID: 0}
   CharacterModel: {fileID: 0}
   CharacterPlaceHolder: {fileID: 1495029512966896}
   canMove: 0
   doneMove: 0
+  StartingPosPlaced: 0
+  _Died: 0
 --- !u!114 &114770403284291832
 MonoBehaviour:
   m_ObjectHideFlags: 1

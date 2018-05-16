@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: Dean
   m_EditorClassIdentifier: 
   Name: Dean
-  Health: 16
-  m_Health: 16
+  Health: 2
+  m_Health: 2
   Movement: 0
   Attack: 5
   m_Attack: 5
   m_Weapons: 0
-  m_MaxHelp: 0
+  m_Help: 0
   Weapons: []
   Help: []
   ActiveEffects: []

@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
 
         while (_WinningSide == SideType.None) // loop till a side has no pieces left
         {
+            _currentPiece = null;
             if (CurrentSide == SideType.Good) // good turn
                 yield return GoodPlayersTurn();
             else // evils turn
@@ -273,6 +274,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Good players turn");
         foreach (Player play in _GoodPlayers)
         {
+            _Camera.GetComponent<CameraMovement>().target = play.Pieces[0].transform;
             _currentPlayer = play;
             play.SetUpTurn();
             yield return new WaitUntil(() => play.TotalPiecesLeftToMove == 0);
@@ -284,6 +286,7 @@ public class GameManager : MonoBehaviour
     {;
         foreach (Player play in _EvilPlayers)
         {
+            _Camera.GetComponent<CameraMovement>().target = play.Pieces[0].transform;
             _currentPlayer = play;
             play.SetUpTurn();
             yield return new WaitUntil(() => play.TotalPiecesLeftToMove == 0);
