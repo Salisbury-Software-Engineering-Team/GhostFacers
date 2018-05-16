@@ -91,6 +91,7 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator EndTurnPhase()
     {
+        GameManager.instance.CurrentPiece = null;
         _HelpText.text = "Select Piece to Move";
         _turnPhase = Phase.EndTurn;
         GameManager.instance.TurnStarted = false;

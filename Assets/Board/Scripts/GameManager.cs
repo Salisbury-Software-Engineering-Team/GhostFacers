@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private SideType _WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
     private float _CameraDisForPiecePlacement = 200.0f;
 
-    private CharacterPiece _currentPiece;
+    [SerializeField] private CharacterPiece _currentPiece;
     public CharacterPiece CurrentPiece
     {
         get { return _currentPiece; }
@@ -64,6 +64,10 @@ public class GameManager : MonoBehaviour
                 //TEsing ***************************** Change later
                 _RollButton.enabled = !value;
                 _turnStarted = value;
+                if (!value)
+                {
+                   MoveCameraToNextPiece();
+                }
             }
         }
     }
@@ -73,7 +77,6 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
     {
-        Init();
         if (instance == null)
         {
             instance = this;
@@ -82,7 +85,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        Init();
         DontDestroyOnLoad(gameObject);
         _currentPiece = CurrentPiece;
     }
@@ -114,6 +117,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartGame()
     {
+        yield return new WaitForSeconds(1);
         if (_DoStartNewGame) // new game
             yield return SetupPiecesForNewGame();
         else // loaded game
@@ -224,7 +228,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        SetCurrentPiece(piece); // select piece
+        if (piece)
+            SetCurrentPiece(piece); // select piece
+        else
+            _currentPiece = null;
 
     }
 
@@ -244,21 +251,16 @@ public class GameManager : MonoBehaviour
 
         _RollButton.gameObject.SetActive(false);
         _RollButton.enabled = false;
-
-        Debug.Log("Selecting pIece");
         // Means the piece belongs to the current sides turn
         if (CurrentSide == piece.Stat.Side)
         {
-            Debug.Log("Piece is same side");
             // Piece belongs to Current Player
             if (CurrentPlayer != null && CurrentPlayer.Pieces != null && CurrentPlayer.Pieces.Contains(piece))
             {
-                Debug.Log("Piece is for current player");
                 // TODO: Display Current Players piece info **********************
 
                 if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
-                    Debug.Log("Piece can move");
                     _RollButton.gameObject.SetActive(true);
                     _RollButton.enabled = true;
                     piece.DisplaySelected(true);
@@ -376,6 +378,19 @@ public class GameManager : MonoBehaviour
         }
         // hide evil starting highlights
         DisplayStartingZone.Invoke(StartingZone.Evil, false);
+    }
+
+    private void MoveCameraToNextPiece()
+    {
+        foreach (CharacterPiece piece in _currentPlayer.Pieces)
+        {
+            if(piece.canMove)
+            {
+                Debug.Log(piece);
+                _Camera.GetComponent<CameraMovement>().target = piece.transform;
+                break;
+            }
+        }
     }
 
 }
