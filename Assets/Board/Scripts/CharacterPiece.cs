@@ -13,29 +13,24 @@ public class CharacterPiece : MonoBehaviour
 
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
-    private Tile _currentTile; // current tile piece is at
+    private Tile _currentTile = null; // current tile piece is at
     public Tile CurrentTile
     {
         get { return _currentTile; }
     }
+    public CharacterStat Stat; // stats for the piece 
 
-    public CharacterStat Stat; // stats for the piece
     public NavMeshAgent Agent; // For character movement
     public GameObject CharacterModel; // For character model
     public GameObject CharacterPlaceHolder; // For character model transfomation template
     public bool canMove; // piece can still roll if true
     public bool doneMove; // once character is done moving;
+    public bool StartingPosPlaced = false;
 
     [SerializeField] private bool _Died;
     public bool Died { get { return _Died; } }
 
-    public static CharacterPiece MakePiece(string name, CharacterStat stat)
-    {
-        GameObject ob = new GameObject(name);
-        CharacterPiece piece = ob.AddComponent<CharacterPiece>();
-        piece.Stat = stat;
-        return piece;
-    }
+    public event Action<CharacterPiece> DeathHandler;
 
     private void Awake()
     {
@@ -43,20 +38,25 @@ public class CharacterPiece : MonoBehaviour
         Destroy(CharacterVisPlaceholder);
         if (Stat != null) // creates character model based off of the stat model chosen
         {
-            if (CharacterModel == null)
-            {
-                GameObject thisModel = Instantiate(Stat.Model, CharacterPlaceHolder.transform.position, CharacterPlaceHolder.transform.rotation, CharacterPlaceHolder.transform) as GameObject;
-                CharacterModel = thisModel;
-            }
-            else
-            {
-                Destroy(CharacterModel);
-                CharacterModel = Instantiate(Stat.Model, CharacterPlaceHolder.transform.position, CharacterPlaceHolder.transform.rotation, CharacterPlaceHolder.transform) as GameObject;
-            }
-            //***********************TESTIng *******************************Remove Later***********************
-            for (int i = 0; i < CharacterModel.transform.childCount; i ++)
-                CharacterModel.transform.GetChild(i).GetComponent<MeshRenderer>().material.color = Stat.PieceColor;
+            ChangeCharacterModel();
         }
+    }
+
+    private void ChangeCharacterModel()
+    {
+        if (CharacterModel == null)
+        {
+            GameObject thisModel = Instantiate(Stat.Model, CharacterPlaceHolder.transform.position, CharacterPlaceHolder.transform.rotation, CharacterPlaceHolder.transform) as GameObject;
+            CharacterModel = thisModel;
+        }
+        else
+        {
+            Destroy(CharacterModel);
+            CharacterModel = Instantiate(Stat.Model, CharacterPlaceHolder.transform.position, CharacterPlaceHolder.transform.rotation, CharacterPlaceHolder.transform) as GameObject;
+        }
+        //***********************TESTIng *******************************Remove Later***********************
+        for (int i = 0; i < CharacterModel.transform.childCount; i++)
+            CharacterModel.transform.GetChild(i).GetComponent<MeshRenderer>().material.color = Stat.PieceColor;
     }
 
     /// <summary>
@@ -66,6 +66,7 @@ public class CharacterPiece : MonoBehaviour
     {
         canMove = false;
         Agent = GetComponent<NavMeshAgent>();
+        Agent.enabled = false;
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
         doneMove = false;
@@ -77,7 +78,6 @@ public class CharacterPiece : MonoBehaviour
         if (_Died)
             PieceDied();
     }
-
 
     private void OnMouseUp()
     {
@@ -244,7 +244,14 @@ public class CharacterPiece : MonoBehaviour
         //_Died = true;
 
         // TEmpory ***************
-        gameObject.transform.position = new Vector3(1000, 1000, 1000); // move piece away from board;
         gameObject.SetActive(false);
+        gameObject.transform.position = new Vector3(1000, 1000, 1000); // move piece away from board;
+        DeathHandler.Invoke(this);
+    }
+
+    public void SetupGame()
+    {
+        Agent.enabled = true;
+        Stat.SetupStats();
     }
 }

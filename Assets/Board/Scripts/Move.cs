@@ -17,17 +17,34 @@ public class Move : MonoBehaviour
     /// <param name="tile">Destination tile selected</param>
     public void MovePiece(GameObject tile)
     {
-        // if button is not blocked by player
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (GameManager.instance.TurnStarted) // only do if turn has started
         {
-            Piece = GameManager.instance.Turn.Piece;
-            GameManager.instance.Turn.Moving();
-            //TODO: Animate**********
-            GameManager.instance.CurrentPiece = Piece;
-            Piece.Agent.SetDestination(tile.transform.position);
-            Piece.SetCurrentTile(tile);
-            Piece.StartCoroutine(WaitForAgent());
+            // if button is not blocked by player
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Piece = GameManager.instance.Turn.Piece;
+                GameManager.instance.Turn.Moving();
+                //TODO: Animate**********
+                GameManager.instance.CurrentPiece = Piece;
+                Piece.Agent.SetDestination(tile.transform.position);
+                Piece.SetCurrentTile(tile);
+                Piece.StartCoroutine(WaitForAgent());
+            }
+
         }
+        else 
+        {
+            // use this for the start of the game to move the each piece to starting location
+            MoveToStart(tile);
+        }
+    }
+
+    private void MoveToStart(GameObject tile)
+    {
+        Piece = GameManager.instance.CurrentPiece;
+        Piece.transform.position = tile.transform.position;
+        Piece.SetCurrentTile(tile);
+        tile.GetComponent<Tile>().HighlightTile(false);
     }
 
     /// <summary>

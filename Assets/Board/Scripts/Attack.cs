@@ -156,6 +156,7 @@ public class Attack : MonoBehaviour
     private void EndAttack()
     {
         GameManager.instance.CanSelectePiece = true;
+        GameManager.instance.CurrentPiece = _PieceAttacking;
         BtnAttackUI.SetActive(false); // turn off attack button 
         AttackDiceUI.SetActive(false); // turn off dice
         AttackablePieces.Clear();

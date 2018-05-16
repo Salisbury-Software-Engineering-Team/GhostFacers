@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,15 +11,20 @@ public class GameManager : MonoBehaviour
     public bool CanSelectePiece; // Determine if piece can be selected
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
+    public event Action<StartingZone, bool> DisplayStartingZone;
+    public Transform CharacterPiecePrefab;
 
     [SerializeField] private List<Player> _GoodPlayers; // lIst of all good players
     [SerializeField] private List<Player> _EvilPlayers; // list of all Evil players
     [SerializeField] private Button _RollButton;
     [SerializeField] private Text _CurrentSideText; // displays which sides turn it is
+    [SerializeField] private Text _HelpText;
     [SerializeField] private bool _DoStartNewGame = false;
     [SerializeField] private Tile _GoodHomeTile; // middle tile for good side
     [SerializeField] private Tile _EvilHomeTile; // middle tile for evil side
     [SerializeField] private GameObject _Camera;
+    [SerializeField] private GameObject _PlayableGoodPiecesContainer;
+    [SerializeField] private GameObject _PlayableEvilPiecesContainer;
     private Attack _Attack; // Attack script
     private SideType _WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
     private float _CameraDisForPiecePlacement = 200.0f;
@@ -62,6 +68,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool _gameStarted;
+    public bool GameStarted { get { return _gameStarted; } }
+
 	private void Awake()
     {
         Init();
@@ -87,18 +96,19 @@ public class GameManager : MonoBehaviour
     {
         if (_CurrentSideText)
             _CurrentSideText.text = "Turn: " + CurrentSide;
-        if (CheckForWinner())
+        if (GameStarted && CheckForWinner())
             WinnerFound();
 
     }
 
     private void Init()
     {
+        _gameStarted = false;
         _WinningSide = SideType.None;
         TurnStarted = false;
         _turn = this.GetComponent<TurnManager>();
         _Attack = GetComponent<Attack>();
-        CanSelectePiece = true;
+        CanSelectePiece = false;
         _RollButton.gameObject.SetActive(false);
     }
 
@@ -108,6 +118,18 @@ public class GameManager : MonoBehaviour
             yield return SetupPiecesForNewGame();
         else // loaded game
             yield return SetupPiecesForContinuedGame();
+        Debug.Log("Done Setingup the Game");
+        _currentPiece = null;
+        _gameStarted = true;
+        CanSelectePiece = true;
+
+        // move camera to current sides pieces
+        if (CurrentSide == SideType.Good)
+            _Camera.GetComponent<CameraMovement>().target = _GoodHomeTile.transform;
+        else
+            _Camera.GetComponent<CameraMovement>().target = _GoodHomeTile.transform;
+
+
         while (_WinningSide == SideType.None) // loop till a side has no pieces left
         {
             if (CurrentSide == SideType.Good) // good turn
@@ -115,6 +137,7 @@ public class GameManager : MonoBehaviour
             else // evils turn
                 yield return EvilPlayersTurn();
         }
+        Debug.Log("Done Game" + _WinningSide);
     }
 
     /// <summary>
@@ -122,27 +145,34 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator SetupPiecesForNewGame()
     {
-        _GoodPlayers = new List<Player>();
-        _EvilPlayers = new List<Player>();
+        _GoodPlayers.Clear();
+        _EvilPlayers.Clear();
 
         List<CharacterPiece> goodPieces = new List<CharacterPiece>();
         List<CharacterPiece> evilPieces = new List<CharacterPiece>();
 
-        //Create same and dean
-        CharacterStat stat = Resources.Load("Characters/Sam", typeof(CharacterStat)) as CharacterStat;
-        Debug.Log(stat);
-        CharacterPiece sam = CharacterPiece.MakePiece("Sam", stat);
-        goodPieces.Add(sam);
+        // get all te good starting pieces
+        foreach (CharacterPiece piece in _PlayableGoodPiecesContainer.transform.Find("Starting Pieces").GetComponentsInChildren<CharacterPiece>())
+        {
+            goodPieces.Add(piece);
+        }
 
-        //create evil pieces
-        //CharacterPiece death = new CharacterPiece(Resources.Load("Death") as CharacterStat);
-        //goodPieces.Add(death);
+        // get all the evil starting pieces
+        foreach (CharacterPiece piece in _PlayableEvilPiecesContainer.transform.Find("Starting Pieces").GetComponentsInChildren<CharacterPiece>())
+        {
+            evilPieces.Add(piece);
+        }
 
         _GoodPlayers.Add(new Player(goodPieces, SideType.Good));
         _EvilPlayers.Add(new Player(evilPieces, SideType.Evil));
 
-        GoodSidePlacePieces();
-        return null;
+        yield return GoodSidePlacePieces();
+        Debug.Log("Done placing Good");
+        yield return EvilSidePlacePieces();
+        Debug.Log("Done placing Evil");
+
+        // good goes first
+        CurrentSide = SideType.Good;
     }
 
     /// <summary>
@@ -214,16 +244,20 @@ public class GameManager : MonoBehaviour
         _RollButton.gameObject.SetActive(false);
         _RollButton.enabled = false;
 
+        Debug.Log("Selecting pIece");
         // Means the piece belongs to the current sides turn
         if (CurrentSide == piece.Stat.Side)
         {
+            Debug.Log("Piece is same side");
             // Piece belongs to Current Player
             if (CurrentPlayer != null && CurrentPlayer.Pieces != null && CurrentPlayer.Pieces.Contains(piece))
             {
+                Debug.Log("Piece is for current player");
                 // TODO: Display Current Players piece info **********************
 
                 if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
+                    Debug.Log("Piece can move");
                     _RollButton.gameObject.SetActive(true);
                     _RollButton.enabled = true;
                     piece.DisplaySelected(true);
@@ -236,6 +270,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GoodPlayersTurn()
     {
+        Debug.Log("Good players turn");
         foreach (Player play in _GoodPlayers)
         {
             _currentPlayer = play;
@@ -292,23 +327,52 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void WinnerFound()
     {
+        _HelpText.text = "Winner Found = " + ((_WinningSide == SideType.Good) ? "Good" : "Evil");
+        _CurrentSideText.text = "Winner Found = " + ((_WinningSide == SideType.Good) ? "Good" : "Evil");
+        _CurrentSideText.fontSize = 40;
 
     }
 
-    private void GoodSidePlacePieces()
+    private IEnumerator GoodSidePlacePieces()
     {
+        CurrentSide = SideType.Good;
+        // Camera show the good side starting location
         _Camera.GetComponent<CameraMovement>().target = _GoodHomeTile.transform;
         _Camera.GetComponent<CameraMovement>().distance = _CameraDisForPiecePlacement;
 
+        // highlight the good side starting location.
+        DisplayStartingZone.Invoke(StartingZone.Good, true);
+        // Player must place each of there pieces in the starting location
         foreach (CharacterPiece piece in _GoodPlayers[0].Pieces)
         {
-
+            _HelpText.text = "Select Starting Location For " + piece.Stat.Name;
+            _currentPiece = piece;
+            yield return new WaitUntil(() => piece.CurrentTile != null);
+            piece.SetupGame();
         }
+        //hide good starting highlights
+        DisplayStartingZone.Invoke(StartingZone.Good, false);
     }
 
-    private void DisplayGoodSideHomeTiles()
+    private IEnumerator EvilSidePlacePieces()
     {
+        CurrentSide = SideType.Evil; // it is now evils turn
+        // Camera show the good side starting location
+        _Camera.GetComponent<CameraMovement>().target = _EvilHomeTile.transform;
+        _Camera.GetComponent<CameraMovement>().distance = _CameraDisForPiecePlacement;
 
+        // highlight the good side starting location.
+        DisplayStartingZone.Invoke(StartingZone.Evil, true);
+        // Player must place each of there pieces in the starting location
+        foreach (CharacterPiece piece in _EvilPlayers[0].Pieces)
+        {
+            _HelpText.text = "Select Starting Location For " + piece.Stat.Name;
+            _currentPiece = piece;
+            yield return new WaitUntil(() => piece.CurrentTile != null);
+            piece.SetupGame();
+        }
+        // hide evil starting highlights
+        DisplayStartingZone.Invoke(StartingZone.Evil, false);
     }
 
 }

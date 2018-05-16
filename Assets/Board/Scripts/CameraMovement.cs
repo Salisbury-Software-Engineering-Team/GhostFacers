@@ -46,9 +46,9 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (GameManager.instance.CurrentPiece)
+        if (GameManager.instance.CurrentPiece && GameManager.instance.GameStarted)
             target = GameManager.instance.CurrentPiece.transform;
-        if (target)
+        if (target && target.gameObject.activeInHierarchy)
         {
             if (Input.GetMouseButton(0))
             {

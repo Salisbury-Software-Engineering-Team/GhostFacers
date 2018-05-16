@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public enum SideType
     Evil,
 }
 
+[Serializable]
 public class Player
 {
     public List<CharacterPiece> Pieces;
@@ -27,20 +29,15 @@ public class Player
     {
         Pieces = p;
         Side = s;
+        TotalPieceCount = Pieces.Count;
+        DeadPieces = new List<CharacterPiece>();
+        foreach (CharacterPiece piece in Pieces)
+        {
+            piece.DeathHandler += (pi) => PieceDied(pi);
+        }
     }
 
     public Player(SideType s) : this(new List<CharacterPiece>(), s) { }
-
-    private void Start()
-    {
-        TotalPieceCount = Pieces.Count;
-        DeadPieces = new List<CharacterPiece>();
-    }
-
-    private void OnValidate()
-    {
-        //TotalPieceCount = Pieces.Count;
-    }
 
     public void SetUpTurn()
     {
@@ -48,29 +45,20 @@ public class Player
         foreach (CharacterPiece piece in Pieces)
         {
             if (piece)
+            {
                 piece.SetupTurn();
+            }
         }
     }
 
-    private void Update()
+    private void PieceDied(CharacterPiece piece)
     {
-        // ************* TESTING ************************************
-        // Check to see if any piece died and remove it from active pieces. Also
-        // adds the piece to deadPiece list for future use if needed.
         CharacterPiece p = null;
-        foreach (CharacterPiece piece in Pieces)
-        {
-            if (piece.Died)
-            {
-                p = piece;
-                Debug.Log("Play found Piece Died " + piece);
-                DeadPieces.Add(piece);
-                TotalPieceCount--;
-                break;
-            }
-        }
-        if (p)
-            Pieces.Remove(p);
+        p = piece;
+        Debug.Log("Play found Piece Died " + piece);
+        DeadPieces.Add(piece);
+        TotalPieceCount--;
+        Pieces.Remove(p);
     }
 
 }
