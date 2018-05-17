@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Player> _GoodPlayers; // lIst of all good players
     [SerializeField] private List<Player> _EvilPlayers; // list of all Evil players
     [SerializeField] private Button _RollButton;
+    [SerializeField] private Button _DontRollButton;
     [SerializeField] private Text _CurrentSideText; // displays which sides turn it is
     [SerializeField] private Text _HelpText;
     [SerializeField] private bool _DoStartNewGame = false;
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
             {
                 //TEsing ***************************** Change later
                 _RollButton.enabled = !value;
+                _DontRollButton.enabled = !value;
                 _turnStarted = value;
                 if (!value)
                 {
@@ -113,11 +115,12 @@ public class GameManager : MonoBehaviour
         _Attack = GetComponent<Attack>();
         CanSelectePiece = false;
         _RollButton.gameObject.SetActive(false);
+        _DontRollButton.gameObject.SetActive(false);
     }
 
     private IEnumerator StartGame()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1); // wait till everything is done loading
         if (_DoStartNewGame) // new game
             yield return SetupPiecesForNewGame();
         else // loaded game
@@ -133,6 +136,7 @@ public class GameManager : MonoBehaviour
         else
             _Camera.GetComponent<CameraMovement>().target = _GoodHomeTile.transform;
 
+        _HelpText.text = "Select Piece to Move";
 
         while (_WinningSide == SideType.None) // loop till a side has no pieces left
         {
@@ -248,7 +252,8 @@ public class GameManager : MonoBehaviour
         {
             _currentPiece.DisplaySelected(false);
         }
-
+        _DontRollButton.gameObject.SetActive(false);
+        _DontRollButton.enabled = false;
         _RollButton.gameObject.SetActive(false);
         _RollButton.enabled = false;
         // Means the piece belongs to the current sides turn
@@ -263,6 +268,8 @@ public class GameManager : MonoBehaviour
                 {
                     _RollButton.gameObject.SetActive(true);
                     _RollButton.enabled = true;
+                    _DontRollButton.gameObject.SetActive(true);
+                    _DontRollButton.enabled = true;
                     piece.DisplaySelected(true);
                     _currentPiece = piece;
                 }

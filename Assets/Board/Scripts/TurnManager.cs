@@ -66,12 +66,21 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator MovementPhase(int move)
     {
-        _HelpText.text = "Move Piece";
-        _piece.canMove = false;
-        _turnPhase = Phase.Movement;
-        _BtnDontMove.SetActive(true);
-        _piece.DisplayAvaliableMovement(move); // display movement 
-        yield return new WaitUntil(() => _piece.doneMove == true);
+        // Movement turn skiped
+        if (move == -1)
+        {
+            _piece.canMove = false;
+            _piece.doneMove = true;
+        }
+        else
+        {
+            _HelpText.text = "Move Piece";
+            _piece.canMove = false;
+            _turnPhase = Phase.Movement;
+            _BtnDontMove.SetActive(true);
+            _piece.DisplayAvaliableMovement(move); // display movement 
+            yield return new WaitUntil(() => _piece.doneMove == true);
+        }
     }
 
     IEnumerator DrawPhase()

@@ -37,5 +37,11 @@ public class Roll : MonoBehaviour
             GameManager.instance.Turn.BeginTurn(Movement);
         }
     }
+
+    public void DontRoll()
+    {
+        if (GameManager.instance.CurrentPiece != null && GameManager.instance.CurrentPiece.canMove)
+            GameManager.instance.Turn.BeginTurn(-1);
+    }
 	
 }
