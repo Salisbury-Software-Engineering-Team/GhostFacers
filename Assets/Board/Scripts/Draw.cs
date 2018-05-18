@@ -19,7 +19,7 @@ public class Draw : MonoBehaviour
     public void DrawCard(CharacterPiece piece)
     {
         _Piece = piece;
-        _CardType = _Piece.CurrentTile.Type.Type;
+        //_CardType = _Piece.CurrentTile.Type.Type;
         DetermineDeck();
     }
 

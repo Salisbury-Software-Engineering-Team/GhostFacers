@@ -18,8 +18,8 @@ public class Tile : MonoBehaviour
 
     [SerializeField] private List<GameObject> AdjTiles; // array of adj tiles 
     [SerializeField] private GameObject Highlight; // hightlight sprite
-    [SerializeField] private TileType _type; // type of tile
-    public TileType Type { get { return _type; } }
+    [SerializeField] public TileType Type; // type of tile
+    //public TileType Type { get { return _type; } }
     [SerializeField] private StartingZone Zone;
     private Vector3 CurrentPosition; // current position of the tile
     private Vector3 size; // size of tile
@@ -188,18 +188,21 @@ public class Tile : MonoBehaviour
     {
         Image image = transform.Find(strButtonName).GetComponent<Image>();
         // if type has image
-        if (_type.TileImage == null)
+        if (Type)
         {
-            image.enabled = false;
-        }
-        else
-        {
-            image.enabled = true;
-            image.sprite = _type.TileImage;
-        }
+            if (Type.TileImage == null)
+            {
+                image.enabled = false;
+            }
+            else
+            {
+                image.enabled = true;
+                image.sprite = Type.TileImage;
+            }
 
-        // Set color
-        image.color = _type.ButtonColor;
+            // Set color
+            image.color = Type.ButtonColor;
+        }
     }
 
     /*
