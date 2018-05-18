@@ -8,7 +8,7 @@ public enum TileTypes
     Daemon,
     Angel,
     SpecialWeapon,
-    Green,
+    Monster,
     Portal,
 }
 
