@@ -173,6 +173,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -188,6 +189,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -255,12 +257,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterVisPlaceholder: {fileID: 1321564994486612}
   Tile: {fileID: 1117360556265574, guid: dfa6e80e73b5f434ebd013ab641ccf7a, type: 2}
-  Stat: {fileID: 11400000, guid: b42e9a1404328484e9945816a6a2f45c, type: 2}
+  Stat: {fileID: 0}
   Agent: {fileID: 0}
   CharacterModel: {fileID: 0}
   CharacterPlaceHolder: {fileID: 1495029512966896}
   canMove: 0
   doneMove: 0
+  StartingPosPlaced: 0
+  _Died: 0
 --- !u!114 &114770403284291832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,7 +308,7 @@ NavMeshAgent:
   m_Acceleration: 10000
   avoidancePriority: 50
   m_AngularSpeed: 10000
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

@@ -4,15 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+public enum StartingZone
+{
+    None = 0,
+    Good = 1,
+    Evil = 2,
+}
+
 public class Tile : MonoBehaviour
 {
     public Button Button; 
+    public GameObject Portal; // link to portal
 
     [SerializeField] private List<GameObject> AdjTiles; // array of adj tiles 
     [SerializeField] private GameObject Highlight; // hightlight sprite
-    [SerializeField] private TileType Type; // type of tile
-    [SerializeField] public GameObject Portal; // link to portal
-
+    [SerializeField] public TileType Type; // type of tile
+    //public TileType Type { get { return _type; } }
+    [SerializeField] private StartingZone Zone;
     private Vector3 CurrentPosition; // current position of the tile
     private Vector3 size; // size of tile
 
@@ -35,6 +43,8 @@ public class Tile : MonoBehaviour
         {
             AdjTiles.Add(Portal);
         }
+        if (Zone != StartingZone.None)
+            GameManager.instance.DisplayStartingZone += (Zone, doHighlight) => DisplayStartingZone(Zone, doHighlight); // displays tarting zone when called
     }
 
     /*
@@ -178,18 +188,21 @@ public class Tile : MonoBehaviour
     {
         Image image = transform.Find(strButtonName).GetComponent<Image>();
         // if type has image
-        if (Type.TileImage == null)
+        if (Type)
         {
-            image.enabled = false;
-        }
-        else
-        {
-            image.enabled = true;
-            image.sprite = Type.TileImage;
-        }
+            if (Type.TileImage == null)
+            {
+                image.enabled = false;
+            }
+            else
+            {
+                image.enabled = true;
+                image.sprite = Type.TileImage;
+            }
 
-        // Set color
-        image.color = Type.ButtonColor;
+            // Set color
+            image.color = Type.ButtonColor;
+        }
     }
 
     /*
@@ -202,4 +215,12 @@ public class Tile : MonoBehaviour
     }
 
     public List<GameObject> GetAdjTiles() { return AdjTiles; }
+
+    public void DisplayStartingZone(StartingZone z, bool doHighlight)
+    {
+        if (Zone == z)
+        {
+            HighlightTile(doHighlight);
+        }
+    }
 }

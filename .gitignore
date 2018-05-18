@@ -79,3 +79,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.vs/GhostFacers/v15/Server/sqlite3/storage.ide
