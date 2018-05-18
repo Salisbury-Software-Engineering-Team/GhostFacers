@@ -2,17 +2,7 @@
 using System;
 using UnityEngine;
 
-//make an enum variable for when card effect can be played (can also be summonable) (look in turnManager file for phases)
-
-public enum CardType
-{
-    None,
-    Help,
-    Weapon,
-    Angel,
-    Demon,
-    Monster,
-}
+//make an enum variable for when card effect can be played (can also be summonable) (look in turnManager file for phases
 
 //[Serializable]
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards")]

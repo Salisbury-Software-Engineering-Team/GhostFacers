@@ -254,4 +254,11 @@ public class CharacterPiece : MonoBehaviour
         Agent.enabled = true;
         Stat.SetupStats();
     }
+
+    public Card AddCard(Card card)
+    {
+        //TODO: FINSIH ********************************************
+        //check if hand is full, if not add card else ask if user wants to remove card.
+        return null;
+    }
 }

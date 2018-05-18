@@ -2,17 +2,6 @@
 using System;
 using UnityEngine;
 
-public enum PieceType
-{
-    None,
-    Human,
-    Ghost,
-    Death,
-    Angel,
-    ArchAngel,
-    Monster,
-}
-
 [CreateAssetMenu]
 public class CharacterStat : ScriptableObject
 {
@@ -34,17 +23,19 @@ public class CharacterStat : ScriptableObject
     [SerializeField] private int m_Help;
     public int MaxHelp {  get { return m_Help; } }
 
-    [SerializeField] private List<Card> Weapons;
-    [SerializeField] private List<Card> Help;
-    [SerializeField] private List<Effect> ActiveEffects;
+    [SerializeField] public List<Card> Weapons;
+    [SerializeField] public List<Card> Help;
+    [SerializeField] public List<Effect> ActiveEffects;
 
     public List<PieceType> AttackablePieces; // list of all attackable piece this piece can attack.
+    public List<CardType> DrawTypes; // list of all drawable card types
 
     public SideType Side;
     public PieceType Type;
 
     public GameObject Model;
     public Color PieceColor;
+
 
     public void SetupStats()
     {

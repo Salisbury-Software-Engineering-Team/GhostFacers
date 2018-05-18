@@ -3,13 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SideType
-{
-    None,
-    Good,
-    Evil,
-}
-
 [Serializable]
 public class Player
 {

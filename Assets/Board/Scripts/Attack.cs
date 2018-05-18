@@ -10,7 +10,7 @@ public class Attack : MonoBehaviour
     {
         Empty = 0,
         Miss_1 = 1,
-        Miss_2= 2,
+        Miss_2 = 2,
         Hit_1 = 3,
         Hit_2 = 4,
         Human = 5,

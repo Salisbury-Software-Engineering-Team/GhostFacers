@@ -3,19 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Different type of Phases a Turn can be in
-/// </summary>
-public enum Phase
-{
-    None,
-    Movement,
-    Draw,
-    Attack,
-    Defend,
-    EndTurn,
-}
-
 public class TurnManager : MonoBehaviour
 {
     //Character piece
@@ -35,10 +22,12 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private GameObject _BtnDontMove;
     [SerializeField] private Text _HelpText;
     private Attack _Attack;
+    private Deck _Deck;
 
     private void Awake()
     {
         _Attack = GetComponent<Attack>();
+        _Deck = GetComponent<Deck>();
         _BtnDontMove.SetActive(false);
         _HelpText.text = "Select Piece to Move";
     }
@@ -87,6 +76,7 @@ public class TurnManager : MonoBehaviour
     {
         _HelpText.text = "Draw a Card";
         _turnPhase = Phase.Draw;
+        _Deck.DrawCard(_piece);
         return null;
     }
 
