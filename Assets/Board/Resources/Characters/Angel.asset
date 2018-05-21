@@ -12,17 +12,22 @@ MonoBehaviour:
   m_Name: Angel
   m_EditorClassIdentifier: 
   Name: Angel
-  Health: 10
-  m_Health: 10
   Movement: 0
+  Health: 10
   Attack: 3
+  m_Health: 10
   m_Attack: 3
   m_Weapons: 0
-  m_MaxHelp: 0
-  Weapons: []
-  Help: []
+  m_Help: 0
+  _weaponHand:
+  - {fileID: 11400000, guid: 05a3199b88da08744bb050daa22541b6, type: 2}
+  - {fileID: 11400000, guid: ef6e850e60d0be04683f8e1f6ff23eab, type: 2}
+  _helpHand:
+  - {fileID: 11400000, guid: 87693f3932bf4c146b2e0891ff8812f5, type: 2}
+  - {fileID: 11400000, guid: 62a8402551224864ba3c64f197d224a8, type: 2}
   ActiveEffects: []
   AttackablePieces: 0300000006000000000000000000000000000000
+  DrawTypes: 
   Side: 1
   Type: 4
   Model: {fileID: 100000, guid: 967b64196f51d274999fbfbef6566720, type: 3}

@@ -13,15 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Fate's Dagger
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: 4b5488a77c20c1e41910b0be64f2c898, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: If your attack roll is 3, automatic kill for anything the cult can
     kill
-  Deck: 2
-  Type: {fileID: 11400000, guid: 821357684c8f3b540a5055a27f1be98c, type: 2}
+  Deck: 200
+  Stat: {fileID: 0}
   _EffectPhase: 3

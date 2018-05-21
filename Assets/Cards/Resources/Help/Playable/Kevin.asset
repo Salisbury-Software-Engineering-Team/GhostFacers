@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Kevin
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: ee092ca6c4242604d9a1af31918a0e6a, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Exchange for 2 more help cards
-  Deck: 1
-  Type: {fileID: 11400000, guid: 92dfc6b3958e1d24ebcf9fb28710565f, type: 2}
+  Deck: 100
+  Stat: {fileID: 0}
   _EffectPhase: 1

@@ -14,4 +14,4 @@ MonoBehaviour:
   TileName: Daemon
   TileImage: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   ButtonColor: {r: 0.6764706, g: 0.37789047, b: 0, a: 1}
-  Type: 3
+  Type: 400

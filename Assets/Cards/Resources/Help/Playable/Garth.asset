@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Garth
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: 5a9beac7cc770e345b859469906c3daa, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Add 7 to movement roll
-  Deck: 1
-  Type: {fileID: 11400000, guid: 92dfc6b3958e1d24ebcf9fb28710565f, type: 2}
+  Deck: 100
+  Stat: {fileID: 0}
   _EffectPhase: 1

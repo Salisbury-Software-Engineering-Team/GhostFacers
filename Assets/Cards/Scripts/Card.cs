@@ -2,17 +2,7 @@
 using System;
 using UnityEngine;
 
-//make an enum variable for when card effect can be played (can also be summonable) (look in turnManager file for phases)
-
-public enum CardType
-{
-    None,
-    Help,
-    Weapon,
-    Angel,
-    Demon,
-    Monster,
-}
+//make an enum variable for when card effect can be played (can also be summonable) (look in turnManager file for phases
 
 //[Serializable]
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards")]
@@ -40,8 +30,6 @@ public class Card : ScriptableObject
     //non-humans can hold up to 2 cards by default
 
     [SerializeField] public CardType Deck;
-
-    public TileType Type;
     public CharacterStat Stat;
 
     //What phase the card effect can be used in (None for non effect cards)

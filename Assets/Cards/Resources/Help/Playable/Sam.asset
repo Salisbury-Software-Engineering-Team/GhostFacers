@@ -13,13 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 1
   Name: Sam
-  Health: 14
-  Attack: 2
-  Help: 3
-  Weapon: 1
-  Inventory: 4
   artwork: {fileID: 21300000, guid: 615890887d6550d49b4ea38e118ce419, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: 
-  Deck: 1
+  Deck: 100
+  Stat: {fileID: 0}
   _EffectPhase: 0

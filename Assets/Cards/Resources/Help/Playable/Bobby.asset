@@ -16,7 +16,6 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: 566ae6f8abba7bd498be2dce1aa07606, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: 
-  Deck: 1
-  Type: {fileID: 11400000, guid: 92dfc6b3958e1d24ebcf9fb28710565f, type: 2}
+  Deck: 100
   Stat: {fileID: 11400000, guid: eeea81c63efbf6a42986675c16afac69, type: 2}
   _EffectPhase: 0

@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 1
   Name: John
-  Health: 8
-  Attack: 2
-  Help: 2
-  Weapon: 1
-  Inventory: 0
   artwork: {fileID: 21300000, guid: 61fa1ded1210a5a41863cd3eb63e9848, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: 
-  Deck: 1
-  Type: {fileID: 11400000, guid: 92dfc6b3958e1d24ebcf9fb28710565f, type: 2}
+  Deck: 100
+  Stat: {fileID: 0}
   _EffectPhase: 0

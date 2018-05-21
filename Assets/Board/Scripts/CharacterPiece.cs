@@ -13,7 +13,7 @@ public class CharacterPiece : MonoBehaviour
 
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
-    private Tile _currentTile = null; // current tile piece is at
+    [SerializeField] private Tile _currentTile = null; // current tile piece is at
     public Tile CurrentTile
     {
         get { return _currentTile; }
@@ -253,5 +253,51 @@ public class CharacterPiece : MonoBehaviour
     {
         Agent.enabled = true;
         Stat.SetupStats();
+    }
+
+    public Card AddCard(Card card)
+    {
+        //check if hand is full, if not add card else ask if user wants to remove card.
+
+        //Get the right hand
+        //string cardHandName = Enum.GetName(typeof(CardType), card.Deck) + "Hand";
+        //List<Card> cardHand = (List<Card>)Stat.GetType().GetProperty(cardHandName).GetValue(Stat, null);
+
+        // Find the right hand to add the card.
+        switch (card.Deck)
+        {
+            case (CardType.Weapon):
+                {
+                    // hand full
+                    if (Stat.WeaponHand.Count == Stat.MaxWeapons)
+                    {
+                        //ChangeCharacterModel later
+                        return card;
+                    }
+                    else
+                    {
+                        //hand not full
+                        Stat.WeaponHand.Add(card);
+                        return null;
+                    }
+                }
+            case (CardType.Help):
+                {
+                    // hand full
+                    if (Stat.HelpHand.Count == Stat.MaxHelp)
+                    {
+                        // chang later
+                        return card;
+                    }
+                    else
+                    {
+                        //hand not full
+                        Stat.HelpHand.Add(card);
+                        return null;
+                    }
+                }
+            default:
+                return null;
+        }
     }
 }

@@ -4,13 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public enum StartingZone
-{
-    None = 0,
-    Good = 1,
-    Evil = 2,
-}
-
 public class Tile : MonoBehaviour
 {
     public Button Button; 

@@ -5,7 +5,20 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour {
 
-    public Card card;
+    [SerializeField] private Card _cardName;
+    public Card CardName
+    {
+        get { return _cardName; }
+        set
+        {
+            // card is different.
+            if (value != _cardName && value != null)
+            {
+                _cardName = value;
+                UpdateDisplay();
+            }
+        }
+    }
 
     public Text nameText;
     public Text descriptionText;
@@ -17,38 +30,46 @@ public class CardDisplay : MonoBehaviour {
     public Text attackText;
 
     // Use this for initialization
-    void Start () {
-        
-        string des = "";
-        des += card.Stat.MaxHelp.ToString();
-        des += " Help ";
-        des += card.Stat.MaxWeapons.ToString();
-        des += " Weapon";
+    void Start ()
+    {
+        UpdateDisplay();
 
-        nameText.text = card.Name;
-        if (!card.Summonable || (card.Stat.MaxHelp == 0 && card.Stat.MaxWeapons == 0))
+    }
+
+    private void UpdateDisplay()
+    {
+        string des = "";
+        if (_cardName.Summonable)
         {
-            descriptionText.text = card.Description;
+            des += _cardName.Stat.MaxHelp.ToString();
+            des += " Help ";
+            des += _cardName.Stat.MaxWeapons.ToString();
+            des += " Weapon";
+        }
+
+        nameText.text = _cardName.Name;
+        if (!_cardName.Summonable || (_cardName.Stat.MaxHelp == 0 && _cardName.Stat.MaxWeapons == 0))
+        {
+            descriptionText.text = _cardName.Description;
         }
         else
         {
             descriptionText.text = des;
         }
 
-        artworkImage.sprite = card.artwork;
-        back.sprite = card.backImage;
+        artworkImage.sprite = _cardName.artwork;
+        back.sprite = _cardName.backImage;
 
-        if(card.Stat.StartHealth == 0 && card.Stat.StartAttack == 0)
+        if (!_cardName.Summonable)
         {
             healthText.text = null;
             attackText.text = null;
         }
         else
         {
-            healthText.text = card.Stat.StartHealth.ToString();
-            attackText.text = card.Stat.StartAttack.ToString();
+            healthText.text = _cardName.Stat.StartHealth.ToString();
+            attackText.text = _cardName.Stat.StartAttack.ToString();
         }
-
     }
 
     /*private void OnValidate()

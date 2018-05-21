@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Death's Scythe
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: f827b2feed3045144be75b587eaf43d4, type: 3}
   backImage: {fileID: 21300000, guid: f827b2feed3045144be75b587eaf43d4, type: 3}
   Description: Double normal damage. Can hurt any character
-  Deck: 2
-  Type: {fileID: 11400000, guid: 821357684c8f3b540a5055a27f1be98c, type: 2}
+  Deck: 200
+  Stat: {fileID: 0}
   _EffectPhase: 3
