@@ -68,7 +68,7 @@ public class HandDisplay : MonoBehaviour
         
         i = 0;
         //Display weapon ards in hand
-        while (i < currentWeapon)
+        while (i < currentHelp)
         {
             HandHelpContainer.transform.GetChild(i).gameObject.SetActive(true);
             HandHelpContainer.transform.GetChild(i).GetComponent<CardDisplay>().CardName = helpHand[i];
@@ -76,7 +76,7 @@ public class HandDisplay : MonoBehaviour
         }
 
         //Hide other weaponn cards
-        while (i < currentWeaponDisplayed)
+        while (i < currentHelpDisplayed)
         {
             HandHelpContainer.transform.GetChild(i).gameObject.SetActive(false);
             i++;
