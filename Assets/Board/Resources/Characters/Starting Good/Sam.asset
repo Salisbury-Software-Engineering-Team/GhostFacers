@@ -20,8 +20,7 @@ MonoBehaviour:
   m_Weapons: 2
   m_Help: 2
   _weaponHand: []
-  _helpHand:
-  - {fileID: 11400000, guid: fc4f3bb5f54bb9249995372ba2bf825b, type: 2}
+  _helpHand: []
   ActiveEffects: []
   AttackablePieces: 
   DrawTypes: 64000000c8000000
