@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandDisplay : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class HandDisplay : MonoBehaviour
     public GameObject HandWeaponContainer;
     public GameObject HandHelpContainer;
 
+    public GameObject WeaponText;
+    public GameObject HelpText;
+
     private void Start()
     {
         gm = GameManager.instance;
@@ -18,12 +22,15 @@ public class HandDisplay : MonoBehaviour
 
     private void Update()
     {
+        /* ****************TODO Change later
         // piece selected changed
         if (gm.CurrentPiece != _Piece)
         {
             _Piece = gm.CurrentPiece;
             UpdateDisplay();
-        }
+        }*/
+        _Piece = gm.CurrentPiece;
+        UpdateDisplay();
     }
 
     private void UpdateDisplay()
@@ -37,6 +44,8 @@ public class HandDisplay : MonoBehaviour
                 //DisplayHandForAlly();
             }
         }
+        else
+            HideAll();
     }
 
     private void DisplayHandForAlly()
@@ -50,6 +59,16 @@ public class HandDisplay : MonoBehaviour
         int currentHelpDisplayed = HandHelpContainer.transform.childCount;
 
         int i = 0;
+
+        if (currentWeapon > 0)
+            WeaponText.gameObject.SetActive(true);
+        else
+            WeaponText.gameObject.SetActive(false);
+
+        if (currentHelp > 0)
+            HelpText.gameObject.SetActive(true);
+        else
+            HelpText.gameObject.SetActive(false);
 
         //Display weapon ards in hand
         while (i < currentWeapon)
@@ -98,5 +117,7 @@ public class HandDisplay : MonoBehaviour
         {
             HandHelpContainer.transform.GetChild(i).gameObject.SetActive(false);
         }
+        WeaponText.gameObject.SetActive(false);
+        HelpText.gameObject.SetActive(false);
     }
 }

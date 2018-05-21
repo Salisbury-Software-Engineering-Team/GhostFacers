@@ -71,7 +71,7 @@ public class Deck : MonoBehaviour
             DrawPanel.SetActive(false);
             //user said yes
             if (answer == 1)
-                DetermineDeck();
+                yield return DetermineDeck();
         }
         _doneDraw = true;
     }
@@ -93,7 +93,7 @@ public class Deck : MonoBehaviour
             return _Piece.Stat.DrawTypes.Contains(type);        
     }
 
-    private void DetermineDeck()
+    private IEnumerator DetermineDeck()
     {
         switch (_CardType)
         {
@@ -101,27 +101,35 @@ public class Deck : MonoBehaviour
                 {
                     Debug.Log("Draw Help");
                     DrawHelp();
-                    return;
+                    break;
                 }
             case TileTypes.Monster:
                 {
                     Debug.Log("Draw Monster");
                     DrawMonster();
-                    return;
+                    break;
                 }
             case TileTypes.Weapon:
                 {
                     Debug.Log("Draw Weapon");
                     DrawWeapon();
-                    return;
+                    break;
                 }
             default:
                 {
                     Debug.Log("Draw None");
-                    return;
+                    break;
                 }
         }
 
+        // wait and display the drawn card
+        yield return DisplayDrawnCard();
+
+    }
+
+    private IEnumerator DisplayDrawnCard()
+    {
+        yield return new WaitForSeconds(4);
     }
 
     /// <summary>
