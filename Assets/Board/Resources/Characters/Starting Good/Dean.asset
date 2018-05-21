@@ -19,7 +19,8 @@ MonoBehaviour:
   m_Attack: 3
   m_Weapons: 3
   m_Help: 1
-  _weaponHand: []
+  _weaponHand:
+  - {fileID: 11400000, guid: b841f0dd2ad0a4346a25bd16da871142, type: 2}
   _helpHand: []
   ActiveEffects: []
   AttackablePieces: 0600000000000000000000000000000000000000
