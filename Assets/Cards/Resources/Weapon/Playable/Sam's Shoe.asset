@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Sam's Shoe
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: 452d4912b6d31124e8cce50411b9e7fc, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Add 2 to movement roll and attack
-  Deck: 2
-  Type: {fileID: 11400000, guid: 821357684c8f3b540a5055a27f1be98c, type: 2}
+  Deck: 200
+  Stat: {fileID: 0}
   _EffectPhase: 1

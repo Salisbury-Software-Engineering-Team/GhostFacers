@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Demon Blood
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: 4b87d28815d9df14db189f16fb3244ce, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Add four attack dice but take 2 damage. Can only be used by Sam
-  Deck: 2
-  Type: {fileID: 11400000, guid: 821357684c8f3b540a5055a27f1be98c, type: 2}
+  Deck: 200
+  Stat: {fileID: 0}
   _EffectPhase: 3

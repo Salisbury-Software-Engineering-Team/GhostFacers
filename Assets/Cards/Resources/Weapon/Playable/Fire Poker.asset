@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Fire Poker
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: 427dd5fc735f74a4eadc3ed2259fdc58, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Pushes a ghost back 10 tiles and add 2 attack die
-  Deck: 2
-  Type: {fileID: 11400000, guid: 821357684c8f3b540a5055a27f1be98c, type: 2}
+  Deck: 200
+  Stat: {fileID: 0}
   _EffectPhase: 3

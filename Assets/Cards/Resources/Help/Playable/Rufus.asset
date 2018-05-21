@@ -13,13 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Rufus
-  Health: 
-  Attack: 
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: 844ee4f7a407ab54bb1f868910fe2c04, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Add one to fight die. If used by Bobby, add three
-  Deck: 1
+  Deck: 100
+  Stat: {fileID: 0}
   _EffectPhase: 3

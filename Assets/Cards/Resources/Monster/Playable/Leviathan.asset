@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 1
   Name: Leviathan
-  Health: 4
-  Attack: 2
-  Help: 0
-  Weapon: 0
-  Inventory: 2
   artwork: {fileID: 21300000, guid: 602598bd796bd0e419f4e4e322b85dbe, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: 
-  Deck: 5
-  Type: {fileID: 11400000, guid: 7035a94dff1fdbd4997c02a259030116, type: 2}
+  Deck: 500
+  Stat: {fileID: 0}
   _EffectPhase: 0

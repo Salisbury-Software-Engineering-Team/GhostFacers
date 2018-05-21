@@ -13,15 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Salt Circle
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: 41f3cfb8f4cc118418ec8ac9ff8acfd3, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Place down in a tile (radius of 2). That tile cannot be touched or
     crossed by a ghost.
-  Deck: 2
-  Type: {fileID: 11400000, guid: 821357684c8f3b540a5055a27f1be98c, type: 2}
+  Deck: 200
+  Stat: {fileID: 0}
   _EffectPhase: 1

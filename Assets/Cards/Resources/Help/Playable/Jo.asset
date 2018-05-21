@@ -13,14 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: Jo
-  Health: 
-  Attack: 
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 21300000, guid: d1e062a0315693948a47c7b5789a5cc0, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Roll 3 attack dice. Heal the user by the amount of damage that would
     have been done. If used by Dean or Ellen, fully heal the user
-  Deck: 1
+  Deck: 100
+  Stat: {fileID: 0}
   _EffectPhase: 1

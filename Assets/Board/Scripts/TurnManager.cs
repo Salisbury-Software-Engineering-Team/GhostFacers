@@ -77,7 +77,7 @@ public class TurnManager : MonoBehaviour
         _HelpText.text = "Draw a Card";
         _turnPhase = Phase.Draw;
         _Deck.DrawCard(_piece);
-        return null;
+        yield return new WaitUntil(() => _Deck.DoneDraw == true);
     }
 
     IEnumerator AttackPhase()

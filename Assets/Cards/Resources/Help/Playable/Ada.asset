@@ -13,14 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   Name: 
-  Health: 0
-  Attack: 0
-  Help: 0
-  Weapon: 0
-  Inventory: 0
   artwork: {fileID: 0}
   backImage: {fileID: 0}
   Description: 
-  Deck: 0
-  Type: {fileID: 0}
+  Deck: 100
+  Stat: {fileID: 0}
   _EffectPhase: 0

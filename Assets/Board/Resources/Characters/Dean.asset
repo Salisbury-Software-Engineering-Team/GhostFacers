@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Name: Dean
   m_EditorClassIdentifier: 
   Name: Dean
-  Health: 2
-  m_Health: 2
   Movement: 0
+  Health: 2
   Attack: 5
+  m_Health: 2
   m_Attack: 5
-  m_Weapons: 0
-  m_Help: 0
-  Weapons: []
-  Help: []
+  m_Weapons: 2
+  m_Help: 2
+  _weaponHand: []
+  _helpHand:
+  - {fileID: 11400000, guid: 147acdb88607eb34f936400ff40cb350, type: 2}
   ActiveEffects: []
   AttackablePieces: 0600000000000000000000000000000000000000
+  DrawTypes: 64000000c8000000
   Side: 1
   Type: 1
   Model: {fileID: 100000, guid: 4371eecbdd03fa647b3ccb48ff45749a, type: 3}

@@ -30,8 +30,6 @@ public class Card : ScriptableObject
     //non-humans can hold up to 2 cards by default
 
     [SerializeField] public CardType Deck;
-
-    public TileType Type;
     public CharacterStat Stat;
 
     //What phase the card effect can be used in (None for non effect cards)
