@@ -43,6 +43,27 @@ public class Deck : MonoBehaviour
         RandomlyEnqueueCards(weapons, _DeckWeapon);
         RandomlyEnqueueCards(help, _DeckHelp);
         RandomlyEnqueueCards(monster, _DeckMonster);
+
+        AddDiscardHandlers();
+    }
+
+    /// <summary>
+    /// Add event handler for what happens to a discarded card
+    /// </summary>
+    private void AddDiscardHandlers()
+    {
+        foreach (Card card in _DeckMonster)
+        {
+            card.DiscardHandler += (c) => OnDiscard(c);
+        }
+        foreach (Card card in _DeckWeapon)
+        {
+            card.DiscardHandler += (c) => OnDiscard(c);
+        }
+        foreach (Card card in _DeckHelp)
+        {
+            card.DiscardHandler += (c) => OnDiscard(c);
+        }
     }
 
     /// <summary>
@@ -207,5 +228,14 @@ public class Deck : MonoBehaviour
     private void NoClicked()
     {
         answer = 0;
+    }
+
+    /// <summary>
+    /// Card that is being discarded is added back to the deck.
+    /// </summary>
+    /// <param name="c">card to be added back into the deck</param>
+    public void OnDiscard(Card c)
+    {
+        //TODO Handle how a card is discarded.
     }
 }

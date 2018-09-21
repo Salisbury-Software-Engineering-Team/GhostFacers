@@ -12,7 +12,12 @@ public abstract class Effect : ScriptableObject
     public string Name = "New Effect"; // Name of the effect
     public Phase ActivatePhase; // phase that the card can be played.
 
+    // Called when card is created
     public abstract void Initialize(GameObject obj);
+
+    // Called when the effect is triggered.
     public abstract void TriggerEffect();
 
+    // Determine if anything is applied 
+    public virtual void OnDraw() { }
 }

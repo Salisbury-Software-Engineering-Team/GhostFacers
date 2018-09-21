@@ -264,7 +264,7 @@ public class CharacterPiece : MonoBehaviour
         //List<Card> cardHand = (List<Card>)Stat.GetType().GetProperty(cardHandName).GetValue(Stat, null);
 
         // Find the right hand to add the card.
-        switch (card.Deck)
+        switch (card.DeckType)
         {
             case (CardType.Weapon):
                 {
