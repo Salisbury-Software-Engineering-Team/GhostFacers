@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Kitsune
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Kitsune
   artwork: {fileID: 21300000, guid: 7679b6e9ff0b33c48bf4a7de106c752d, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Add three attack dice to attack roll
-  Deck: 500
+  DeckType: 500
   Stat: {fileID: 0}
   _EffectPhase: 3

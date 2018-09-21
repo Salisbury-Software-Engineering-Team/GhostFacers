@@ -11,7 +11,7 @@ public class ModifyMoveEffect : Effect
     {
     }
 
-    public override void TriggerEffect()
+    public override void OnActivate()
     {
     }
 }

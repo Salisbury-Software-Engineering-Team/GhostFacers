@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// For each Deck created, Please creat a Handle"Name of the Deck"Discard() to handle what happens to that card
+/// when it is discarded.
+///     ex: HandleMonsterDiscard() {}
+/// </summary>
 public class Deck : MonoBehaviour
 {
     private CharacterPiece _Piece;
@@ -27,6 +33,9 @@ public class Deck : MonoBehaviour
         CreateDecks();
         BtnYes.onClick.AddListener(YesClicked);
         BtnNo.onClick.AddListener(NoClicked);
+
+        //Testing 
+        OnDiscard(_DeckMonster.Dequeue());
     }
 
     private void CreateDecks()
@@ -236,6 +245,41 @@ public class Deck : MonoBehaviour
     /// <param name="c">card to be added back into the deck</param>
     public void OnDiscard(Card c)
     {
+        Debug.Log("OnDiscard Called");
         //TODO Handle how a card is discarded.
+
+        // Calls the effect OnDiscard() to determine if anything needs to happen
+        // with the effect when the card is being discarded.
+        if (c.CardEffect)
+            c.CardEffect.OnDiscard();
+
+        // Loop thru the different deck types and determine with deck to put the card.
+        foreach (CardType type in Enum.GetValues(typeof(CardType)))
+        {
+            if (type == c.DeckType)
+            {
+                // Dynamicly get the discard funtion name by using the deck type.
+                string methodName = "Handle" + type.ToString() + "Discard";
+                //Debug.Log("Card = " + c.Name + "Discard Method Name = " + methodName);
+
+                try
+                {
+                    // Call proper discard function
+                    MethodInfo mi = this.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance); 
+                    mi.Invoke(this, new object[] {c});
+                }
+                catch (NullReferenceException e)
+                {
+                    Debug.Log("Error on discarding card. No funcation found to handle discard\n"+e);
+                }
+            }
+        }
+
+    }
+
+    private void HandleMonsterDiscard(Card c)
+    {
+        Debug.Log("HandleMonsterDiscard Called");
+        _DeckMonster.Enqueue(c);
     }
 }

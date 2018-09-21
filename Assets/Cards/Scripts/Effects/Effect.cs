@@ -10,14 +10,19 @@ public abstract class Effect : ScriptableObject
     // when could use -1 to mean infinite.
     public int TurnsLeft;
     public string Name = "New Effect"; // Name of the effect
+    public string Description = "Enter Description"; // Description of what the effect does.
     public Phase ActivatePhase; // phase that the card can be played.
 
     // Called when card is created
     public abstract void Initialize(GameObject obj);
 
     // Called when the effect is triggered.
-    public abstract void TriggerEffect();
+    public abstract void OnActivate();
 
     // Determine if anything is applied 
     public virtual void OnDraw() { }
+
+    // Used if anything happens when the card is discarded.
+    public virtual void OnDiscard() { }
+
 }
