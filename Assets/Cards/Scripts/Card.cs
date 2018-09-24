@@ -12,6 +12,9 @@ public class Card : ScriptableObject
 
     public Effect CardEffect;
 
+    [SerializeField] private bool _didActivate = false;
+    public bool DidActivate { get { return _didActivate; } }
+
     public string Name;
     /*
     public int Health;
@@ -36,22 +39,34 @@ public class Card : ScriptableObject
     public CharacterStat Stat;
     public event Action<Card> DiscardHandler;
 
-    //What phase the card effect can be used in (None for non effect cards)
-    [SerializeField] private Phase _EffectPhase;
+    // Return the phase that the card can be activated.
     public Phase EffectPhase
     {
-        get { return _EffectPhase; }
+        get {
+            if (CardEffect)
+                return CardEffect.ActivatePhase;
+            else
+            {
+                Debug.Log("Error Card.EffectPhase: Does not have a CardEffect.");
+                return Phase.None;
+            }
+        }
     }
 
     //used for summonable cards
-    public Card(string N, int H, int A, string D, Phase E)
+    public Card(string N, int H, int A, string D)
     {
         Name = N;
         Stat.Health = H;
         Stat.Attack = A;
         Description = D;
         Summonable = true;
-        _EffectPhase = E;
+    }
+
+    // Set up vars for a new deck.
+    public void Initialize()
+    {
+        _didActivate = false;
     }
 
     /// <summary>
@@ -61,10 +76,25 @@ public class Card : ScriptableObject
     {
         /// TODO: handle what happens to a discarded card. Put back in deck.
         DiscardHandler.Invoke(this);
+        _didActivate = false;
     }
     //used for effect cards that can't be summoned
     //public Card(string N, string D, Phase E) { Name = N; Description = D; Summonable = false; _EffectPhase = E; }
 
+    /// <summary>
+    /// Called when card is being used.
+    /// </summary>
+    public void OnActivate()
+    {
+        if (CardEffect)
+        {
+            Debug.Log("Card " + Name + " Activated");
+            _didActivate = true;
+            CardEffect.OnActivate();
+        }
+        else
+            Debug.Log("Error Card.OnActivate(): No Effect Found to card.");
+    }
 }
 
 //angel red 255 0 0

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public event Action<StartingZone, bool> DisplayStartingZone;
     public Transform CharacterPiecePrefab;
 
+
     [SerializeField] private List<Player> _GoodPlayers; // lIst of all good players
     [SerializeField] private List<Player> _EvilPlayers; // list of all Evil players
     [SerializeField] private Button _RollButton;
@@ -29,6 +30,10 @@ public class GameManager : MonoBehaviour
     private Attack _Attack; // Attack script
     private SideType _WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
     private float _CameraDisForPiecePlacement = 200.0f;
+
+    // get current turn phase
+    [SerializeField] private Phase _turnPhase;
+    public Phase TurnPhase { get { return _turnPhase; } } 
 
     [SerializeField] private CharacterPiece _currentPiece;
     public CharacterPiece CurrentPiece
@@ -104,6 +109,8 @@ public class GameManager : MonoBehaviour
         if (GameStarted && CheckForWinner())
             WinnerFound();
 
+        if (_turn.TurnPhase != Phase.None)
+            _turnPhase = _turn.TurnPhase;
     }
 
     private void Init()
@@ -116,6 +123,7 @@ public class GameManager : MonoBehaviour
         CanSelectePiece = false;
         _RollButton.gameObject.SetActive(false);
         _DontRollButton.gameObject.SetActive(false);
+        _turnPhase = Phase.Roll;
     }
 
     private IEnumerator StartGame()
@@ -142,9 +150,13 @@ public class GameManager : MonoBehaviour
         {
             _currentPiece = null;
             if (CurrentSide == SideType.Good) // good turn
+            {
                 yield return GoodPlayersTurn();
+            }
             else // evils turn
+            {
                 yield return EvilPlayersTurn();
+            }
         }
         Debug.Log("Done Game" + _WinningSide);
     }

@@ -29,11 +29,18 @@ public class CardDisplay : MonoBehaviour {
     public Text healthText; //if card.Health == 0 then display = NULL
     public Text attackText;
 
+    public Button BtnActivate;
+
     // Use this for initialization
     void Start ()
     {
         UpdateDisplay();
 
+    }
+
+    private void Update()
+    {
+        canActivate(); // display use button if in proper phase.
     }
 
     private void UpdateDisplay()
@@ -69,6 +76,34 @@ public class CardDisplay : MonoBehaviour {
         {
             healthText.text = _cardName.Stat.StartHealth.ToString();
             attackText.text = _cardName.Stat.StartAttack.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Called when the card is being used
+    /// </summary>
+    public void OnActivate()
+    {
+        if (_cardName)
+            _cardName.OnActivate();
+        else
+            Debug.Log("Error CardDisplay.OnActivate(): No card found for the display.");
+    }
+
+    /// <summary>
+    /// Checks each update to see if card can be updated. If yes then displays the use button. If not, then hide.
+    /// </summary>
+    /// <returns></returns>
+    private bool canActivate()
+    {
+        // If Card activate phase is equal to current phase
+        if (_cardName.EffectPhase == GameManager.instance.TurnPhase && !_cardName.DidActivate)
+        {
+            return BtnActivate.enabled = true;
+        }
+        else
+        {
+            return BtnActivate.enabled = false;
         }
     }
 }

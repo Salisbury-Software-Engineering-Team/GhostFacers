@@ -13,5 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TurnsLeft: 0
   Name: Something about the movement dice
-  ActivatePhase: 1
+  Description: Enter Description
+  ActivatePhase: 6
   Movement: 8

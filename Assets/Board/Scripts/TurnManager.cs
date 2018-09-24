@@ -12,7 +12,7 @@ public class TurnManager : MonoBehaviour
         get { return _piece; }
     }
 
-    //What phase the turn is curently in
+    //What the turn is curently in
     [SerializeField] private Phase _turnPhase;
     public Phase TurnPhase
     {
@@ -50,7 +50,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Begin EndTurn");
         yield return EndTurnPhase();
         Debug.Log("Done Turn");
-        _turnPhase = Phase.None;
+        _turnPhase = Phase.Roll;
     }
 
     IEnumerator MovementPhase(int move)

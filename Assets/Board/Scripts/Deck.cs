@@ -33,9 +33,6 @@ public class Deck : MonoBehaviour
         CreateDecks();
         BtnYes.onClick.AddListener(YesClicked);
         BtnNo.onClick.AddListener(NoClicked);
-
-        //Testing 
-        OnDiscard(_DeckMonster.Dequeue());
     }
 
     private void CreateDecks()
@@ -216,6 +213,7 @@ public class Deck : MonoBehaviour
         // covernt the array over to list for easy removing of cards.
         foreach (Card card in cardResources)
         {
+            card.Initialize();
             tempDeck.Add(card);
         }
 
