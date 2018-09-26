@@ -22,7 +22,7 @@ MonoBehaviour:
   _weaponHand: []
   _helpHand: []
   ActiveEffects: []
-  AttackablePieces: 
+  AttackablePieces: 06000000
   DrawTypes: 64000000c8000000
   Side: 1
   Type: 1

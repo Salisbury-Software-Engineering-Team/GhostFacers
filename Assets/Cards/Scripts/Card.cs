@@ -47,7 +47,7 @@ public class Card : ScriptableObject
                 return CardEffect.ActivatePhase;
             else
             {
-                Debug.Log("Error Card.EffectPhase: Does not have a CardEffect.");
+                Debug.Log("Error Card.EffectPhase " + Name + " : Does not have a CardEffect.");
                 return Phase.None;
             }
         }

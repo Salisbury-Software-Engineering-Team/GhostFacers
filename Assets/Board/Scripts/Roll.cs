@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// TODO: add a way to check to see if an effect will modify this.
+/// </summary>
+
 public class Roll : MonoBehaviour
 {
     public int Movement; // amount of spaces the character can move.
