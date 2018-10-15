@@ -300,4 +300,12 @@ public class CharacterPiece : MonoBehaviour
                 return null;
         }
     }
+
+    public void RollDice(bool didRoll)
+    {
+        if (didRoll)
+            this.GetComponent<Roll>().RollDice();
+        else
+            this.GetComponent<Roll>().DontRoll();
+    }
 }

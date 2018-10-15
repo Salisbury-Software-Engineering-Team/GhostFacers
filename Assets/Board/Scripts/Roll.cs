@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class Roll : MonoBehaviour
     public int Movement; // amount of spaces the character can move.
     public bool rolled; // used to make sure users can not roll multipple times for sam character.
     private int MaxRoll = 12;
+    private int modValue = 0;
 
     private void Start()
     {
@@ -34,9 +36,11 @@ public class Roll : MonoBehaviour
     {
         if (GameManager.instance.CurrentPiece != null && GameManager.instance.CurrentPiece.canMove)
         {
+
             System.DateTime localDate = System.DateTime.Now;
             System.Random rand = new System.Random(localDate.Millisecond);
             Movement = rand.Next(MaxRoll-1) + 2;
+            Movement = Movement + modValue;
             rolled = true;
             GameManager.instance.Turn.BeginTurn(Movement);
         }
@@ -47,5 +51,15 @@ public class Roll : MonoBehaviour
         if (GameManager.instance.CurrentPiece != null && GameManager.instance.CurrentPiece.canMove)
             GameManager.instance.Turn.BeginTurn(-1);
     }
-	
+
+    private void ResetRoll()
+    {
+        modValue = 0;
+    }
+
+    public int ModifyEffect()
+    {
+        return 0;
+    }
+
 }

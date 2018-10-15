@@ -11,9 +11,12 @@ public class GameManager : MonoBehaviour
     public bool CanSelectePiece; // Determine if piece can be selected
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
-    public event Action<StartingZone, bool> DisplayStartingZone;
     public Transform CharacterPiecePrefab;
 
+    public Roll RollDice;
+
+    //Actions
+    public event Action<StartingZone, bool> DisplayStartingZone;
 
     [SerializeField] private List<Player> _GoodPlayers; // lIst of all good players
     [SerializeField] private List<Player> _EvilPlayers; // list of all Evil players
@@ -124,6 +127,7 @@ public class GameManager : MonoBehaviour
         _RollButton.gameObject.SetActive(false);
         _DontRollButton.gameObject.SetActive(false);
         _turnPhase = Phase.Roll;
+        RollDice = this.GetComponent<Roll>();
     }
 
     private IEnumerator StartGame()
@@ -412,4 +416,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CurrentCharacterRoll(bool didRoll)
+    {
+        _currentPiece.RollDice(didRoll);
+    }
+
+    public void CurrentCharacterMovement()
+    {
+
+    }
+
+    public void CurrentCharacterAttack()
+    {
+
+    }
 }

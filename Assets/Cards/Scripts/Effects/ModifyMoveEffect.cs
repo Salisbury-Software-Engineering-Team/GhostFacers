@@ -16,5 +16,12 @@ public class ModifyMoveEffect : Effect
 
     public override void OnActivate()
     {
+        GameManager.instance.RollDice.AddEvent(CalculateEffect);
+    }
+
+    private int CalculateEffect()
+    {
+        Debug.Log("CalculateEffect called in ModifyMoveEffect. Movement = " + Movement);
+        return Movement;
     }
 }
