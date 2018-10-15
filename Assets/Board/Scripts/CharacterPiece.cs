@@ -257,6 +257,7 @@ public class CharacterPiece : MonoBehaviour
 
     public Card AddCard(Card card)
     {
+        Debug.Log("Adding card to character");
         //check if hand is full, if not add card else ask if user wants to remove card.
 
         //Get the right hand
@@ -268,6 +269,7 @@ public class CharacterPiece : MonoBehaviour
         {
             case (CardType.Weapon):
                 {
+                    Debug.Log("Adding Weapon card to Character");
                     // hand full
                     if (Stat.WeaponHand.Count == Stat.MaxWeapons)
                     {
@@ -278,11 +280,13 @@ public class CharacterPiece : MonoBehaviour
                     {
                         //hand not full
                         Stat.WeaponHand.Add(card);
+                        card.OnDraw(this);
                         return null;
                     }
                 }
             case (CardType.Help):
                 {
+                    Debug.Log("Adding Help Card to Character");
                     // hand full
                     if (Stat.HelpHand.Count == Stat.MaxHelp)
                     {
@@ -292,11 +296,17 @@ public class CharacterPiece : MonoBehaviour
                     else
                     {
                         //hand not full
+                        Debug.Log("Adding Help card to hand. Piece = " + this.gameObject + "  card = " + card.Name);
                         Stat.HelpHand.Add(card);
+                        Debug.Log("Hand size: " + Stat.HelpHand.Count);
+                        card.OnDraw(this);
                         return null;
                     }
                 }
             default:
+                {
+                    Debug.Log("Did not find a hand to add card. Card = " + card +"  Card type = " + card.DeckType);
+                }
                 return null;
         }
     }

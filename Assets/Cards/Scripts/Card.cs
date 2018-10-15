@@ -67,6 +67,7 @@ public class Card : ScriptableObject
     public void Initialize()
     {
         _didActivate = false;
+
     }
 
     /// <summary>
@@ -78,9 +79,14 @@ public class Card : ScriptableObject
         DiscardHandler.Invoke(this);
         _didActivate = false;
     }
-    //used for effect cards that can't be summoned
-    //public Card(string N, string D, Phase E) { Name = N; Description = D; Summonable = false; _EffectPhase = E; }
 
+    public void OnDraw(CharacterPiece c)
+    {
+        if (CardEffect)
+        {
+            CardEffect.CharacterOwner = c;
+        }
+    }
     /// <summary>
     /// Called when card is being used.
     /// </summary>

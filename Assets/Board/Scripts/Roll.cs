@@ -40,6 +40,8 @@ public class Roll : MonoBehaviour
             System.DateTime localDate = System.DateTime.Now;
             System.Random rand = new System.Random(localDate.Millisecond);
             Movement = rand.Next(MaxRoll-1) + 2;
+
+            Debug.Log("Roll = " + Movement + "  ModValue = " + modValue);
             Movement = Movement + modValue;
             rolled = true;
             GameManager.instance.Turn.BeginTurn(Movement);
@@ -57,8 +59,13 @@ public class Roll : MonoBehaviour
         modValue = 0;
     }
 
-    public int ModifyEffect()
+    public int ModifyRoll(int mod)
     {
+        if (mod > MaxRoll)
+            mod = MaxRoll;
+        if (mod < -MaxRoll)
+            mod = -MaxRoll;
+        modValue = mod;
         return 0;
     }
 

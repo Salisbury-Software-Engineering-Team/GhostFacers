@@ -175,6 +175,7 @@ public class Deck : MonoBehaviour
     {
         //Draw the top card
         Card Top = _DeckHelp.Dequeue();
+        Debug.Log("Drawing a Help Card. Card = " + Top.Name);
 
         //Add to the current pieces hand.
         Card removedCard = _Piece.AddCard(Top);

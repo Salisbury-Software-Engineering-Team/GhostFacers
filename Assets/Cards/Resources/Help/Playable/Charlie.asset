@@ -13,10 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Summonable: 0
   CardEffect: {fileID: 11400000, guid: 6d61cbd6eb104764fb5909c40ddcf10d, type: 2}
-  _didActivate: 0
+  _didActivate: 1
   Name: Charlie
   artwork: {fileID: 21300000, guid: d67b3318fa340244e983a17160ee2732, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   Description: Heal user 3 points and add one to attack die
-  DeckType: 0
+  DeckType: 100
   Stat: {fileID: 0}

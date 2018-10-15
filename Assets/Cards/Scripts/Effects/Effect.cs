@@ -12,6 +12,7 @@ public abstract class Effect : ScriptableObject
     public string Name = "New Effect"; // Name of the effect
     public string Description = "Enter Description"; // Description of what the effect does.
     public Phase ActivatePhase; // phase that the card can be played.
+    public CharacterPiece CharacterOwner;
 
     // Called when card is created
     public abstract void Initialize(GameObject obj);

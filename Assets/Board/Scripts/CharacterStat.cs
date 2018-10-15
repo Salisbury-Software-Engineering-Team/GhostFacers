@@ -16,15 +16,13 @@ public class CharacterStat : ScriptableObject
     [SerializeField] private int m_Attack;
     [SerializeField] private int m_Weapons;
     [SerializeField] private int m_Help;
-    [SerializeField] private List<Card> _weaponHand;
-    [SerializeField] private List<Card> _helpHand;
 
     public int StartHealth { get { return m_Health; } }
     public int StartAttack { get { return m_Attack; } }
     public int MaxWeapons {  get { return m_Weapons; } }
     public int MaxHelp {  get { return m_Help; } }
-    public List<Card> WeaponHand { get { return _weaponHand; } }
-    public List<Card> HelpHand { get { return _helpHand; } }
+    public List<Card> WeaponHand;
+    public List<Card> HelpHand;
     public List<Effect> ActiveEffects;
 
     public List<PieceType> AttackablePieces; // list of all attackable piece this piece can attack.
@@ -43,8 +41,8 @@ public class CharacterStat : ScriptableObject
     {
         Health = m_Health;
         Attack = m_Attack;
-        _weaponHand.Clear();
-        _helpHand.Clear();
+        WeaponHand.Clear();
+        HelpHand.Clear();
         ActiveEffects.Clear();
     }
 }
