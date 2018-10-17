@@ -67,6 +67,8 @@ public class Card : ScriptableObject
     public void Initialize()
     {
         _didActivate = false;
+        if (CardEffect)
+            CardEffect.Initialize(this);
 
     }
 
@@ -85,6 +87,7 @@ public class Card : ScriptableObject
         if (CardEffect)
         {
             CardEffect.CharacterOwner = c;
+            Debug.Log("OnDraw owner = " + CardEffect.CharacterOwner.Stat.Name);
         }
     }
     /// <summary>
@@ -96,7 +99,7 @@ public class Card : ScriptableObject
         {
             Debug.Log("Card " + Name + " Activated");
             _didActivate = true;
-            CardEffect.OnActivate();
+            CardEffect.OnActivate(this);
         }
         else
             Debug.Log("Error Card.OnActivate(): No Effect Found to card.");

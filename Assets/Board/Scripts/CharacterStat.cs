@@ -45,4 +45,31 @@ public class CharacterStat : ScriptableObject
         HelpHand.Clear();
         ActiveEffects.Clear();
     }
+
+    /// <summary>
+    /// check to see if a given card in in the characters hand.
+    /// </summary>
+    /// <returns></returns>
+    public bool IsCardInHand(Card card)
+    {
+        bool ret = false;
+
+        // does card belong to weapon hand
+        ret = WeaponHand.Contains(card);
+        if (ret)
+        {
+            WeaponHand.Remove(card);
+            return true;
+        }
+
+        // does card belong to help hand
+        ret = HelpHand.Contains(card);
+        if (ret)
+        {
+            HelpHand.Remove(card);
+            return true;
+        }
+
+        return false;
+    }
 }

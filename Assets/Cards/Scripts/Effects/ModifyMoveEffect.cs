@@ -10,14 +10,16 @@ public class ModifyMoveEffect : Effect
 {
     public int Movement = 0;
 
-    public override void Initialize(GameObject obj)
-    {
-    }
-
-    public override void OnActivate()
+    public override void OnActivate(Card card)
     {
         if (CharacterOwner)
+        {
             CharacterOwner.GetComponent<Roll>().ModifyRoll(Movement);
+            HandleWhenToDiscard();
+        }
+        else
+        {
+            Debug.Log("Error, Card: \"" + Name + "\" does not have an ower when trying to activate.");
+        }
     }
-
 }

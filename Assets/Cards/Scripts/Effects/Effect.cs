@@ -13,17 +13,30 @@ public abstract class Effect : ScriptableObject
     public string Description = "Enter Description"; // Description of what the effect does.
     public Phase ActivatePhase; // phase that the card can be played.
     public CharacterPiece CharacterOwner;
+    private Card card;
 
     // Called when card is created
-    public abstract void Initialize(GameObject obj);
+    public virtual void Initialize(Card c)
+    {
+        card = c;
+        CharacterOwner = null;
+    }
 
     // Called when the effect is triggered.
-    public abstract void OnActivate();
+    public abstract void OnActivate(Card card);
 
     // Determine if anything is applied 
     public virtual void OnDraw() { }
 
     // Used if anything happens when the card is discarded.
     public virtual void OnDiscard() { }
+
+    // this is to handle when a card should be discarded.
+    //************** Must be called.
+    protected virtual void HandleWhenToDiscard()
+    {
+        CharacterOwner.AddToStaggedForDiscard(card);
+    }
+
 
 }

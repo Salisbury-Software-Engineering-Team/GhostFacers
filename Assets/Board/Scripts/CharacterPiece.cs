@@ -13,6 +13,7 @@ public class CharacterPiece : MonoBehaviour
 
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
+    private List<Card> StaggedForDiscard; // list of cards to be discarded at end of turn
     [SerializeField] private Tile _currentTile = null; // current tile piece is at
     public Tile CurrentTile
     {
@@ -69,6 +70,7 @@ public class CharacterPiece : MonoBehaviour
         Agent.enabled = false;
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
+        StaggedForDiscard = new List<Card>();
         doneMove = false;
         _Died = false;
     }
@@ -207,6 +209,7 @@ public class CharacterPiece : MonoBehaviour
     {
         doneMove = false; // reset done move so it can be used in anouth turn
         DisplaySelected(false); // remove highlight
+        EmptyStaggedForDiscard();
     }
 
     /// <summary>
@@ -280,7 +283,7 @@ public class CharacterPiece : MonoBehaviour
                     {
                         //hand not full
                         Stat.WeaponHand.Add(card);
-                        card.OnDraw(this);
+                        card.OnDraw(this.GetComponent<CharacterPiece>());
                         return null;
                     }
                 }
@@ -317,5 +320,38 @@ public class CharacterPiece : MonoBehaviour
             this.GetComponent<Roll>().RollDice();
         else
             this.GetComponent<Roll>().DontRoll();
+    }
+
+    /// <summary>
+    /// This will loop thru all the card that need to be discared that the player used in a given turn.
+    /// </summary>
+    private void EmptyStaggedForDiscard()
+    {
+        if (StaggedForDiscard != null && StaggedForDiscard.Count > 0)
+        {
+            foreach (Card card in StaggedForDiscard)
+            {
+                card.OnDiscard();
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Checks to see if the card is in a characters hand. If true, adds card to stagged for discard pile.
+    /// </summary>
+    /// <param name="card">Card that is being used.</param>
+    /// <returns>0 if card added to discard pile, 1 if card not in hand.</returns>
+    public int AddToStaggedForDiscard(Card card)
+    {
+        if (Stat.IsCardInHand(card))
+        {
+            StaggedForDiscard.Add(card);
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
     }
 }

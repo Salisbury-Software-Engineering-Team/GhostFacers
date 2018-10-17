@@ -274,11 +274,19 @@ public class Deck : MonoBehaviour
             }
         }
 
+        Debug.Log("Help " + _DeckHelp);
+
     }
 
     private void HandleMonsterDiscard(Card c)
     {
         Debug.Log("HandleMonsterDiscard Called");
         _DeckMonster.Enqueue(c);
+    }
+
+    private void HandleHelpDiscard(Card c)
+    {
+        Debug.Log("HandleHelpDiscard Called");
+        _DeckHelp.Enqueue(c);
     }
 }
