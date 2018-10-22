@@ -2896,7 +2896,7 @@ MonoBehaviour:
   _PlayableGoodPiecesContainer: {fileID: 310803961}
   _PlayableEvilPiecesContainer: {fileID: 1999862171}
   _turnPhase: 0
-  _currentPiece: {fileID: 0}
+  c: {fileID: 0}
 --- !u!4 &233928134
 Transform:
   m_ObjectHideFlags: 0

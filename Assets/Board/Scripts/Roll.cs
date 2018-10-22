@@ -36,9 +36,14 @@ public class Roll : MonoBehaviour
     {
         if (GameManager.instance.CurrentPiece != null && GameManager.instance.CurrentPiece.canMove)
         {
-
+            applyEffects();
+            Debug.Log("Done Activate");
             System.DateTime localDate = System.DateTime.Now;
+            Debug.Log("Done Activate");
+
             System.Random rand = new System.Random(localDate.Millisecond);
+            Debug.Log("Done Activate");
+
             Movement = rand.Next(MaxRoll-1) + 2;
 
             Debug.Log("Roll = " + Movement + "  ModValue = " + modValue);
@@ -67,6 +72,22 @@ public class Roll : MonoBehaviour
             mod = -MaxRoll;
         modValue = mod;
         return 0;
+    }
+
+    /// <summary>
+    /// Applies any effects that are curently waiting to be used.
+    /// </summary>
+    private void applyEffects()
+    {
+        CharacterPiece piece = this.gameObject.GetComponent<CharacterPiece>();
+        int numStagged = piece.StaggedForCurrentPhase.Count;
+        for (int i = 0; i < numStagged; i++)
+        {
+            piece.StaggedForCurrentPhase[i].OnActivate();
+        }
+        Debug.Log("DOne");
+        piece.EmptyStaggedForCurrentPhase();
+        Debug.Log("Wewe");
     }
 
 }

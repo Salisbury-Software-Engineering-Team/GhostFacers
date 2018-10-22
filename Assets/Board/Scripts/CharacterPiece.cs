@@ -28,6 +28,12 @@ public class CharacterPiece : MonoBehaviour
     public bool doneMove; // once character is done moving;
     public bool StartingPosPlaced = false;
 
+    [SerializeField] private List<Card> _staggedForCurrentPhase; //List of card effects that will be used in current phase.
+    public List<Card> StaggedForCurrentPhase
+    {
+        get { return _staggedForCurrentPhase; }
+    }
+
     [SerializeField] private bool _Died;
     public bool Died { get { return _Died; } }
 
@@ -73,6 +79,7 @@ public class CharacterPiece : MonoBehaviour
         StaggedForDiscard = new List<Card>();
         doneMove = false;
         _Died = false;
+        _staggedForCurrentPhase = new List<Card>();
     }
 
     private void Update()
@@ -354,4 +361,55 @@ public class CharacterPiece : MonoBehaviour
             return 1;
         }
     }
+
+    public void AddToStaggedForCurrentPhase(Card card)
+    {
+        _staggedForCurrentPhase.Add(card);
+    }
+
+    public Card RmFromStaggedForCurrentPhase(Card card)
+    {
+        if (_staggedForCurrentPhase != null)
+            if (_staggedForCurrentPhase.Contains(card))
+            {
+                _staggedForCurrentPhase.Remove(card);
+                card.RemovedFromStaggedForCurrentPhase();
+                return card;
+            }
+            else
+                return null;
+        else
+            return null;
+                
+    }
+
+    /// <summary>
+    /// Removes all card waiting to be used in current phase. Usally called if user selectes another piece before end of phase.
+    /// Ex: choses a different characcter piece to roll for will enselect all roll efefects waiting to be used. 
+    /// </summary>
+    public void EmptyStaggedForCurrentPhase()
+    {
+        foreach (Card card in _staggedForCurrentPhase)
+        {
+            card.RemovedFromStaggedForCurrentPhase();
+        }
+        _staggedForCurrentPhase.Clear();
+    }
+
+    /// <summary>
+    /// Handles what happens when the curent piece is selected.
+    /// </summary>
+    public void Selectd()
+    {
+
+    }
+
+    /// <summary>
+    /// Handlesw what happenjs when the current piece is deselcted.
+    /// </summary>
+    public void Deselected()
+    {
+        EmptyStaggedForCurrentPhase();
+    }
+
 }

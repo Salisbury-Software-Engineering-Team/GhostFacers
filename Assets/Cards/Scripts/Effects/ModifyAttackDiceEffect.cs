@@ -24,4 +24,10 @@ public class ModifyAttackDiceEffect : Effect
             Debug.Log("Error, Card: \"" + Name + "\" does not have an ower when trying to activate.");
         }
     }
+
+    public override void ToggleActivation()
+    {
+        throw new System.NotImplementedException();
+        //TODO Finsih later 
+    }
 }

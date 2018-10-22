@@ -85,7 +85,7 @@ public class CardDisplay : MonoBehaviour {
     public void OnActivate()
     {
         if (_cardName)
-            _cardName.OnActivate();
+            _cardName.ToggleActiavation();
         else
             Debug.Log("Error CardDisplay.OnActivate(): No card found for the display.");
     }

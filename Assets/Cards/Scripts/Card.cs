@@ -12,12 +12,14 @@ public class Card : ScriptableObject
 
     public Effect CardEffect;
 
-    [SerializeField] private bool _didActivate = false;
-    public bool DidActivate { get { return _didActivate; } }
+    public bool DidActivate { get { return CardEffect.didActivate; } }
+    public bool IsStagged { get { return CardEffect.isStagged; } }
 
     public string Name;
     public Sprite artwork;
     public Sprite backImage;
+    public CharacterPiece CharacterOwner;
+
 
     //For humans, says number of weapons and help character can hold
     //for other cards, says their effect or is left blank
@@ -61,7 +63,6 @@ public class Card : ScriptableObject
     /// </summary>
     public void Initialize()
     {
-        _didActivate = false;
         if (CardEffect)
             CardEffect.Initialize(this);
 
@@ -73,21 +74,23 @@ public class Card : ScriptableObject
     /// </summary>
     public void OnDiscard()
     {
-        //handle discard
+        //handle discard 
+        CardEffect.OnDiscard();
         DiscardHandler.Invoke(this);
-        _didActivate = false;
+        CharacterOwner = null;
     }
 
     /// <summary>
     /// Called when the card is drawn from the deck. 
     /// </summary>
     /// <param name="c">Character that drew the card. (Owner)</param>
-    public void OnDraw(CharacterPiece c)
+    public void OnDraw(CharacterPiece piece)
     {
+        CharacterOwner = piece;
         if (CardEffect)
         {
-            CardEffect.CharacterOwner = c;
-            Debug.Log("OnDraw owner = " + CardEffect.CharacterOwner.Stat.Name);
+            CardEffect.OnDraw(piece);
+            Debug.Log("OnDraw owner = " + piece.Stat.Name);
         }
     }
     /// <summary>
@@ -98,11 +101,24 @@ public class Card : ScriptableObject
         if (CardEffect)
         {
             Debug.Log("Card " + Name + " Activated");
-            _didActivate = true;
             CardEffect.OnActivate(this);
         }
         else
             Debug.Log("Error Card.OnActivate(): No Effect Found to card.");
+    }
+
+    /// <summary>
+    /// Handles what happens if the card waiting to be used is not used.
+    /// </summary>
+    public void RemovedFromStaggedForCurrentPhase()
+    {
+        CardEffect.RmFromStaggedForCurrentPhase();
+    }
+
+    public void ToggleActiavation()
+    {
+        Debug.Log("Card " + Name + " ToggleActivationCalled");
+        CardEffect.ToggleActivation();
     }
 }
 

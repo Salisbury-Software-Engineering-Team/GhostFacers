@@ -36,9 +36,28 @@ public class GameManager : MonoBehaviour
 
     // get current turn phase
     [SerializeField] private Phase _turnPhase;
-    public Phase TurnPhase { get { return _turnPhase; } } 
+    public Phase TurnPhase { get { return _turnPhase; } }
 
-    [SerializeField] private CharacterPiece _currentPiece;
+    [SerializeField] private CharacterPiece c;
+    [SerializeField] private CharacterPiece _currentPiece
+    {
+        set
+        {
+            if (c != value)
+            {
+                if (c)
+                {
+                    c.Deselected();
+                    c = value;
+                    if (c)
+                        c.Selectd();
+                }
+                else
+                    c = value;
+            }
+        }
+        get { return c; }
+    }
     public CharacterPiece CurrentPiece
     {
         get { return _currentPiece; }
@@ -138,6 +157,7 @@ public class GameManager : MonoBehaviour
         else // loaded game
             yield return SetupPiecesForContinuedGame();
         Debug.Log("Done Setingup the Game");
+        c = null;
         _currentPiece = null;
         _gameStarted = true;
         CanSelectePiece = true;
