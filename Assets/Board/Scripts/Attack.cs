@@ -112,6 +112,7 @@ public class Attack : MonoBehaviour
         {
             if (canAttackPiece()) //piece is attackable
             {
+                applyEffects();
                 GameManager.instance.CanSelectePiece = false;
                 BtnAttackUI.SetActive(false); // turn off attack button
                 AttackDiceUI.SetActive(true); // turn on dice roll ui
@@ -284,5 +285,19 @@ public class Attack : MonoBehaviour
         PieceToAttack.DecreaseHealth(amountOfDamageDone); // apply damge
         _AppliedAttack = true;
         TotalDamgeText.text = "Total Damge: " +amountOfDamageDone;
+    }
+
+    /// <summary>
+    /// Applies any effects that are curently waiting to be used.
+    /// </summary>
+    private void applyEffects()
+    {
+        CharacterPiece piece = this.gameObject.GetComponent<CharacterPiece>();
+        int numStagged = piece.StaggedForCurrentPhase.Count;
+        for (int i = 0; i < numStagged; i++)
+        {
+            piece.StaggedForCurrentPhase[i].OnActivate();
+        }
+        piece.EmptyStaggedForCurrentPhase();
     }
 }
