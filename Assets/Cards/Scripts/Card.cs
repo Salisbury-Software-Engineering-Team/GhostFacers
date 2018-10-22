@@ -16,30 +16,22 @@ public class Card : ScriptableObject
     public bool DidActivate { get { return _didActivate; } }
 
     public string Name;
-    /*
-    public int Health;
-    public int Attack;
-
-    //Inventories (only used for summonable cards)
-    public int Help; //for humans
-    public int Weapon; //for humans
-    public int Inventory; //for everyone but humans
-    */
-
     public Sprite artwork;
     public Sprite backImage;
-    //Hi
-    public string Description;
-    //for humans, says number of weapons and help character can hold
+
+    //For humans, says number of weapons and help character can hold
     //for other cards, says their effect or is left blank
     //non-humans can hold up to 2 cards by default
+    public string Description;
 
     [SerializeField] public CardType DeckType;
     private readonly Deck deck; // reference to the deck
     public CharacterStat Stat;
     public event Action<Card> DiscardHandler;
 
-    // Return the phase that the card can be activated.
+    /// <summary>
+    /// Returns the phase that the card can be activated in. EX: Attack, Movement, Roll, etc...
+    /// </summary>
     public Phase EffectPhase
     {
         get {
@@ -63,7 +55,10 @@ public class Card : ScriptableObject
         Summonable = true;
     }
 
-    // Set up vars for a new deck.
+    /// <summary>
+    /// Usally callled at the start of a new game. This will initialize variables
+    /// for the card and allow it to be activated. 
+    /// </summary>
     public void Initialize()
     {
         _didActivate = false;
@@ -73,15 +68,20 @@ public class Card : ScriptableObject
     }
 
     /// <summary>
-    /// 
+    /// Called when card is being discarded. My not happen when card is used. Usally will be stagged
+    /// for discard and called at end of phase. Card is also flagged as not activated for if card can be used again.
     /// </summary>
     public void OnDiscard()
     {
-        /// TODO: handle what happens to a discarded card. Put back in deck.
+        //handle discard
         DiscardHandler.Invoke(this);
         _didActivate = false;
     }
 
+    /// <summary>
+    /// Called when the card is drawn from the deck. 
+    /// </summary>
+    /// <param name="c">Character that drew the card. (Owner)</param>
     public void OnDraw(CharacterPiece c)
     {
         if (CardEffect)
