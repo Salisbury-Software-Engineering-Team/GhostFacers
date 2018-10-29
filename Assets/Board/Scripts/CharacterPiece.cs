@@ -409,6 +409,18 @@ public class CharacterPiece : MonoBehaviour
     /// </summary>
     public void Deselected()
     {
+        if (GameManager.instance.TurnPhase != Phase.Attack)
+            EmptyStaggedForCurrentPhase();
+    }
+
+    public void ApplyEffectsStaggedForCurrentPhase()
+    {
+        int numStagged = StaggedForCurrentPhase.Count;
+        for (int i = 0; i < numStagged; i++)
+        {
+            StaggedForCurrentPhase[i].OnActivate();
+        }
+        Debug.Log("Effects Applied for current stage." + "Ammount applied: " + numStagged);
         EmptyStaggedForCurrentPhase();
     }
 

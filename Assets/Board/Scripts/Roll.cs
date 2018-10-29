@@ -36,7 +36,7 @@ public class Roll : MonoBehaviour
     {
         if (GameManager.instance.CurrentPiece != null && GameManager.instance.CurrentPiece.canMove)
         {
-            applyEffects();
+            ApplyEffects();
             Debug.Log("Done Activate");
             System.DateTime localDate = System.DateTime.Now;
             Debug.Log("Done Activate");
@@ -77,7 +77,7 @@ public class Roll : MonoBehaviour
     /// <summary>
     /// Applies any effects that are curently waiting to be used.
     /// </summary>
-    private void applyEffects()
+    private void ApplyEffects()
     {
         CharacterPiece piece = this.gameObject.GetComponent<CharacterPiece>();
         int numStagged = piece.StaggedForCurrentPhase.Count;
