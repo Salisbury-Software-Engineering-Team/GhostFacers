@@ -235,13 +235,13 @@ public class CharacterPiece : MonoBehaviour
     /// <param name="amount"></param>
     public void DecreaseHealth(int amount)
     {
-        if (Stat.Health-amount > 0)
+        if (Stat.CurrentHealth-amount > 0)
         {
-            Stat.Health = Stat.Health - amount;
+            Stat.CurrentHealth = Stat.CurrentHealth - amount;
         }
         else
         {
-            Stat.Health = 0;
+            Stat.CurrentHealth = 0;
             _Died = true;
         }
     }
@@ -422,6 +422,15 @@ public class CharacterPiece : MonoBehaviour
         }
         Debug.Log("Effects Applied for current stage." + "Ammount applied: " + numStagged);
         EmptyStaggedForCurrentPhase();
+    }
+
+    /// <summary>
+    /// Heal the user for the given amount -1 to fully heal.
+    /// </summary>
+    /// <param name="amount">Amount to heal. -1 Full heath.</param>
+    public void Heal(int amount)
+    {
+        Stat.Heal(amount);
     }
 
 }

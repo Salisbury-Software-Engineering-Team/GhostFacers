@@ -14,6 +14,7 @@ public abstract class Effect : ScriptableObject
     protected Card card;
     public bool didActivate; // card effect has been activated.
     public bool isStagged; // card effect is waiting to be activated.
+    public bool canToggle = true; // determines if the card can be unselected before activation.
 
     // Called when card is created
     public virtual void Initialize(Card c)

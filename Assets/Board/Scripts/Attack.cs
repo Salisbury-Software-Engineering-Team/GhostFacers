@@ -181,7 +181,7 @@ public class Attack : MonoBehaviour
         if (_HelpText) // display help message to roll dice
             _HelpText.text = "Roll to Attack";
         int currentAmountOfDice = AttackDicePanel.transform.childCount;
-        _AttackAmount = _PieceAttacking.Stat.Attack + _attackDiceModify;
+        _AttackAmount = _PieceAttacking.Stat.CurrentAttack + _attackDiceModify;
         if (_AttackAmount < 0) // if neg dice amount, cant have.
             _AttackAmount = 0;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 public class ModifyAttackDiceEffect : Effect
 {
     public int numAttackDiceIncrease = 0;
-    public CharacterStat Bobby; // If held by bobby, gets better increase.
+    public CharacterStat SpecialCharacter; // If held by bobby, gets better increase.
     public int numAttackDiceIncreaseBobby = 0;
     
     public override void OnActivate(Card card)
@@ -20,7 +20,7 @@ public class ModifyAttackDiceEffect : Effect
                 //card activated
                 // TODO: Change attack to be differnet for each character not attached to gamemanager.
                 didActivate = true;
-                if (CharacterOwner.Stat == Bobby)
+                if (CharacterOwner.Stat == SpecialCharacter)
                     GameManager.instance.gameObject.GetComponent<Attack>().ModifyAttack(numAttackDiceIncreaseBobby); // Apply effect for BObby
                 else
                     GameManager.instance.gameObject.GetComponent<Attack>().ModifyAttack(numAttackDiceIncrease); // Apply effect

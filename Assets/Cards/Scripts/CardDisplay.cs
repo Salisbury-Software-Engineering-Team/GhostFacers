@@ -34,13 +34,14 @@ public class CardDisplay : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        UpdateDisplay();
+        if (_cardName)
+            UpdateDisplay();
 
     }
 
     private void Update()
     {
-        canActivate(); // display use button if in proper phase.
+        CanActivate(); // display use button if in proper phase.
     }
 
     private void UpdateDisplay()
@@ -94,12 +95,17 @@ public class CardDisplay : MonoBehaviour {
     /// Checks each update to see if card can be updated. If yes then displays the use button. If not, then hide.
     /// </summary>
     /// <returns></returns>
-    private bool canActivate()
+    private bool CanActivate()
     {
         // If Card activate phase is equal to current phase
         if (_cardName.EffectPhase == GameManager.instance.TurnPhase && !_cardName.DidActivate)
         {
-            return BtnActivate.enabled = true;
+            if (_cardName.canToggle)
+                return BtnActivate.enabled = true;
+            else if (_cardName.IsStagged)
+                return BtnActivate.enabled = false;
+            else
+                return BtnActivate.enabled = true;
         }
         else
         {

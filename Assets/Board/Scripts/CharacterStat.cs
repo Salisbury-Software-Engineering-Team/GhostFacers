@@ -9,8 +9,8 @@ public class CharacterStat : ScriptableObject
 
     //TODO: Finish adding stats
     public int Movement;
-    [HideInInspector] public int Health;
-    [HideInInspector] public int Attack;
+    public int CurrentHealth;
+    public int CurrentAttack;
 
     [SerializeField] private int m_Health;
     [SerializeField] private int m_Attack;
@@ -39,8 +39,8 @@ public class CharacterStat : ScriptableObject
     /// </summary>
     public void SetupStats()
     {
-        Health = m_Health;
-        Attack = m_Attack;
+        CurrentHealth = m_Health;
+        CurrentAttack = m_Attack;
         WeaponHand.Clear();
         HelpHand.Clear();
         ActiveEffects.Clear();
@@ -71,5 +71,22 @@ public class CharacterStat : ScriptableObject
         }
 
         return false;
+    }
+
+
+    /// <summary>
+    /// Heals the user for the give amount. -1 To fully heal.
+    /// </summary>
+    /// <param name="amount">Amount to heal. -1 to fully heal</param>
+    public void Heal(int amount)
+    {
+        if (amount == -1) // Fully Heal
+            CurrentHealth = m_Health;
+        else
+        {
+            CurrentHealth += amount;
+            if (CurrentHealth > m_Health)
+                CurrentHealth = m_Health;
+        }
     }
 }

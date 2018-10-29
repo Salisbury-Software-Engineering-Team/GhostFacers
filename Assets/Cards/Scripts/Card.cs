@@ -14,6 +14,7 @@ public class Card : ScriptableObject
 
     public bool DidActivate { get { return CardEffect.didActivate; } }
     public bool IsStagged { get { return CardEffect.isStagged; } }
+    public bool canToggle { get { return CardEffect.canToggle; } }
 
     public string Name;
     public Sprite artwork;
@@ -51,8 +52,8 @@ public class Card : ScriptableObject
     public Card(string N, int H, int A, string D)
     {
         Name = N;
-        Stat.Health = H;
-        Stat.Attack = A;
+        Stat.CurrentHealth = H;
+        Stat.CurrentAttack = A;
         Description = D;
         Summonable = true;
     }
@@ -64,7 +65,11 @@ public class Card : ScriptableObject
     public void Initialize()
     {
         if (CardEffect)
+        {
             CardEffect.Initialize(this);
+            Description = CardEffect.Description;
+        }
+        
 
     }
 

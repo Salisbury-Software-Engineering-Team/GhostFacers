@@ -15,7 +15,9 @@ MonoBehaviour:
   Name: Rufus
   Description: Enter Description
   ActivatePhase: 3
-  CharacterOwner: {fileID: 0}
+  didActivate: 0
+  isStagged: 0
+  canToggle: 1
   numAttackDiceIncrease: 1
-  Bobby: {fileID: 11400000, guid: eeea81c63efbf6a42986675c16afac69, type: 2}
+  SpecialCharacter: {fileID: 11400000, guid: eeea81c63efbf6a42986675c16afac69, type: 2}
   numAttackDiceIncreaseBobby: 3
