@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// TODO: add a way to check to see if an effect will modify this.
@@ -9,10 +10,11 @@ using UnityEngine;
 
 public class Roll : MonoBehaviour
 {
+    public int baseMovement;
     public int Movement; // amount of spaces the character can move.
     public bool rolled; // used to make sure users can not roll multipple times for sam character.
     private int MaxRoll = 12;
-    private int modValue = 0;
+    public int modValue = 0;
 
     private void Start()
     {
@@ -24,6 +26,7 @@ public class Roll : MonoBehaviour
     /// </summary>
     private void Init()
     {
+        baseMovement = 0;
         Movement = 0;
         rolled = false;
     }
@@ -44,10 +47,10 @@ public class Roll : MonoBehaviour
             System.Random rand = new System.Random(localDate.Millisecond);
             Debug.Log("Done Activate");
 
-            Movement = rand.Next(MaxRoll-1) + 2;
+            baseMovement = rand.Next(MaxRoll-1) + 2;
 
             Debug.Log("Roll = " + Movement + "  ModValue = " + modValue);
-            Movement = Movement + modValue;
+            Movement = baseMovement + modValue;
             rolled = true;
             GameManager.instance.Turn.BeginTurn(Movement);
         }
@@ -61,6 +64,8 @@ public class Roll : MonoBehaviour
 
     private void ResetRoll()
     {
+        baseMovement = 0;
+        Movement = 0;
         modValue = 0;
     }
 
@@ -89,5 +94,7 @@ public class Roll : MonoBehaviour
         piece.EmptyStaggedForCurrentPhase();
         Debug.Log("Wewe");
     }
+
+
 
 }
