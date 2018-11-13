@@ -80,7 +80,8 @@ public class Card : ScriptableObject
     public void OnDiscard()
     {
         //handle discard 
-        CardEffect.OnDiscard();
+        if (CardEffect)
+            CardEffect.OnDiscard();
         DiscardHandler.Invoke(this);
         CharacterOwner = null;
     }

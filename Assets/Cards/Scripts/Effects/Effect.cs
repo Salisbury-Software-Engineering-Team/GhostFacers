@@ -20,6 +20,7 @@ public abstract class Effect : ScriptableObject
     protected Action AttackEffectFunctions; // Used to apply effect of the card at next attack
     protected Action DrawEffectFunctions; // Used to apply effect of the card at next draw
     protected Action RollEffectFunctions; // Used to apply effect of the card at next roll
+    protected Action EndEffectFunctions; // Used to apply effect of the card on next end turn
     protected Action InstantEffectFunctions; // Used to aply effect that happen when card activate button is pressed.
 
     // Called when card is created
@@ -87,6 +88,11 @@ public abstract class Effect : ScriptableObject
         {
             CharacterOwner.StaggedForRollPhase += () => card.OnActivate();
         }
+
+        if (EndEffectFunctions != null)
+        {
+            CharacterOwner.StaggedForEndPhase += () => card.OnActivate();
+        }
     }
 
     private void RemoveEffectFromProperPhase()
@@ -104,6 +110,11 @@ public abstract class Effect : ScriptableObject
         if (RollEffectFunctions != null)
         {
             CharacterOwner.StaggedForRollPhase -= () => card.OnActivate();
+        }
+
+        if (EndEffectFunctions != null)
+        {
+            CharacterOwner.StaggedForEndPhase -= () => card.OnActivate();
         }
     }
 
@@ -136,6 +147,14 @@ public abstract class Effect : ScriptableObject
 
                     if (RollEffectFunctions != null)
                         RollEffectFunctions.Invoke();
+                    break;
+                }
+            case Phase.EndTurn:
+                {
+                    CharacterOwner.StaggedForEndPhase -= () => card.OnActivate();
+
+                    if (EndEffectFunctions != null)
+                        EndEffectFunctions.Invoke();
                     break;
                 }
             default:
@@ -188,8 +207,9 @@ public abstract class Effect : ScriptableObject
         CharacterOwner = piece;
 
     }
-
-    // Used if anything happens when the card is discarded.
+    /// <summary>
+    /// Used if anything happens when the card is discarded.
+    /// </summary>
     public virtual void OnDiscard()
     {
         didActivate = false;
