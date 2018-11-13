@@ -39,9 +39,6 @@ public class CharlieEffect : Effect
     /// </summary>
     public override void ToggleActivation()
     {
-        // Means the card has to wait for something before activating, but the use has selected
-        // this card for use. EX: Increase roll amount card has been selected to be used, but roll button
-        // has not been pressed yet. This would allow the user to change his mind about the card use.
         isStagged = true;
         HealUser();
         CharacterOwner.AddToStaggedForCurrentPhase(card);
