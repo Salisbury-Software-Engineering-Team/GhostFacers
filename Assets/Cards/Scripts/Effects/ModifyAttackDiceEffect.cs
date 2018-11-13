@@ -14,6 +14,11 @@ public class ModifyAttackDiceEffect : Effect
         AttackEffectFunctions += () => IncreaseAttack();
     }
 
+    public override void OnDraw(CharacterPiece piece)
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void IncreaseAttack()
     {
         if (CharacterOwner.Stat == SpecialCharacter)

@@ -95,6 +95,7 @@ public class Card : ScriptableObject
         CharacterOwner = piece;
         if (CardEffect)
         {
+            CardEffect.SetOwner(piece);
             CardEffect.OnDraw(piece);
             Debug.Log("OnDraw owner = " + piece.Stat.Name);
         }

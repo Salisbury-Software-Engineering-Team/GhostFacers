@@ -201,12 +201,14 @@ public abstract class Effect : ScriptableObject
         }
     }
 
-    // Determine if anything is applied 
-    public virtual void OnDraw(CharacterPiece piece)
+    public void SetOwner(CharacterPiece piece)
     {
         CharacterOwner = piece;
-
     }
+
+    // Determine if anything is applied 
+    public abstract void OnDraw(CharacterPiece piece);
+
     /// <summary>
     /// Used if anything happens when the card is discarded.
     /// </summary>

@@ -12,6 +12,11 @@ public class ModifyMoveEffect : Effect
         RollEffectFunctions += () => Move();
     }
 
+    public override void OnDraw(CharacterPiece piece)
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void Move()
     {
         Debug.Log("ModifyMovementEffect Applied. Roll increase: " + Movement);
