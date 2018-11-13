@@ -21,7 +21,6 @@ public class Card : ScriptableObject
     public Sprite backImage;
     public CharacterPiece CharacterOwner;
 
-
     //For humans, says number of weapons and help character can hold
     //for other cards, says their effect or is left blank
     //non-humans can hold up to 2 cards by default
@@ -67,6 +66,7 @@ public class Card : ScriptableObject
         if (CardEffect)
         {
             CardEffect.Initialize(this);
+            CardEffect.InitializeEffectFunctions();
             Description = CardEffect.Description;
         }
         
@@ -106,18 +106,10 @@ public class Card : ScriptableObject
         if (CardEffect)
         {
             Debug.Log("Card " + Name + " Activated");
-            CardEffect.OnActivate(this);
+            CardEffect.OnActivate();
         }
         else
             Debug.Log("Error Card.OnActivate(): No Effect Found to card.");
-    }
-
-    /// <summary>
-    /// Handles what happens if the card waiting to be used is not used.
-    /// </summary>
-    public void RemovedFromStaggedForCurrentPhase()
-    {
-        CardEffect.RmFromStaggedForCurrentPhase();
     }
 
     public void ToggleActiavation()

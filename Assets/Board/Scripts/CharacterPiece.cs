@@ -29,10 +29,11 @@ public class CharacterPiece : MonoBehaviour
     public bool StartingPosPlaced = false;
 
     [SerializeField] private List<Card> _staggedForCurrentPhase; //List of card effects that will be used in current phase.
-    public List<Card> StaggedForCurrentPhase
-    {
-        get { return _staggedForCurrentPhase; }
-    }
+    public List<Card> StaggedForCurrentPhase { get { return _staggedForCurrentPhase; } }
+
+    public event Action StaggedForRollPhase;
+    public event Action StaggedForAttackPhase;
+    public event Action StaggedForDrawPhase;
 
     [SerializeField] private bool _Died;
     public bool Died { get { return _Died; } }
@@ -362,11 +363,13 @@ public class CharacterPiece : MonoBehaviour
         }
     }
 
+    /*
     public void AddToStaggedForCurrentPhase(Card card)
     {
         _staggedForCurrentPhase.Add(card);
-    }
+    }*/
 
+    /*
     public Card RmFromStaggedForCurrentPhase(Card card)
     {
         if (_staggedForCurrentPhase != null)
@@ -394,7 +397,7 @@ public class CharacterPiece : MonoBehaviour
             card.RemovedFromStaggedForCurrentPhase();
         }
         _staggedForCurrentPhase.Clear();
-    }
+    }*/
 
     /// <summary>
     /// Handles what happens when the curent piece is selected.
@@ -409,19 +412,38 @@ public class CharacterPiece : MonoBehaviour
     /// </summary>
     public void Deselected()
     {
-        if (GameManager.instance.TurnPhase != Phase.Attack)
-            EmptyStaggedForCurrentPhase();
+        //if (GameManager.instance.TurnPhase != Phase.Attack)
+            //EmptyStaggedForCurrentPhase();
     }
 
     public void ApplyEffectsStaggedForCurrentPhase()
     {
-        int numStagged = StaggedForCurrentPhase.Count;
-        for (int i = 0; i < numStagged; i++)
+        switch (GameManager.instance.TurnPhase)
         {
-            StaggedForCurrentPhase[i].OnActivate();
+            case Phase.Attack :
+                {
+                    if (StaggedForAttackPhase != null)
+                        StaggedForAttackPhase.Invoke();
+                    break;
+                }
+            case Phase.Roll:
+                {
+                    if (StaggedForRollPhase != null)
+                        StaggedForRollPhase.Invoke();
+                    break;
+                }
+            case Phase.Draw:
+                {
+                    if (StaggedForDrawPhase != null)
+                        StaggedForDrawPhase.Invoke();
+                    break;
+                }
+            default :
+                {
+                    Debug.Log("Error: Can not apply effect for Phase: " + GameManager.instance.TurnPhase);
+                    break;
+                }
         }
-        Debug.Log("Effects Applied for current stage." + "Ammount applied: " + numStagged);
-        EmptyStaggedForCurrentPhase();
     }
 
     /// <summary>
