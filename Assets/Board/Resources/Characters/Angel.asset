@@ -20,8 +20,8 @@ MonoBehaviour:
   m_Weapons: 0
   m_Help: 0
   _weaponHand:
-  - {fileID: 11400000, guid: 05a3199b88da08744bb050daa22541b6, type: 2}
-  - {fileID: 11400000, guid: ef6e850e60d0be04683f8e1f6ff23eab, type: 2}
+  - {fileID: 11400000, guid: 3ec135437baefd34e8e010aad28f1d79, type: 2}
+  - {fileID: 11400000, guid: 361cdb6e4c192424cafa619e8dd06d0d, type: 2}
   _helpHand:
   - {fileID: 11400000, guid: 87693f3932bf4c146b2e0891ff8812f5, type: 2}
   - {fileID: 11400000, guid: 62a8402551224864ba3c64f197d224a8, type: 2}

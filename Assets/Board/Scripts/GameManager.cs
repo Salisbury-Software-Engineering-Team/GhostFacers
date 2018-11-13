@@ -11,8 +11,12 @@ public class GameManager : MonoBehaviour
     public bool CanSelectePiece; // Determine if piece can be selected
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
-    public event Action<StartingZone, bool> DisplayStartingZone;
     public Transform CharacterPiecePrefab;
+
+    public Roll RollDice;
+
+    //Actions
+    public event Action<StartingZone, bool> DisplayStartingZone;
 
     [SerializeField] private List<Player> _GoodPlayers; // lIst of all good players
     [SerializeField] private List<Player> _EvilPlayers; // list of all Evil players
@@ -30,7 +34,30 @@ public class GameManager : MonoBehaviour
     private SideType _WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
     private float _CameraDisForPiecePlacement = 200.0f;
 
-    [SerializeField] private CharacterPiece _currentPiece;
+    // get current turn phase
+    [SerializeField] private Phase _turnPhase;
+    public Phase TurnPhase { get { return _turnPhase; } }
+
+    [SerializeField] private CharacterPiece c;
+    [SerializeField] private CharacterPiece _currentPiece
+    {
+        set
+        {
+            if (c != value)
+            {
+                if (c)
+                {
+                    c.Deselected();
+                    c = value;
+                    if (c)
+                        c.Selectd();
+                }
+                else
+                    c = value;
+            }
+        }
+        get { return c; }
+    }
     public CharacterPiece CurrentPiece
     {
         get { return _currentPiece; }
@@ -104,6 +131,8 @@ public class GameManager : MonoBehaviour
         if (GameStarted && CheckForWinner())
             WinnerFound();
 
+        if (_turn.TurnPhase != Phase.None)
+            _turnPhase = _turn.TurnPhase;
     }
 
     private void Init()
@@ -116,6 +145,8 @@ public class GameManager : MonoBehaviour
         CanSelectePiece = false;
         _RollButton.gameObject.SetActive(false);
         _DontRollButton.gameObject.SetActive(false);
+        _turnPhase = Phase.Roll;
+        RollDice = this.GetComponent<Roll>();
     }
 
     private IEnumerator StartGame()
@@ -126,6 +157,7 @@ public class GameManager : MonoBehaviour
         else // loaded game
             yield return SetupPiecesForContinuedGame();
         Debug.Log("Done Setingup the Game");
+        c = null;
         _currentPiece = null;
         _gameStarted = true;
         CanSelectePiece = true;
@@ -142,9 +174,13 @@ public class GameManager : MonoBehaviour
         {
             _currentPiece = null;
             if (CurrentSide == SideType.Good) // good turn
+            {
                 yield return GoodPlayersTurn();
+            }
             else // evils turn
+            {
                 yield return EvilPlayersTurn();
+            }
         }
         Debug.Log("Done Game" + _WinningSide);
     }
@@ -400,4 +436,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CurrentCharacterRoll(bool didRoll)
+    {
+        _currentPiece.RollDice(didRoll);
+    }
+
+    public void CurrentCharacterMovement()
+    {
+
+    }
+
+    public void CurrentCharacterAttack()
+    {
+
+    }
 }

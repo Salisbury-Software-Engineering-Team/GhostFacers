@@ -19,8 +19,8 @@ MonoBehaviour:
   m_Attack: 3
   m_Weapons: 3
   m_Help: 1
-  _weaponHand: []
-  _helpHand: []
+  WeaponHand: []
+  HelpHand: []
   ActiveEffects: []
   AttackablePieces: 0600000000000000000000000000000000000000
   DrawTypes: 64000000c8000000

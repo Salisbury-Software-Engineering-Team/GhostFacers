@@ -29,11 +29,19 @@ public class CardDisplay : MonoBehaviour {
     public Text healthText; //if card.Health == 0 then display = NULL
     public Text attackText;
 
+    public Button BtnActivate;
+
     // Use this for initialization
     void Start ()
     {
-        UpdateDisplay();
+        if (_cardName)
+            UpdateDisplay();
 
+    }
+
+    private void Update()
+    {
+        CanActivate(); // display use button if in proper phase.
     }
 
     private void UpdateDisplay()
@@ -72,14 +80,36 @@ public class CardDisplay : MonoBehaviour {
         }
     }
 
-    /*private void OnValidate()
+    /// <summary>
+    /// Called when the card is being used
+    /// </summary>
+    public void OnActivate()
     {
-        Debug.Log(back);
-        Debug.Log(back.color);
-        Debug.Log(card);
-        Debug.Log(card.Type);
-        Debug.Log(card.Type.ButtonColor);
-        back.color = card.Type.ButtonColor;
-    }*/
+        if (_cardName)
+            _cardName.ToggleActiavation();
+        else
+            Debug.Log("Error CardDisplay.OnActivate(): No card found for the display.");
+    }
 
+    /// <summary>
+    /// Checks each update to see if card can be updated. If yes then displays the use button. If not, then hide.
+    /// </summary>
+    /// <returns></returns>
+    private bool CanActivate()
+    {
+        // If Card activate phase is equal to current phase
+        if (_cardName.EffectPhase == GameManager.instance.TurnPhase && !_cardName.DidActivate)
+        {
+            if (_cardName.canToggle)
+                return BtnActivate.enabled = true;
+            else if (_cardName.IsStagged)
+                return BtnActivate.enabled = false;
+            else
+                return BtnActivate.enabled = true;
+        }
+        else
+        {
+            return BtnActivate.enabled = false;
+        }
+    }
 }

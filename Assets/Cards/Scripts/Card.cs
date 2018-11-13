@@ -10,48 +10,121 @@ public class Card : ScriptableObject
 {
     public bool Summonable; //used for displaying card
 
+    public Effect CardEffect;
+
+    public bool DidActivate { get { return CardEffect.didActivate; } }
+    public bool IsStagged { get { return CardEffect.isStagged; } }
+    public bool canToggle { get { return CardEffect.canToggle; } }
+
     public string Name;
-    /*
-    public int Health;
-    public int Attack;
-
-    //Inventories (only used for summonable cards)
-    public int Help; //for humans
-    public int Weapon; //for humans
-    public int Inventory; //for everyone but humans
-    */
-
     public Sprite artwork;
     public Sprite backImage;
-    //Hi
-    public string Description;
-    //for humans, says number of weapons and help character can hold
+    public CharacterPiece CharacterOwner;
+
+
+    //For humans, says number of weapons and help character can hold
     //for other cards, says their effect or is left blank
     //non-humans can hold up to 2 cards by default
+    public string Description;
 
-    [SerializeField] public CardType Deck;
+    [SerializeField] public CardType DeckType;
+    private readonly Deck deck; // reference to the deck
     public CharacterStat Stat;
+    public event Action<Card> DiscardHandler;
 
-    //What phase the card effect can be used in (None for non effect cards)
-    [SerializeField] private Phase _EffectPhase;
+    /// <summary>
+    /// Returns the phase that the card can be activated in. EX: Attack, Movement, Roll, etc...
+    /// </summary>
     public Phase EffectPhase
     {
-        get { return _EffectPhase; }
+        get {
+            if (CardEffect)
+                return CardEffect.ActivatePhase;
+            else
+            {
+                Debug.Log("Error Card.EffectPhase " + Name + " : Does not have a CardEffect.");
+                return Phase.None;
+            }
+        }
     }
 
     //used for summonable cards
-    public Card(string N, int H, int A, string D, Phase E)
+    public Card(string N, int H, int A, string D)
     {
         Name = N;
-        Stat.Health = H;
-        Stat.Attack = A;
+        Stat.CurrentHealth = H;
+        Stat.CurrentAttack = A;
         Description = D;
         Summonable = true;
-        _EffectPhase = E;
     }
-    //used for effect cards that can't be summoned
-    //public Card(string N, string D, Phase E) { Name = N; Description = D; Summonable = false; _EffectPhase = E; }
 
+    /// <summary>
+    /// Usally callled at the start of a new game. This will initialize variables
+    /// for the card and allow it to be activated. 
+    /// </summary>
+    public void Initialize()
+    {
+        if (CardEffect)
+        {
+            CardEffect.Initialize(this);
+            Description = CardEffect.Description;
+        }
+        
+
+    }
+
+    /// <summary>
+    /// Called when card is being discarded. My not happen when card is used. Usally will be stagged
+    /// for discard and called at end of phase. Card is also flagged as not activated for if card can be used again.
+    /// </summary>
+    public void OnDiscard()
+    {
+        //handle discard 
+        CardEffect.OnDiscard();
+        DiscardHandler.Invoke(this);
+        CharacterOwner = null;
+    }
+
+    /// <summary>
+    /// Called when the card is drawn from the deck. 
+    /// </summary>
+    /// <param name="c">Character that drew the card. (Owner)</param>
+    public void OnDraw(CharacterPiece piece)
+    {
+        CharacterOwner = piece;
+        if (CardEffect)
+        {
+            CardEffect.OnDraw(piece);
+            Debug.Log("OnDraw owner = " + piece.Stat.Name);
+        }
+    }
+    /// <summary>
+    /// Called when card is being used.
+    /// </summary>
+    public void OnActivate()
+    {
+        if (CardEffect)
+        {
+            Debug.Log("Card " + Name + " Activated");
+            CardEffect.OnActivate(this);
+        }
+        else
+            Debug.Log("Error Card.OnActivate(): No Effect Found to card.");
+    }
+
+    /// <summary>
+    /// Handles what happens if the card waiting to be used is not used.
+    /// </summary>
+    public void RemovedFromStaggedForCurrentPhase()
+    {
+        CardEffect.RmFromStaggedForCurrentPhase();
+    }
+
+    public void ToggleActiavation()
+    {
+        Debug.Log("Card " + Name + " ToggleActivationCalled");
+        CardEffect.ToggleActivation();
+    }
 }
 
 //angel red 255 0 0

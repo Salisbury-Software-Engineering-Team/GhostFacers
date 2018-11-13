@@ -19,10 +19,10 @@ MonoBehaviour:
   m_Attack: 5
   m_Weapons: 0
   m_Help: 0
-  _weaponHand: []
-  _helpHand: []
+  WeaponHand: []
+  HelpHand: []
   ActiveEffects: []
-  AttackablePieces: 
+  AttackablePieces: 01000000
   DrawTypes: 
   Side: 2
   Type: 6

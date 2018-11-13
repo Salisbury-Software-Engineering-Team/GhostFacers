@@ -57,4 +57,5 @@ public enum Phase
     Attack,
     Defend,
     EndTurn,
+    Roll,
 }

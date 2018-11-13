@@ -13,6 +13,7 @@ public class CharacterPiece : MonoBehaviour
 
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
+    private List<Card> StaggedForDiscard; // list of cards to be discarded at end of turn
     [SerializeField] private Tile _currentTile = null; // current tile piece is at
     public Tile CurrentTile
     {
@@ -26,6 +27,12 @@ public class CharacterPiece : MonoBehaviour
     public bool canMove; // piece can still roll if true
     public bool doneMove; // once character is done moving;
     public bool StartingPosPlaced = false;
+
+    [SerializeField] private List<Card> _staggedForCurrentPhase; //List of card effects that will be used in current phase.
+    public List<Card> StaggedForCurrentPhase
+    {
+        get { return _staggedForCurrentPhase; }
+    }
 
     [SerializeField] private bool _Died;
     public bool Died { get { return _Died; } }
@@ -69,8 +76,10 @@ public class CharacterPiece : MonoBehaviour
         Agent.enabled = false;
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
+        StaggedForDiscard = new List<Card>();
         doneMove = false;
         _Died = false;
+        _staggedForCurrentPhase = new List<Card>();
     }
 
     private void Update()
@@ -207,6 +216,7 @@ public class CharacterPiece : MonoBehaviour
     {
         doneMove = false; // reset done move so it can be used in anouth turn
         DisplaySelected(false); // remove highlight
+        EmptyStaggedForDiscard();
     }
 
     /// <summary>
@@ -225,13 +235,13 @@ public class CharacterPiece : MonoBehaviour
     /// <param name="amount"></param>
     public void DecreaseHealth(int amount)
     {
-        if (Stat.Health-amount > 0)
+        if (Stat.CurrentHealth-amount > 0)
         {
-            Stat.Health = Stat.Health - amount;
+            Stat.CurrentHealth = Stat.CurrentHealth - amount;
         }
         else
         {
-            Stat.Health = 0;
+            Stat.CurrentHealth = 0;
             _Died = true;
         }
     }
@@ -257,6 +267,7 @@ public class CharacterPiece : MonoBehaviour
 
     public Card AddCard(Card card)
     {
+        Debug.Log("Adding card to character");
         //check if hand is full, if not add card else ask if user wants to remove card.
 
         //Get the right hand
@@ -264,10 +275,11 @@ public class CharacterPiece : MonoBehaviour
         //List<Card> cardHand = (List<Card>)Stat.GetType().GetProperty(cardHandName).GetValue(Stat, null);
 
         // Find the right hand to add the card.
-        switch (card.Deck)
+        switch (card.DeckType)
         {
             case (CardType.Weapon):
                 {
+                    Debug.Log("Adding Weapon card to Character");
                     // hand full
                     if (Stat.WeaponHand.Count == Stat.MaxWeapons)
                     {
@@ -278,11 +290,13 @@ public class CharacterPiece : MonoBehaviour
                     {
                         //hand not full
                         Stat.WeaponHand.Add(card);
+                        card.OnDraw(this.GetComponent<CharacterPiece>());
                         return null;
                     }
                 }
             case (CardType.Help):
                 {
+                    Debug.Log("Adding Help Card to Character");
                     // hand full
                     if (Stat.HelpHand.Count == Stat.MaxHelp)
                     {
@@ -292,12 +306,131 @@ public class CharacterPiece : MonoBehaviour
                     else
                     {
                         //hand not full
+                        Debug.Log("Adding Help card to hand. Piece = " + this.gameObject + "  card = " + card.Name);
                         Stat.HelpHand.Add(card);
+                        Debug.Log("Hand size: " + Stat.HelpHand.Count);
+                        card.OnDraw(this);
                         return null;
                     }
                 }
             default:
+                {
+                    Debug.Log("Did not find a hand to add card. Card = " + card +"  Card type = " + card.DeckType);
+                }
                 return null;
         }
     }
+
+    public void RollDice(bool didRoll)
+    {
+        if (didRoll)
+            this.GetComponent<Roll>().RollDice();
+        else
+            this.GetComponent<Roll>().DontRoll();
+    }
+
+    /// <summary>
+    /// This will loop thru all the card that need to be discared that the player used in a given turn.
+    /// </summary>
+    private void EmptyStaggedForDiscard()
+    {
+        if (StaggedForDiscard != null && StaggedForDiscard.Count > 0)
+        {
+            foreach (Card card in StaggedForDiscard)
+            {
+                card.OnDiscard();
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Checks to see if the card is in a characters hand. If true, adds card to stagged for discard pile.
+    /// </summary>
+    /// <param name="card">Card that is being used.</param>
+    /// <returns>0 if card added to discard pile, 1 if card not in hand.</returns>
+    public int AddToStaggedForDiscard(Card card)
+    {
+        if (Stat.IsCardInHand(card))
+        {
+            StaggedForDiscard.Add(card);
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+    public void AddToStaggedForCurrentPhase(Card card)
+    {
+        _staggedForCurrentPhase.Add(card);
+    }
+
+    public Card RmFromStaggedForCurrentPhase(Card card)
+    {
+        if (_staggedForCurrentPhase != null)
+            if (_staggedForCurrentPhase.Contains(card))
+            {
+                _staggedForCurrentPhase.Remove(card);
+                card.RemovedFromStaggedForCurrentPhase();
+                return card;
+            }
+            else
+                return null;
+        else
+            return null;
+                
+    }
+
+    /// <summary>
+    /// Removes all card waiting to be used in current phase. Usally called if user selectes another piece before end of phase.
+    /// Ex: choses a different characcter piece to roll for will enselect all roll efefects waiting to be used. 
+    /// </summary>
+    public void EmptyStaggedForCurrentPhase()
+    {
+        foreach (Card card in _staggedForCurrentPhase)
+        {
+            card.RemovedFromStaggedForCurrentPhase();
+        }
+        _staggedForCurrentPhase.Clear();
+    }
+
+    /// <summary>
+    /// Handles what happens when the curent piece is selected.
+    /// </summary>
+    public void Selectd()
+    {
+
+    }
+
+    /// <summary>
+    /// Handlesw what happenjs when the current piece is deselcted.
+    /// </summary>
+    public void Deselected()
+    {
+        if (GameManager.instance.TurnPhase != Phase.Attack)
+            EmptyStaggedForCurrentPhase();
+    }
+
+    public void ApplyEffectsStaggedForCurrentPhase()
+    {
+        int numStagged = StaggedForCurrentPhase.Count;
+        for (int i = 0; i < numStagged; i++)
+        {
+            StaggedForCurrentPhase[i].OnActivate();
+        }
+        Debug.Log("Effects Applied for current stage." + "Ammount applied: " + numStagged);
+        EmptyStaggedForCurrentPhase();
+    }
+
+    /// <summary>
+    /// Heal the user for the given amount -1 to fully heal.
+    /// </summary>
+    /// <param name="amount">Amount to heal. -1 Full heath.</param>
+    public void Heal(int amount)
+    {
+        Stat.Heal(amount);
+    }
+
 }

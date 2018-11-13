@@ -37,7 +37,9 @@ public class Tile : MonoBehaviour
             AdjTiles.Add(Portal);
         }
         if (Zone != StartingZone.None)
-            GameManager.instance.DisplayStartingZone += (Zone, doHighlight) => DisplayStartingZone(Zone, doHighlight); // displays tarting zone when called
+        {
+            GameManager.instance.DisplayStartingZone += (Zone, doHighlight) => DisplayStartingZone(Zone, doHighlight); // displays starting zone when called
+        }
     }
 
     /*
