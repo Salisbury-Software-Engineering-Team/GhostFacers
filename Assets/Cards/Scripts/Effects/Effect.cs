@@ -81,11 +81,6 @@ public abstract class Effect : ScriptableObject
             CharacterOwner.StaggedForAttackPhase += () => card.OnActivate();
         }
 
-        if (DrawEffectFunctions != null)
-        {
-            CharacterOwner.StaggedForDrawPhase += () => card.OnActivate();
-        }
-
         if (RollEffectFunctions != null)
         {
             CharacterOwner.StaggedForRollPhase += () => card.OnActivate();
@@ -102,11 +97,6 @@ public abstract class Effect : ScriptableObject
         if (AttackEffectFunctions != null)
         {
             CharacterOwner.StaggedForAttackPhase -= () => card.OnActivate();
-        }
-
-        if (DrawEffectFunctions != null)
-        {
-            CharacterOwner.StaggedForDrawPhase -= () => card.OnActivate();
         }
 
         if (RollEffectFunctions != null)
