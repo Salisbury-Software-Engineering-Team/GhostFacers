@@ -14,11 +14,6 @@ public class CharlieEffect : Effect
         InstantEffectFunctions += () => HealUser();
     }
 
-    public override void OnDraw(CharacterPiece piece)
-    {
-        throw new System.NotImplementedException();
-    }
-
     private void Charlie()
     {
         GameManager.instance.gameObject.GetComponent<Attack>().ModifyAttack(numAttackDiceIncrease); // Apply effect

@@ -11,15 +11,10 @@ public class ModifyAttackDiceEffect : Effect
 
     public override void InitializeEffectFunctions()
     {
-        AttackEffectFunctions += () => IncreaseAttack();
+        AttackEffectFunctions += () => IncreaseAttackDice();
     }
 
-    public override void OnDraw(CharacterPiece piece)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void IncreaseAttack()
+    private void IncreaseAttackDice()
     {
         if (CharacterOwner.Stat == SpecialCharacter)
             GameManager.instance.gameObject.GetComponent<Attack>().ModifyAttack(numAttackDiceIncreaseBobby); // Apply effect for BObby

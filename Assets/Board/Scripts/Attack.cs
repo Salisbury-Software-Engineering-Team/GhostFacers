@@ -256,12 +256,6 @@ public class Attack : MonoBehaviour
         }
     }
 
-    //TODO: Handle increasing attack dice when playing effect cards.
-    public void AddAttackDice()
-    {
-
-    }
-
     public void AttackDone()
     {
         EndAttack();
@@ -287,7 +281,7 @@ public class Attack : MonoBehaviour
                 amountOfDamageDone++;
             }
         }
-        PieceToAttack.DecreaseHealth(amountOfDamageDone); // apply damge
+        PieceToAttack.DecreaseHealth((int)((double)amountOfDamageDone * _PieceAttacking.AttackMultiplier)); // apply damge
         _AppliedAttack = true;
         TotalDamgeText.text = "Total Damge: " +amountOfDamageDone;
     }
@@ -311,3 +305,4 @@ public class Attack : MonoBehaviour
         
     }
 }
+

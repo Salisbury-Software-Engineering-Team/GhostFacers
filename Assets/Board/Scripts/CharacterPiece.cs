@@ -33,6 +33,8 @@ public class CharacterPiece : MonoBehaviour
     public event Action StaggedForDrawPhase;
     public event Action StaggedForEndPhase;
 
+    public double AttackMultiplier { get { return Stat.AttackDamgeMultiplier; } }
+
     [SerializeField] private bool _Died;
     public bool Died { get { return _Died; } }
 
@@ -339,7 +341,6 @@ public class CharacterPiece : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Checks to see if the card is in a characters hand. If true, adds card to stagged for discard pile.
     /// </summary>
@@ -420,4 +421,12 @@ public class CharacterPiece : MonoBehaviour
         Stat.Heal(amount);
     }
 
+    /// <summary>
+    /// Used to change the attack damge of the character.
+    /// </summary>
+    /// <param name="value">Precent to increase damge >= 0.0</param>
+    public void ModifyAttackDamageMultiplier(double value)
+    {
+        Stat.ModifyAttackDamageMultiplier(value);
+    }
 }

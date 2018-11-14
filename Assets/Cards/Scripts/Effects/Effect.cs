@@ -17,11 +17,14 @@ public abstract class Effect : ScriptableObject
     public bool isStagged; // card effect is waiting to be activated.
     public bool canToggle = true; // determines if the card can be unselected before activation.
 
+    [SerializeField] protected int numUsesLeft = 1; // how many times the card can be used. -1 for unlimited, 
+
     protected Action AttackEffectFunctions; // Used to apply effect of the card at next attack
     protected Action DrawEffectFunctions; // Used to apply effect of the card at next draw
     protected Action RollEffectFunctions; // Used to apply effect of the card at next roll
     protected Action EndEffectFunctions; // Used to apply effect of the card on next end turn
     protected Action InstantEffectFunctions; // Used to aply effect that happen when card activate button is pressed.
+    protected Action DiscardEffectFunction; // What happens when a card is discarded. Can be used to turn off active effects
 
     // Called when card is created
     public virtual void Initialize(Card c)
@@ -54,7 +57,6 @@ public abstract class Effect : ScriptableObject
                 // TODO: Change attack to be differnet for each character not attached to gamemanager.
                 didActivate = true;
                 DetermineWhichEffectToInvoke();
-                HandleWhenToDiscard(); // stage card for discard
             }
             else
             {
@@ -130,7 +132,14 @@ public abstract class Effect : ScriptableObject
                     CharacterOwner.StaggedForAttackPhase -= () => card.OnActivate();
 
                     if (AttackEffectFunctions != null)
+                    {
+                        if (numUsesLeft <= 0)
+                            numUsesLeft--;
                         AttackEffectFunctions.Invoke();
+                    }
+
+                    if (numUsesLeft == 0)
+                        ReadyToDiscard(); // stage card for discard
                     break;
                 }
             case Phase.Roll:
@@ -138,15 +147,14 @@ public abstract class Effect : ScriptableObject
                     CharacterOwner.StaggedForRollPhase -= () => card.OnActivate();
 
                     if (RollEffectFunctions != null)
+                    {
+                        if (numUsesLeft <= 0)
+                            numUsesLeft--;
                         RollEffectFunctions.Invoke();
-                    break;
-                }
-            case Phase.Draw:
-                {
-                    CharacterOwner.StaggedForDrawPhase -= () => card.OnActivate();
+                    }
 
-                    if (RollEffectFunctions != null)
-                        RollEffectFunctions.Invoke();
+                    if (numUsesLeft == 0)
+                        ReadyToDiscard(); // stage card for discard
                     break;
                 }
             case Phase.EndTurn:
@@ -154,7 +162,14 @@ public abstract class Effect : ScriptableObject
                     CharacterOwner.StaggedForEndPhase -= () => card.OnActivate();
 
                     if (EndEffectFunctions != null)
+                    {
+                        if (numUsesLeft <= 0)
+                            numUsesLeft--;
                         EndEffectFunctions.Invoke();
+                    }
+
+                    if (numUsesLeft == 0)
+                        ReadyToDiscard(); // stage card for discard
                     break;
                 }
             default:
@@ -207,7 +222,13 @@ public abstract class Effect : ScriptableObject
     }
 
     // Determine if anything is applied 
-    public abstract void OnDraw(CharacterPiece piece);
+    public virtual void OnDraw(CharacterPiece piece)
+    {
+        if (DrawEffectFunctions != null)
+        {
+            DrawEffectFunctions.Invoke();
+        }
+    }
 
     /// <summary>
     /// Used if anything happens when the card is discarded.
@@ -217,16 +238,14 @@ public abstract class Effect : ScriptableObject
         didActivate = false;
         isStagged = false;
         CharacterOwner = null;
+        if (DiscardEffectFunction != null)
+            DiscardEffectFunction.Invoke();
     }
 
     // This is to handle when a card should be discarded.
     //**************Must be called for each Effect Created**********************.
-    protected virtual void HandleWhenToDiscard()
+    protected virtual void ReadyToDiscard()
     {
         CharacterOwner.AddToStaggedForDiscard(card);
     }
-
-    public void CardActivatedButNotUsed()
-    {
-    } 
 }

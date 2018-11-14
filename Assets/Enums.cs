@@ -30,6 +30,8 @@ public enum PieceType
     Angel,
     ArchAngel,
     Monster,
+    Leviathan,
+    Horseman,
 }
 
 public enum StartingZone
