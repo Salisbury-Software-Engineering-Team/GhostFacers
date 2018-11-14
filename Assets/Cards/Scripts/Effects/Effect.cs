@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Effect : ScriptableObject
@@ -10,14 +11,19 @@ public abstract class Effect : ScriptableObject
 
     public string Name = "New Effect"; // Name of the effect
     public string Description = "Enter Description"; // Description of what the effect does.
-    public Phase ActivatePhase; // phase that the card can be played.
+
+    // Phases that the card can be played.
+    [SerializeField] private List<Phase> _ActivatePhases;
+    public List<Phase> ActivatePhases { get { return _ActivatePhases; } } 
+
     protected CharacterPiece CharacterOwner;
     protected Card card;
     public bool didActivate; // card effect has been activated.
     public bool isStagged; // card effect is waiting to be activated.
     public bool canToggle = true; // determines if the card can be unselected before activation.
 
-    [SerializeField] protected int numUsesLeft = 1; // how many times the card can be used. -1 for unlimited, 
+    [SerializeField] protected int baseNumUses = 1;
+    protected int numUsesLeft; // how many times the card can be used. -1 for unlimited, 
 
     protected Action AttackEffectFunctions; // Used to apply effect of the card at next attack
     protected Action DrawEffectFunctions; // Used to apply effect of the card at next draw
@@ -33,6 +39,7 @@ public abstract class Effect : ScriptableObject
         CharacterOwner = null;
         didActivate = false;
         isStagged = false;
+        numUsesLeft = baseNumUses;
     }
 
     /// <summary>

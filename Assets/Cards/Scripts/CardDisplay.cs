@@ -98,7 +98,7 @@ public class CardDisplay : MonoBehaviour {
     private bool CanActivate()
     {
         // If Card activate phase is equal to current phase
-        if (_cardName.EffectPhase == GameManager.instance.TurnPhase && !_cardName.DidActivate)
+        if (_cardName.EffectPhases.Contains(GameManager.instance.TurnPhase) && !_cardName.DidActivate)
         {
             if (_cardName.canToggle)
                 return BtnActivate.enabled = true;

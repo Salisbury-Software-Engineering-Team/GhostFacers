@@ -19,7 +19,7 @@ public class Card : ScriptableObject
     public string Name;
     public Sprite artwork;
     public Sprite backImage;
-    public CharacterPiece CharacterOwner;
+    [HideInInspector] public CharacterPiece CharacterOwner;
 
     //For humans, says number of weapons and help character can hold
     //for other cards, says their effect or is left blank
@@ -34,15 +34,15 @@ public class Card : ScriptableObject
     /// <summary>
     /// Returns the phase that the card can be activated in. EX: Attack, Movement, Roll, etc...
     /// </summary>
-    public Phase EffectPhase
+    public List<Phase> EffectPhases
     {
         get {
             if (CardEffect)
-                return CardEffect.ActivatePhase;
+                return CardEffect.ActivatePhases;
             else
             {
                 Debug.Log("Error Card.EffectPhase " + Name + " : Does not have a CardEffect.");
-                return Phase.None;
+                return null;
             }
         }
     }
