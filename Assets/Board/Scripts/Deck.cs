@@ -40,8 +40,6 @@ public class Deck : MonoBehaviour
 
     private void CreateDecks()
     {
-        LoadAllEffectAssets();
-
         _DeckWeapon = new Queue<Card>();
         _DeckHelp = new Queue<Card>();
         _DeckMonster = new Queue<Card>();
@@ -65,12 +63,6 @@ public class Deck : MonoBehaviour
         RandomlyEnqueueCards(special, _DeckSpecial);
 
         AddDiscardHandlers();
-    }
-
-    private void LoadAllEffectAssets()
-    {
-        Effect[] test = Resources.LoadAll<Effect>("Effects");
-        Debug.Log("Loaded " + test.Length + " Effect Assets.");
     }
 
     /// <summary>

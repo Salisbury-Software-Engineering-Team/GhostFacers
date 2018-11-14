@@ -5,10 +5,6 @@ using UnityEngine;
 
 public abstract class Effect : ScriptableObject
 {
-    // How many more turn the effect should continued to be applied to the piece.
-    // We could use -1 to mean infinite.
-    public int TurnsLeft = 0;
-
     public string Name = "New Effect"; // Name of the effect
     public string Description = "Enter Description"; // Description of what the effect does.
 
@@ -25,12 +21,12 @@ public abstract class Effect : ScriptableObject
     [SerializeField] protected int baseNumUses = 1;
     protected int numUsesLeft; // how many times the card can be used. -1 for unlimited, 
 
-    protected Action AttackEffectFunctions; // Used to apply effect of the card at next attack
-    protected Action DrawEffectFunctions; // Used to apply effect of the card at next draw
-    protected Action RollEffectFunctions; // Used to apply effect of the card at next roll
-    protected Action EndEffectFunctions; // Used to apply effect of the card on next end turn
-    protected Action InstantEffectFunctions; // Used to aply effect that happen when card activate button is pressed.
-    protected Action DiscardEffectFunction; // What happens when a card is discarded. Can be used to turn off active effects
+    protected event Action AttackEffectFunctions; // Used to apply effect of the card at next attack
+    protected event Action DrawEffectFunctions; // Used to apply effect of the card at next draw
+    protected event Action RollEffectFunctions; // Used to apply effect of the card at next roll
+    protected event Action EndEffectFunctions; // Used to apply effect of the card on next end turn
+    protected event Action InstantEffectFunctions; // Used to aply effect that happen when card activate button is pressed.
+    protected event Action DiscardEffectFunction; // What happens when a card is discarded. Can be used to turn off active effects
 
     // Called when card is created
     public virtual void Initialize(Card c)
@@ -183,6 +179,9 @@ public abstract class Effect : ScriptableObject
     /// when to apply the effect. Some card, like increase roll must wait till roll button is presed. These 
     /// cards will be stagged for activation. Other card can just have the effect applied right away. Handle
     /// in the child class.
+    /// 
+    /// For a card with only instant effects, You need to call ReadToDiscard() somewhere in the child class for when the 
+    /// card is ready to be discarded.
     /// </summary>
     public virtual void ToggleActivation()
     {
@@ -208,7 +207,8 @@ public abstract class Effect : ScriptableObject
         {
             isStagged = true;
             AddEffectToProperPhase();
-            InstantEffectFunctions.Invoke();
+            if (InstantEffectFunctions != null)
+                InstantEffectFunctions.Invoke();
             Debug.Log("Card " + card.Name + " Added to stagged");
         }
     }
