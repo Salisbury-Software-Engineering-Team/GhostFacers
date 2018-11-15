@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: Wendigo
   m_EditorClassIdentifier: 
   Summonable: 0
-  CardEffect: {fileID: 11400000, guid: f509a06a5914ced46b4b65340fb3e451, type: 2}
+  CardEffect: {fileID: 0}
   Name: Wendigo
   artwork: {fileID: 21300000, guid: fccb70add55bde343a150bfce4d35155, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  CharacterOwner: {fileID: 0}
   Description: Add 2 to attack damage
   DeckType: 500
   Stat: {fileID: 0}
+  _EffectPhase: 3

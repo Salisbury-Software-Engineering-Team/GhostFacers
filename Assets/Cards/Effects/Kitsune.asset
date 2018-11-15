@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Name: Kitsune
   m_EditorClassIdentifier: 
   TurnsLeft: 0
-  Name: Kitsune
-  Description: Add 3 Attack Dice
-  ActivatePhase: 3
+  Name: New Effect
+  Description: Enter Description
+  ActivatePhase: 0
   didActivate: 0
   isStagged: 0
   canToggle: 1
-  numAttackDiceIncrease: 3
+  numAttackDiceIncrease: 0
   SpecialCharacter: {fileID: 0}
   numAttackDiceIncreaseBobby: 0

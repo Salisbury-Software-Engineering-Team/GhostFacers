@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: Shapeshifter
   m_EditorClassIdentifier: 
   TurnsLeft: 0
-  Name: Shapeshifter
-  Description: Add 4 to Movement Roll
-  ActivatePhase: 1
+  Name: New Effect
+  Description: Enter Description
+  ActivatePhase: 0
   didActivate: 0
   isStagged: 0
   canToggle: 1
-  Movement: 4
+  Movement: 0
