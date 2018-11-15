@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: Witches
   m_EditorClassIdentifier: 
   Summonable: 0
-  CardEffect: {fileID: 0}
+  CardEffect: {fileID: 11400000, guid: d80ad40b33e90fc449eef3fe4d90c13f, type: 2}
   Name: Witches
   artwork: {fileID: 21300000, guid: 20ba4a4980b144e48b670c4ee2e169f4, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
+  CharacterOwner: {fileID: 0}
   Description: Add 2 attack dice
   DeckType: 500
   Stat: {fileID: 0}
-  _EffectPhase: 3

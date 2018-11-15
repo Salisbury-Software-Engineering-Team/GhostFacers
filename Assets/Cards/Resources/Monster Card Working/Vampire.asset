@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: Vampire
   m_EditorClassIdentifier: 
   Summonable: 0
-  CardEffect: {fileID: 0}
+  CardEffect: {fileID: 11400000, guid: 19154256eaf0d0f4b8b0bb17e5ca5d21, type: 2}
   Name: Vampire
   artwork: {fileID: 21300000, guid: 808c5cf525caa6c47a161943df74fbc0, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
+  CharacterOwner: {fileID: 0}
   Description: Add 2 to attack damage
   DeckType: 500
   Stat: {fileID: 0}
-  _EffectPhase: 3

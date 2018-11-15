@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: Shapeshifter
   m_EditorClassIdentifier: 
   Summonable: 0
-  CardEffect: {fileID: 0}
+  CardEffect: {fileID: 11400000, guid: 51d32ddbf8ed1f64985226d41474b06f, type: 2}
   Name: Shapeshifter
   artwork: {fileID: 21300000, guid: e705931a3010d044996ef63499b20c62, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
+  CharacterOwner: {fileID: 0}
   Description: Add 4 to movement roll
   DeckType: 500
   Stat: {fileID: 0}
-  _EffectPhase: 1
