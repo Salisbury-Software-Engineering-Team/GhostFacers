@@ -34,11 +34,6 @@ public class CharacterStat : ScriptableObject
     public GameObject Model;
     public Color PieceColor;
 
-    public bool canBePossessed = true;
-
-    private double _attackDamageMultiplier = 0.0;
-    public double AttackDamgeMultiplier { get { return _attackDamageMultiplier; } }
-
     /// <summary>
     /// Reset stats for a new game.
     /// </summary>
@@ -93,15 +88,5 @@ public class CharacterStat : ScriptableObject
             if (CurrentHealth > m_Health)
                 CurrentHealth = m_Health;
         }
-    }
-
-    /// <summary>
-    /// Used to change the attack damge of the character.
-    /// </summary>
-    /// <param name="value">Precent to increase damge >= 0.0</param>
-    public void ModifyAttackDamageMultiplier(double value)
-    {
-        if (value >= 0)
-            _attackDamageMultiplier = value;
     }
 }

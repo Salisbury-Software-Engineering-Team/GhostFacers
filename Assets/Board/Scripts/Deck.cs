@@ -20,9 +20,6 @@ public class Deck : MonoBehaviour
     private Queue<Card> _DeckMonster;
     private Queue<Card> _DeckHelp;
     private Queue<Card> _DeckWeapon;
-    private Queue<Card> _DeckAngel;
-    private Queue<Card> _DeckDaemon;
-    private Queue<Card> _DeckSpecial;
 
     public Button BtnNo;
     public Button BtnYes;
@@ -43,24 +40,15 @@ public class Deck : MonoBehaviour
         _DeckWeapon = new Queue<Card>();
         _DeckHelp = new Queue<Card>();
         _DeckMonster = new Queue<Card>();
-        _DeckAngel = new Queue<Card>();
-        _DeckDaemon = new Queue<Card>();
-        _DeckSpecial = new Queue<Card>();
 
         // Create wepon deck
         Card[] weapons = Resources.LoadAll<Card>("Weapon/Playable");
         Card[] help = Resources.LoadAll<Card>("Help/Playable");
         Card[] monster = Resources.LoadAll<Card>("Monster/Playable");
-        Card[] angel = Resources.LoadAll<Card>("Angel/Playable");
-        Card[] daemon = Resources.LoadAll<Card>("Daemon/Playable");
-        Card[] special = Resources.LoadAll<Card>("Special/Playable");
 
         RandomlyEnqueueCards(weapons, _DeckWeapon);
         RandomlyEnqueueCards(help, _DeckHelp);
         RandomlyEnqueueCards(monster, _DeckMonster);
-        RandomlyEnqueueCards(angel, _DeckAngel);
-        RandomlyEnqueueCards(daemon, _DeckDaemon);
-        RandomlyEnqueueCards(special, _DeckSpecial);
 
         AddDiscardHandlers();
     }
@@ -79,18 +67,6 @@ public class Deck : MonoBehaviour
             card.DiscardHandler += (c) => OnDiscard(c);
         }
         foreach (Card card in _DeckHelp)
-        {
-            card.DiscardHandler += (c) => OnDiscard(c);
-        }
-        foreach (Card card in _DeckAngel)
-        {
-            card.DiscardHandler += (c) => OnDiscard(c);
-        }
-        foreach (Card card in _DeckDaemon)
-        {
-            card.DiscardHandler += (c) => OnDiscard(c);
-        }
-        foreach (Card card in _DeckMonster)
         {
             card.DiscardHandler += (c) => OnDiscard(c);
         }
@@ -166,24 +142,6 @@ public class Deck : MonoBehaviour
                     DrawWeapon();
                     break;
                 }
-            case TileTypes.Angel:
-                {
-                    Debug.Log("Draw Angel");
-                    DrawAngel();
-                    break;
-                }
-            case TileTypes.Daemon:
-                {
-                    Debug.Log("Draw Daemon");
-                    DrawDaemon();
-                    break;
-                }
-            case TileTypes.SpecialWeapon:
-                {
-                    Debug.Log("Draw Special");
-                    DrawSpecial();
-                    break;
-                }
             default:
                 {
                     Debug.Log("Draw None");
@@ -240,39 +198,6 @@ public class Deck : MonoBehaviour
             _DeckWeapon.Enqueue(removedCard);
     }
 
-    private void DrawAngel()
-    {
-        //Draw the top card
-        Card Top = _DeckAngel.Dequeue();
-
-        //Add to the current pieces hand.
-        Card removedCard = _Piece.AddCard(Top);
-        if (removedCard)
-            _DeckAngel.Enqueue(removedCard);
-    }
-
-    private void DrawDaemon()
-    {
-        //Draw the top card
-        Card Top = _DeckDaemon.Dequeue();
-
-        //Add to the current pieces hand.
-        Card removedCard = _Piece.AddCard(Top);
-        if (removedCard)
-            _DeckDaemon.Enqueue(removedCard);
-    }
-
-    private void DrawSpecial()
-    {
-        //Draw the top card
-        Card Top = _DeckSpecial.Dequeue();
-
-        //Add to the current pieces hand.
-        Card removedCard = _Piece.AddCard(Top);
-        if (removedCard)
-            _DeckSpecial.Enqueue(removedCard);
-    }
-
     /// <summary>
     /// Add each card into the respective decks in a random order.
     /// </summary>
@@ -324,8 +249,8 @@ public class Deck : MonoBehaviour
 
         // Calls the effect OnDiscard() to determine if anything needs to happen
         // with the effect when the card is being discarded.
-        if (c)
-            c.OnDiscard();
+        if (c.CardEffect)
+            c.CardEffect.OnDiscard();
 
         // Loop thru the different deck types and determine with deck to put the card.
         foreach (CardType type in Enum.GetValues(typeof(CardType)))
@@ -359,41 +284,9 @@ public class Deck : MonoBehaviour
         _DeckMonster.Enqueue(c);
     }
 
-    /// <summary>
-    /// Places the Discarded HElp Card back into the Deck.
-    /// </summary>
-    /// <param name="c"></param>
     private void HandleHelpDiscard(Card c)
     {
         Debug.Log("HandleHelpDiscard Called");
         _DeckHelp.Enqueue(c);
-    }
-
-    /// <summary>
-    /// Places the Discarded Weapon card at the end of the deck.
-    /// </summary>
-    /// <param name="c"></param>
-    private void HandleWeaponDiscard(Card c)
-    {
-        Debug.Log("HandleWeaponDiscard Called");
-        _DeckWeapon.Enqueue(c);
-    }
-
-    private void HandleAngelDiscard(Card c)
-    {
-        Debug.Log("HandleAngelDiscard Called");
-        _DeckAngel.Enqueue(c);
-    }
-
-    private void HandleDaemonDiscard(Card c)
-    {
-        Debug.Log("HandleDaemonDiscard Called");
-        _DeckDaemon.Enqueue(c);
-    }
-
-    private void HandleSpecialDiscard(Card c)
-    {
-        Debug.Log("HandSpecialpDiscard Called");
-        _DeckSpecial.Enqueue(c);
     }
 }

@@ -14,9 +14,8 @@ MonoBehaviour:
   TurnsLeft: 0
   Name: Garth
   Description: Add 7 to Roll
-  _ActivatePhases: 06000000
+  ActivatePhase: 6
   didActivate: 1
   isStagged: 1
   canToggle: 1
-  baseNumUses: 1
   Movement: 7

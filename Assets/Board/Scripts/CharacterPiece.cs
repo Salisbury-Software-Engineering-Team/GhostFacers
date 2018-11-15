@@ -28,12 +28,11 @@ public class CharacterPiece : MonoBehaviour
     public bool doneMove; // once character is done moving;
     public bool StartingPosPlaced = false;
 
-    public event Action StaggedForRollPhase;
-    public event Action StaggedForAttackPhase;
-    public event Action StaggedForDrawPhase;
-    public event Action StaggedForEndPhase;
-
-    public double AttackMultiplier { get { return Stat.AttackDamgeMultiplier; } }
+    [SerializeField] private List<Card> _staggedForCurrentPhase; //List of card effects that will be used in current phase.
+    public List<Card> StaggedForCurrentPhase
+    {
+        get { return _staggedForCurrentPhase; }
+    }
 
     [SerializeField] private bool _Died;
     public bool Died { get { return _Died; } }
@@ -77,8 +76,10 @@ public class CharacterPiece : MonoBehaviour
         Agent.enabled = false;
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
-         doneMove = false;
+        StaggedForDiscard = new List<Card>();
+        doneMove = false;
         _Died = false;
+        _staggedForCurrentPhase = new List<Card>();
     }
 
     private void Update()
@@ -215,6 +216,7 @@ public class CharacterPiece : MonoBehaviour
     {
         doneMove = false; // reset done move so it can be used in anouth turn
         DisplaySelected(false); // remove highlight
+        EmptyStaggedForDiscard();
     }
 
     /// <summary>
@@ -341,6 +343,7 @@ public class CharacterPiece : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Checks to see if the card is in a characters hand. If true, adds card to stagged for discard pile.
     /// </summary>
@@ -359,6 +362,40 @@ public class CharacterPiece : MonoBehaviour
         }
     }
 
+    public void AddToStaggedForCurrentPhase(Card card)
+    {
+        _staggedForCurrentPhase.Add(card);
+    }
+
+    public Card RmFromStaggedForCurrentPhase(Card card)
+    {
+        if (_staggedForCurrentPhase != null)
+            if (_staggedForCurrentPhase.Contains(card))
+            {
+                _staggedForCurrentPhase.Remove(card);
+                card.RemovedFromStaggedForCurrentPhase();
+                return card;
+            }
+            else
+                return null;
+        else
+            return null;
+                
+    }
+
+    /// <summary>
+    /// Removes all card waiting to be used in current phase. Usally called if user selectes another piece before end of phase.
+    /// Ex: choses a different characcter piece to roll for will enselect all roll efefects waiting to be used. 
+    /// </summary>
+    public void EmptyStaggedForCurrentPhase()
+    {
+        foreach (Card card in _staggedForCurrentPhase)
+        {
+            card.RemovedFromStaggedForCurrentPhase();
+        }
+        _staggedForCurrentPhase.Clear();
+    }
+
     /// <summary>
     /// Handles what happens when the curent piece is selected.
     /// </summary>
@@ -372,44 +409,19 @@ public class CharacterPiece : MonoBehaviour
     /// </summary>
     public void Deselected()
     {
-        //if (GameManager.instance.TurnPhase != Phase.Attack)
-            //EmptyStaggedForCurrentPhase();
+        if (GameManager.instance.TurnPhase != Phase.Attack)
+            EmptyStaggedForCurrentPhase();
     }
 
     public void ApplyEffectsStaggedForCurrentPhase()
     {
-        switch (GameManager.instance.TurnPhase)
+        int numStagged = StaggedForCurrentPhase.Count;
+        for (int i = 0; i < numStagged; i++)
         {
-            case Phase.Attack :
-                {
-                    if (StaggedForAttackPhase != null)
-                        StaggedForAttackPhase.Invoke();
-                    break;
-                }
-            case Phase.Roll:
-                {
-                    if (StaggedForRollPhase != null)
-                        StaggedForRollPhase.Invoke();
-                    break;
-                }
-            case Phase.Draw:
-                {
-                    if (StaggedForDrawPhase != null)
-                        StaggedForDrawPhase.Invoke();
-                    break;
-                }
-            case Phase.EndTurn:
-                {
-                    if (StaggedForEndPhase != null)
-                        StaggedForEndPhase.Invoke();
-                    break;
-                }
-            default :
-                {
-                    Debug.Log("Error: Can not apply effect for Phase: " + GameManager.instance.TurnPhase);
-                    break;
-                }
+            StaggedForCurrentPhase[i].OnActivate();
         }
+        Debug.Log("Effects Applied for current stage." + "Ammount applied: " + numStagged);
+        EmptyStaggedForCurrentPhase();
     }
 
     /// <summary>
@@ -421,12 +433,4 @@ public class CharacterPiece : MonoBehaviour
         Stat.Heal(amount);
     }
 
-    /// <summary>
-    /// Used to change the attack damge of the character.
-    /// </summary>
-    /// <param name="value">Precent to increase damge >= 0.0</param>
-    public void ModifyAttackDamageMultiplier(double value)
-    {
-        Stat.ModifyAttackDamageMultiplier(value);
-    }
 }

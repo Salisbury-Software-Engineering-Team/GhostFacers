@@ -9,16 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce1f4087cf61b0c4e9823c3857fe339d, type: 3}
-  m_Name: Linda Tran
+  m_Name: Rufus
   m_EditorClassIdentifier: 
   TurnsLeft: 0
-  Name: Linda Tran
-  Description: Add 2 Attack Dice
-  _ActivatePhases: 03000000
+  Name: Rufus
+  Description: Enter Description
+  ActivatePhase: 3
   didActivate: 0
   isStagged: 0
   canToggle: 1
-  baseNumUses: 1
-  numAttackDiceIncrease: 2
-  SpecialCharacter: {fileID: 0}
-  numAttackDiceIncreaseBobby: 0
+  numAttackDiceIncrease: 1
+  SpecialCharacter: {fileID: 11400000, guid: eeea81c63efbf6a42986675c16afac69, type: 2}
+  numAttackDiceIncreaseBobby: 3
