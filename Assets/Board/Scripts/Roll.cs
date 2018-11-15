@@ -49,7 +49,7 @@ public class Roll : MonoBehaviour
 
             baseMovement = rand.Next(MaxRoll-1) + 2;
 
-            Debug.Log("Roll = " + Movement + "  ModValue = " + modValue);
+            Debug.Log("Roll = " + baseMovement + "  ModValue = " + modValue);
             Movement = baseMovement + modValue;
             rolled = true;
             GameManager.instance.Turn.BeginTurn(Movement);
@@ -85,14 +85,7 @@ public class Roll : MonoBehaviour
     private void ApplyEffects()
     {
         CharacterPiece piece = this.gameObject.GetComponent<CharacterPiece>();
-        int numStagged = piece.StaggedForCurrentPhase.Count;
-        for (int i = 0; i < numStagged; i++)
-        {
-            piece.StaggedForCurrentPhase[i].OnActivate();
-        }
-        Debug.Log("DOne");
-        piece.EmptyStaggedForCurrentPhase();
-        Debug.Log("Wewe");
+        piece.ApplyEffectsStaggedForCurrentPhase();
     }
 
 

@@ -9,14 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
-  m_Name: Rufus
+  m_Name: Linda Tran
   m_EditorClassIdentifier: 
   Summonable: 0
-  CardEffect: {fileID: 11400000, guid: 6870059dafd329e459dab74b533f02e5, type: 2}
-  Name: Rufus
-  artwork: {fileID: 21300000, guid: 844ee4f7a407ab54bb1f868910fe2c04, type: 3}
+  CardEffect: {fileID: 11400000, guid: 58ed6f3a5f69b4443bdf46ce15943339, type: 2}
+  Name: Linda Tran
+  artwork: {fileID: 21300000, guid: edb2fdd614de53b49b67de2c2f493cf3, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   CharacterOwner: {fileID: 0}
-  Description: Add 1 Attack Dice. If used by Bobby, Add 3.
+  Description: Add 2 Attack Dice
   DeckType: 100
   Stat: {fileID: 0}
