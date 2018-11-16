@@ -9,15 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
-  m_Name: Angel Banishment Sigil
+  m_Name: Colt
   m_EditorClassIdentifier: 
   Summonable: 0
   CardEffect: {fileID: 0}
-  Name: Angel Banishment Sigil
-  artwork: {fileID: 21300000, guid: 53d30d449febe8147ba329c7c57ab0dd, type: 3}
+  Name: Colt
+  artwork: {fileID: 21300000, guid: 30d284caff6f4224096b350a0ae89eba, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   CharacterOwner: {fileID: 0}
-  Description: When this card is used, all angels on the board are pushed back by
-    20 tiles.
+  Description: When this card is used it can instantly kill anything but Leviathans,
+    Horsemen, and Archangels. Can be used up to 6 times.
   DeckType: 200
   Stat: {fileID: 0}
