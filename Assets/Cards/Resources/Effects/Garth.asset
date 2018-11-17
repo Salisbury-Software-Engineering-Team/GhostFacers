@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c901e97c22868454a9ba66cf6ed68307, type: 3}
+  m_Name: Garth
+  m_EditorClassIdentifier: 
+  TurnsLeft: 0
+  Name: Garth
+  Description: Add 7 to Roll
+  _ActivatePhases: 06000000
+  didActivate: 1
+  isStagged: 1
+  canToggle: 1
+  baseNumUses: 1
+  Movement: 7
