@@ -17,6 +17,6 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: d53da8147ac43d842863765163cf23b2, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   CharacterOwner: {fileID: 0}
-  Description: Add 2 Attack Dice, 4 If Used By Sam
+  Description: Add 2 Attack Dice. 4 if Used by Sam.
   DeckType: 100
   Stat: {fileID: 0}

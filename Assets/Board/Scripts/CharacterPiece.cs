@@ -13,7 +13,7 @@ public class CharacterPiece : MonoBehaviour
 
     private List<GameObject> AvaliableMovementTiles; // list of total movement avaliable
     private List<GameObject> BlockedMovementTiles; // tiles with player on them
-    private List<Card> StaggedForDiscard; // list of cards to be discarded at end of turn
+    [SerializeField] private List<Card> StaggedForDiscard; // list of cards to be discarded at end of turn
     [SerializeField] private Tile _currentTile = null; // current tile piece is at
     public Tile CurrentTile
     {
@@ -77,6 +77,7 @@ public class CharacterPiece : MonoBehaviour
         Agent.enabled = false;
         BlockedMovementTiles = new List<GameObject>();
         AvaliableMovementTiles = new List<GameObject>();
+        StaggedForDiscard = new List<Card>();
          doneMove = false;
         _Died = false;
     }
@@ -213,8 +214,10 @@ public class CharacterPiece : MonoBehaviour
     /// </summary>
     public void EndTurn()
     {
+        Debug.Log("Ending Turn");
         doneMove = false; // reset done move so it can be used in anouth turn
         DisplaySelected(false); // remove highlight
+        EmptyStaggedForDiscard();
     }
 
     /// <summary>

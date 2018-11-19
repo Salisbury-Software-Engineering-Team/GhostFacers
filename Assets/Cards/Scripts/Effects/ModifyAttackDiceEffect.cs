@@ -14,6 +14,15 @@ public class ModifyAttackDiceEffect : Effect
         AttackEffectFunctions += () => IncreaseAttackDice();
     }
 
+    protected override void SetDescription()
+    {
+        Description = "Add " + numAttackDiceIncrease + " Attack Dice.";
+        if (SpecialCharacter)
+        {
+            Description += " " + numSpecialAttackDiceIncrease + " if Used by " + SpecialCharacter.Name + ".";
+        }
+    }
+
     private void IncreaseAttackDice()
     {
         if (CharacterOwner.Stat == SpecialCharacter)

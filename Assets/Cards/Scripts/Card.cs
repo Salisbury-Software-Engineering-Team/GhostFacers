@@ -27,9 +27,18 @@ public class Card : ScriptableObject
     public string Description;
 
     [SerializeField] public CardType DeckType;
-    private readonly Deck deck; // reference to the deck
     public CharacterStat Stat;
     public event Action<Card> DiscardHandler;
+
+    public void Awake()
+    {
+        Debug.Log("Awake Card Called");
+        if (CardEffect)
+        {
+            Name = CardEffect.Name;
+            Description = CardEffect.Description;
+        }
+    }
 
     /// <summary>
     /// Returns the phase that the card can be activated in. EX: Attack, Movement, Roll, etc...
@@ -67,6 +76,7 @@ public class Card : ScriptableObject
         {
             CardEffect.Initialize(this);
             CardEffect.InitializeEffectFunctions();
+            Name = CardEffect.Name;
             Description = CardEffect.Description;
         }
         

@@ -36,6 +36,7 @@ public abstract class Effect : ScriptableObject
         didActivate = false;
         isStagged = false;
         numUsesLeft = baseNumUses;
+        SetDescription();
     }
 
     /// <summary>
@@ -126,7 +127,7 @@ public abstract class Effect : ScriptableObject
 
                     if (AttackEffectFunctions != null)
                     {
-                        if (numUsesLeft <= 0)
+                        if (numUsesLeft >= 0)
                             numUsesLeft--;
                         AttackEffectFunctions.Invoke();
                     }
@@ -141,7 +142,7 @@ public abstract class Effect : ScriptableObject
 
                     if (RollEffectFunctions != null)
                     {
-                        if (numUsesLeft <= 0)
+                        if (numUsesLeft >= 0)
                             numUsesLeft--;
                         RollEffectFunctions.Invoke();
                     }
@@ -156,7 +157,7 @@ public abstract class Effect : ScriptableObject
 
                     if (EndEffectFunctions != null)
                     {
-                        if (numUsesLeft <= 0)
+                        if (numUsesLeft >= 0)
                             numUsesLeft--;
                         EndEffectFunctions.Invoke();
                     }
@@ -171,7 +172,7 @@ public abstract class Effect : ScriptableObject
                     break;
                 }
         }
-
+        Debug.Log("Done aplling effect");
     }
 
     /// <summary>
@@ -209,7 +210,7 @@ public abstract class Effect : ScriptableObject
             AddEffectToProperPhase();
             if (InstantEffectFunctions != null)
                 InstantEffectFunctions.Invoke();
-            Debug.Log("Card " + card.Name + " Added to stagged");
+            //Debug.Log("Card " + card.Name + " Added to stagged");
         }
     }
 
@@ -234,6 +235,7 @@ public abstract class Effect : ScriptableObject
     {
         didActivate = false;
         isStagged = false;
+        numUsesLeft = baseNumUses;
         CharacterOwner = null;
         if (DiscardEffectFunction != null)
             DiscardEffectFunction.Invoke();
@@ -243,6 +245,11 @@ public abstract class Effect : ScriptableObject
     //**************Must be called for each Effect Created**********************.
     protected virtual void ReadyToDiscard()
     {
+
+        //card.OnDiscard();
         CharacterOwner.AddToStaggedForDiscard(card);
+        Debug.Log("Stagged For Discard");
     }
+
+    protected abstract void SetDescription();
 }

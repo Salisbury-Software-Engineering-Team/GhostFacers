@@ -159,6 +159,7 @@ public class Attack : MonoBehaviour
     /// </summary>
     private void EndAttack()
     {
+        Debug.Log("Ending Attack");
         GameManager.instance.CanSelectePiece = true;
         GameManager.instance.CurrentPiece = _PieceAttacking;
         BtnAttackUI.SetActive(false); // turn off attack button 
@@ -258,6 +259,7 @@ public class Attack : MonoBehaviour
 
     public void AttackDone()
     {
+        Debug.Log("Ending Attack");
         EndAttack();
     }
 

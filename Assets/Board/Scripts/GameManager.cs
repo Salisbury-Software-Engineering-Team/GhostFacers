@@ -104,6 +104,9 @@ public class GameManager : MonoBehaviour
     private bool _gameStarted;
     public bool GameStarted { get { return _gameStarted; } }
 
+    private Deck _cardDeck;
+    public Deck CardDeck { get { return _cardDeck; } }
+
 	private void Awake()
     {
         if (instance == null)
@@ -147,6 +150,7 @@ public class GameManager : MonoBehaviour
         _DontRollButton.gameObject.SetActive(false);
         _turnPhase = Phase.Roll;
         RollDice = this.GetComponent<Roll>();
+        _cardDeck = this.GetComponent<Deck>();
     }
 
     private IEnumerator StartGame()
@@ -298,8 +302,6 @@ public class GameManager : MonoBehaviour
             // Piece belongs to Current Player
             if (CurrentPlayer != null && CurrentPlayer.Pieces != null && CurrentPlayer.Pieces.Contains(piece))
             {
-                // TODO: Display Current Players piece info **********************
-
                 if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
                     _RollButton.gameObject.SetActive(true);
