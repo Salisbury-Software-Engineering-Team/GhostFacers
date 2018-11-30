@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 190481427}
   - component: {fileID: 190481428}
   m_Layer: 5
-  m_Name: MainMenu (5)
+  m_Name: StyleFiveWalkthrough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5150,7 +5150,7 @@ GameObject:
   - component: {fileID: 1121436063}
   - component: {fileID: 1121436064}
   m_Layer: 5
-  m_Name: MainMenu (3)
+  m_Name: StyleThreeWalkthrough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5938,7 +5938,7 @@ GameObject:
   - component: {fileID: 1250511133}
   - component: {fileID: 1250511134}
   m_Layer: 5
-  m_Name: MainMenu (2)
+  m_Name: StyleTwoWalkthrough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7043,7 +7043,7 @@ GameObject:
   - component: {fileID: 1491198179}
   - component: {fileID: 1491198180}
   m_Layer: 5
-  m_Name: MainMenu (4)
+  m_Name: StyleFourWalkthrough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8677,7 +8677,7 @@ GameObject:
   - component: {fileID: 2061751429}
   - component: {fileID: 2061751430}
   m_Layer: 5
-  m_Name: MainMenu (1)
+  m_Name: StyleOneWalkthrough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
