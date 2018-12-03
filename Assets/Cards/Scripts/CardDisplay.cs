@@ -41,7 +41,8 @@ public class CardDisplay : MonoBehaviour {
 
     private void Update()
     {
-        CanActivate(); // display use button if in proper phase.
+        if (BtnActivate)
+            CanActivate(); // display use button if in proper phase.
     }
 
     private void UpdateDisplay()
@@ -119,5 +120,6 @@ public class CardDisplay : MonoBehaviour {
             Debug.Log("Error: Card " + _cardName + " effect phases is null!");
             return BtnActivate.enabled = false;
         }
+        
     }
 }

@@ -337,9 +337,10 @@ public class CharacterPiece : MonoBehaviour
     {
         if (StaggedForDiscard != null && StaggedForDiscard.Count > 0)
         {
-            foreach (Card card in StaggedForDiscard)
+            for (int i = StaggedForDiscard.Count-1; i >= 0; i--)
             {
-                card.OnDiscard();
+                StaggedForDiscard[i].OnDiscard();
+                StaggedForDiscard.RemoveAt(i);
             }
         }
     }
@@ -386,25 +387,37 @@ public class CharacterPiece : MonoBehaviour
             case Phase.Attack :
                 {
                     if (StaggedForAttackPhase != null)
+                    {
                         StaggedForAttackPhase.Invoke();
+                        StaggedForAttackPhase = null;
+                    }
                     break;
                 }
             case Phase.Roll:
                 {
                     if (StaggedForRollPhase != null)
+                    {
                         StaggedForRollPhase.Invoke();
+                        StaggedForRollPhase = null;
+                    }
                     break;
                 }
             case Phase.Draw:
                 {
                     if (StaggedForDrawPhase != null)
+                    {
                         StaggedForDrawPhase.Invoke();
+                        StaggedForDrawPhase = null;
+                    }
                     break;
                 }
             case Phase.EndTurn:
                 {
                     if (StaggedForEndPhase != null)
+                    {
                         StaggedForEndPhase.Invoke();
+                        StaggedForEndPhase = null;
+                    }
                     break;
                 }
             default :

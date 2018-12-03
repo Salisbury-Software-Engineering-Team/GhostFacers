@@ -105,7 +105,6 @@ public class Card : ScriptableObject
         CharacterOwner = piece;
         if (CardEffect)
         {
-            CardEffect.SetOwner(piece);
             CardEffect.OnDraw(piece);
             Debug.Log("OnDraw owner = " + piece.Stat.Name);
         }
@@ -115,13 +114,7 @@ public class Card : ScriptableObject
     /// </summary>
     public void OnActivate()
     {
-        if (CardEffect)
-        {
-            Debug.Log("Card " + Name + " Activated");
-            CardEffect.OnActivate();
-        }
-        else
-            Debug.Log("Error Card.OnActivate(): No Effect Found to card.");
+        
     }
 
     public void ToggleActiavation()

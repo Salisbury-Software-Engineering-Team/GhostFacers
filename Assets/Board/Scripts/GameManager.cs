@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -106,6 +107,19 @@ public class GameManager : MonoBehaviour
 
     private Deck _cardDeck;
     public Deck CardDeck { get { return _cardDeck; } }
+
+    private Action<Card> ChoiceEffectHandler;
+    private Card _choiceEffect;
+    public Card ChoiceEffect
+    {
+        set
+        {
+            _choiceEffect = value;
+            if (_choiceEffect)
+                ChoiceEffectHandler.Invoke(_choiceEffect);
+        }
+        get { return _choiceEffect; }
+    }
 
 	private void Awake()
     {
@@ -451,5 +465,15 @@ public class GameManager : MonoBehaviour
     public void CurrentCharacterAttack()
     {
 
+    }
+
+    /// <summary>
+    /// Only allow one listener to be added to the effectchoicehandler
+    /// </summary>
+    /// <param name="action"></param>
+    public void AddEffectChoiceListener(Action<Card> action)
+    {
+        if (ChoiceEffectHandler == null)
+            ChoiceEffectHandler += (c) => action(c);
     }
 }

@@ -39,6 +39,7 @@ public class Roll : MonoBehaviour
     {
         if (GameManager.instance.CurrentPiece != null && GameManager.instance.CurrentPiece.canMove)
         {
+            ResetRoll();
             ApplyEffects();
             Debug.Log("Done Activate");
             System.DateTime localDate = System.DateTime.Now;
