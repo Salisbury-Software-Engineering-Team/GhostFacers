@@ -20,5 +20,6 @@ MonoBehaviour:
   baseNumUses: 1
   effects:
   - {fileID: 11400000, guid: d7c94619d70c2fc49979e3bb4353db3c, type: 2}
+  - {fileID: 11400000, guid: 68b9e7d2c8de88840be09825136fd85d, type: 2}
   InstanceEffects:
   - {fileID: 0}
