@@ -11,9 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1f4087cf61b0c4e9823c3857fe339d, type: 3}
   m_Name: Chrissie
   m_EditorClassIdentifier: 
-  TurnsLeft: 0
   Name: Chrissie
-  Description: Add 2 Attack Dice, 4 If Used By Sam
+  Description: 
   _ActivatePhases: 03000000
   didActivate: 0
   isStagged: 0

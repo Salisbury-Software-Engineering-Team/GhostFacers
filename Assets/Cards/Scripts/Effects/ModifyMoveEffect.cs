@@ -12,6 +12,11 @@ public class ModifyMoveEffect : Effect
         RollEffectFunctions += () => Move();
     }
 
+    protected override void SetDescription()
+    {
+        Description = "Add " + Movement + " to Total Movement.";
+    }
+
     private void Move()
     {
         Debug.Log("ModifyMovementEffect Applied. Roll increase: " + Movement);

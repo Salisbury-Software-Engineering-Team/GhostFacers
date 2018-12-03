@@ -41,7 +41,8 @@ public class CardDisplay : MonoBehaviour {
 
     private void Update()
     {
-        CanActivate(); // display use button if in proper phase.
+        if (BtnActivate)
+            CanActivate(); // display use button if in proper phase.
     }
 
     private void UpdateDisplay()
@@ -98,18 +99,27 @@ public class CardDisplay : MonoBehaviour {
     private bool CanActivate()
     {
         // If Card activate phase is equal to current phase
-        if (_cardName.EffectPhases.Contains(GameManager.instance.TurnPhase) && !_cardName.DidActivate)
+        if (_cardName.EffectPhases != null)
         {
-            if (_cardName.canToggle)
-                return BtnActivate.enabled = true;
-            else if (_cardName.IsStagged)
-                return BtnActivate.enabled = false;
+            if (_cardName.EffectPhases.Contains(GameManager.instance.TurnPhase) && !_cardName.DidActivate)
+            {
+                if (_cardName.canToggle)
+                    return BtnActivate.enabled = true;
+                else if (_cardName.IsStagged)
+                    return BtnActivate.enabled = false;
+                else
+                    return BtnActivate.enabled = true;
+            }
             else
-                return BtnActivate.enabled = true;
+            {
+                return BtnActivate.enabled = false;
+            }
         }
         else
         {
+            Debug.Log("Error: Card " + _cardName + " effect phases is null!");
             return BtnActivate.enabled = false;
         }
+        
     }
 }

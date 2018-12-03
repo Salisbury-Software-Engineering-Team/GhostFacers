@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -104,6 +105,22 @@ public class GameManager : MonoBehaviour
     private bool _gameStarted;
     public bool GameStarted { get { return _gameStarted; } }
 
+    private Deck _cardDeck;
+    public Deck CardDeck { get { return _cardDeck; } }
+
+    private Action<Card> ChoiceEffectHandler;
+    private Card _choiceEffect;
+    public Card ChoiceEffect
+    {
+        set
+        {
+            _choiceEffect = value;
+            if (_choiceEffect)
+                ChoiceEffectHandler.Invoke(_choiceEffect);
+        }
+        get { return _choiceEffect; }
+    }
+
 	private void Awake()
     {
         if (instance == null)
@@ -147,6 +164,7 @@ public class GameManager : MonoBehaviour
         _DontRollButton.gameObject.SetActive(false);
         _turnPhase = Phase.Roll;
         RollDice = this.GetComponent<Roll>();
+        _cardDeck = this.GetComponent<Deck>();
     }
 
     private IEnumerator StartGame()
@@ -298,8 +316,6 @@ public class GameManager : MonoBehaviour
             // Piece belongs to Current Player
             if (CurrentPlayer != null && CurrentPlayer.Pieces != null && CurrentPlayer.Pieces.Contains(piece))
             {
-                // TODO: Display Current Players piece info **********************
-
                 if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
                     _RollButton.gameObject.SetActive(true);
@@ -449,5 +465,15 @@ public class GameManager : MonoBehaviour
     public void CurrentCharacterAttack()
     {
 
+    }
+
+    /// <summary>
+    /// Only allow one listener to be added to the effectchoicehandler
+    /// </summary>
+    /// <param name="action"></param>
+    public void AddEffectChoiceListener(Action<Card> action)
+    {
+        if (ChoiceEffectHandler == null)
+            ChoiceEffectHandler += (c) => action(c);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public abstract class Effect : ScriptableObject
 {
     public string Name = "New Effect"; // Name of the effect
@@ -36,6 +37,7 @@ public abstract class Effect : ScriptableObject
         didActivate = false;
         isStagged = false;
         numUsesLeft = baseNumUses;
+        SetDescription();
     }
 
     /// <summary>
@@ -81,17 +83,17 @@ public abstract class Effect : ScriptableObject
     {
         if (AttackEffectFunctions != null)
         {
-            CharacterOwner.StaggedForAttackPhase += () => card.OnActivate();
+            CharacterOwner.StaggedForAttackPhase += () => this.OnActivate();
         }
 
         if (RollEffectFunctions != null)
         {
-            CharacterOwner.StaggedForRollPhase += () => card.OnActivate();
+            CharacterOwner.StaggedForRollPhase += () => this.OnActivate();
         }
 
         if (EndEffectFunctions != null)
         {
-            CharacterOwner.StaggedForEndPhase += () => card.OnActivate();
+            CharacterOwner.StaggedForEndPhase += () => this.OnActivate();
         }
     }
 
@@ -99,17 +101,17 @@ public abstract class Effect : ScriptableObject
     {
         if (AttackEffectFunctions != null)
         {
-            CharacterOwner.StaggedForAttackPhase -= () => card.OnActivate();
+            CharacterOwner.StaggedForAttackPhase -= () => this.OnActivate();
         }
 
         if (RollEffectFunctions != null)
         {
-            CharacterOwner.StaggedForRollPhase -= () => card.OnActivate();
+            CharacterOwner.StaggedForRollPhase -= () => this.OnActivate();
         }
 
         if (EndEffectFunctions != null)
         {
-            CharacterOwner.StaggedForEndPhase -= () => card.OnActivate();
+            CharacterOwner.StaggedForEndPhase -= () => this.OnActivate();
         }
     }
 
@@ -122,11 +124,11 @@ public abstract class Effect : ScriptableObject
         {
             case Phase.Attack:
                 {
-                    CharacterOwner.StaggedForAttackPhase -= () => card.OnActivate();
+                    CharacterOwner.StaggedForAttackPhase -= () => this.OnActivate();
 
                     if (AttackEffectFunctions != null)
                     {
-                        if (numUsesLeft <= 0)
+                        if (numUsesLeft >= 0)
                             numUsesLeft--;
                         AttackEffectFunctions.Invoke();
                     }
@@ -137,11 +139,11 @@ public abstract class Effect : ScriptableObject
                 }
             case Phase.Roll:
                 {
-                    CharacterOwner.StaggedForRollPhase -= () => card.OnActivate();
+                    CharacterOwner.StaggedForRollPhase -= () => this.OnActivate();
 
                     if (RollEffectFunctions != null)
                     {
-                        if (numUsesLeft <= 0)
+                        if (numUsesLeft >= 0)
                             numUsesLeft--;
                         RollEffectFunctions.Invoke();
                     }
@@ -152,11 +154,11 @@ public abstract class Effect : ScriptableObject
                 }
             case Phase.EndTurn:
                 {
-                    CharacterOwner.StaggedForEndPhase -= () => card.OnActivate();
+                    CharacterOwner.StaggedForEndPhase -= () => this.OnActivate();
 
                     if (EndEffectFunctions != null)
                     {
-                        if (numUsesLeft <= 0)
+                        if (numUsesLeft >= 0)
                             numUsesLeft--;
                         EndEffectFunctions.Invoke();
                     }
@@ -171,7 +173,7 @@ public abstract class Effect : ScriptableObject
                     break;
                 }
         }
-
+        Debug.Log("Done aplling effect");
     }
 
     /// <summary>
@@ -200,7 +202,8 @@ public abstract class Effect : ScriptableObject
                 // has not been pressed yet. This would allow the user to change his mind about the card use.
                 isStagged = true;
                 AddEffectToProperPhase();
-                Debug.Log("Card " + card.Name + " Added to stagged");
+                if (card)
+                    Debug.Log("Card " + card.Name + " Added to stagged");
             }
         }
         else
@@ -209,7 +212,7 @@ public abstract class Effect : ScriptableObject
             AddEffectToProperPhase();
             if (InstantEffectFunctions != null)
                 InstantEffectFunctions.Invoke();
-            Debug.Log("Card " + card.Name + " Added to stagged");
+            //Debug.Log("Card " + card.Name + " Added to stagged");
         }
     }
 
@@ -221,6 +224,7 @@ public abstract class Effect : ScriptableObject
     // Determine if anything is applied 
     public virtual void OnDraw(CharacterPiece piece)
     {
+        SetOwner(piece);
         if (DrawEffectFunctions != null)
         {
             DrawEffectFunctions.Invoke();
@@ -234,6 +238,7 @@ public abstract class Effect : ScriptableObject
     {
         didActivate = false;
         isStagged = false;
+        numUsesLeft = baseNumUses;
         CharacterOwner = null;
         if (DiscardEffectFunction != null)
             DiscardEffectFunction.Invoke();
@@ -243,6 +248,15 @@ public abstract class Effect : ScriptableObject
     //**************Must be called for each Effect Created**********************.
     protected virtual void ReadyToDiscard()
     {
-        CharacterOwner.AddToStaggedForDiscard(card);
+
+        //card.OnDiscard();
+        if (card)
+        {
+            CharacterOwner.AddToStaggedForDiscard(card);
+            Debug.Log("Stagged For Discard");
+
+        }
     }
+
+    protected abstract void SetDescription();
 }

@@ -9,14 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
-  m_Name: Chrissie
+  m_Name: Bella
   m_EditorClassIdentifier: 
   Summonable: 0
-  CardEffect: {fileID: 11400000, guid: 3c17ae3df6181c841a72a4345fa430af, type: 2}
-  Name: Chrissie
-  artwork: {fileID: 21300000, guid: d53da8147ac43d842863765163cf23b2, type: 3}
+  CardEffect: {fileID: 11400000, guid: d7c94619d70c2fc49979e3bb4353db3c, type: 2}
+  Name: Bella
+  artwork: {fileID: 21300000, guid: 678cadaf93e08734c9c2fe95dc83962e, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   CharacterOwner: {fileID: 0}
-  Description: Add 2 Attack Dice. 4 if Used by Sam.
+  Description: Add 3 Attack Dice and Draw 1 Weapon Cards.
   DeckType: 100
   Stat: {fileID: 0}

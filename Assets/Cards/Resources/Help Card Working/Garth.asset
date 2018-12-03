@@ -17,6 +17,6 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: 5a9beac7cc770e345b859469906c3daa, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
   CharacterOwner: {fileID: 0}
-  Description: Add 7 to Roll
+  Description: Add 7 to Total Movement.
   DeckType: 100
   Stat: {fileID: 0}

@@ -105,13 +105,21 @@ public class Deck : MonoBehaviour
         StartCoroutine(DrawLoop(piece));
     }
 
+    /// <summary>
+    /// used to Draw a card from the passed deck type a give to the passed piece
+    /// </summary>
+    /// <param name="piece">Piece card is given to</param>
+    /// <param name="type">Deck to draw from</param>
+    public void DrawCard(CharacterPiece piece, CardType type)
+    {
+        StartCoroutine(DrawLoop(piece, type));
+    }
+
     private IEnumerator DrawLoop(CharacterPiece piece)
     {
         ResetVars();
         _Piece = piece;
         _CardType = _Piece.CurrentTile.Type.Type;
-        int temp = (int)_Piece.CurrentTile.Type.Type;
-        Debug.Log(temp);
         if (CanPieceDraw())
         {
             Debug.Log(_Piece + " can Draw.");
@@ -125,6 +133,26 @@ public class Deck : MonoBehaviour
                 yield return DetermineDeck();
         }
         _doneDraw = true;
+    }
+
+    /// <summary>
+    /// Use this to draw a card from a deck and give it to the passed piece.
+    /// </summary>
+    /// <param name="piece"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    private IEnumerator DrawLoop(CharacterPiece piece, CardType type)
+    {
+        _Piece = piece;
+        _CardType = (TileTypes)type;
+        if (CanPieceDraw())
+        {
+            Debug.Log(_Piece + " can Draw.");
+            //user said yes
+            answer = 1;
+            if (answer == 1)
+                yield return DetermineDeck();
+        }
     }
 
     private IEnumerator WaitForAnswer()
@@ -324,8 +352,8 @@ public class Deck : MonoBehaviour
 
         // Calls the effect OnDiscard() to determine if anything needs to happen
         // with the effect when the card is being discarded.
-        if (c)
-            c.OnDiscard();
+        //if (c)
+        //    c.OnDiscard();
 
         // Loop thru the different deck types and determine with deck to put the card.
         foreach (CardType type in Enum.GetValues(typeof(CardType)))

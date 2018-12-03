@@ -14,6 +14,11 @@ public class CharlieEffect : Effect
         InstantEffectFunctions += () => HealUser();
     }
 
+    protected override void SetDescription()
+    {
+        Description = "Add " + numAttackDiceIncrease + " Attack Dice and Heal Character for " + AmountToHeal + " Health.";
+    }
+
     private void Charlie()
     {
         GameManager.instance.gameObject.GetComponent<Attack>().ModifyAttack(numAttackDiceIncrease); // Apply effect
