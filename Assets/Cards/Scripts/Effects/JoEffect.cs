@@ -161,5 +161,9 @@ public class JoEffect : Effect
         }
     }
 
+    protected override void SetDescription()
+    {
+        throw new NotImplementedException();
+    }
 }
 
