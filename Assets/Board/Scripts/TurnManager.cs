@@ -87,7 +87,7 @@ public class TurnManager : MonoBehaviour
         _HelpText.text = "Select Piece to Attack";
         _turnPhase = Phase.Attack;
         _Attack.SetupAttack(Piece); // start the attack
-        yield return new WaitUntil(() => _Attack.DoneAttack == true); // wait till attack sone
+        yield return new WaitUntil(() => _Attack.DoneAttack == true); // wait till attack done
     }
 
     IEnumerator EndTurnPhase()
