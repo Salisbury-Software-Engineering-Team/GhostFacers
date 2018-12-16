@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Salt Shells
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Salt Shells
-  artwork: {fileID: 21300000, guid: 56340ae2ab9d69d43a77bca93df40f5b, type: 3}
+  artwork: {fileID: 21300000, guid: 30c107768087a16419aee4a6f123ba33, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Push ghosts away by 10 tiles
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: Push a ghost back 10 tiles.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 0

@@ -38,7 +38,9 @@ public class Attack : MonoBehaviour
     [SerializeField] private bool _AppliedAttack;
 
     [SerializeField] private List<AttackDice> _AttackDiceList;
-    private int _AttackAmount;
+    [SerializeField] private int _AttackAmount;
+
+    [SerializeField] private int _attackDiceModify;
 
     private void Awake()
     {
@@ -53,6 +55,7 @@ public class Attack : MonoBehaviour
         _AppliedAttack = false;
         _AttackAmount = 0;
         TotalDamgeText.gameObject.SetActive(false);
+        _attackDiceModify = 0;
     }
 
     private void Update()
@@ -110,8 +113,9 @@ public class Attack : MonoBehaviour
         // Enemy Selected
         if (PieceToAttack != null)
         {
-            if (canAttackPiece()) //piece is attackable
+            if (canAttackPiece()) //piece is attackable, cant go back from this state.
             {
+                ApplyEffects();
                 GameManager.instance.CanSelectePiece = false;
                 BtnAttackUI.SetActive(false); // turn off attack button
                 AttackDiceUI.SetActive(true); // turn on dice roll ui
@@ -155,6 +159,7 @@ public class Attack : MonoBehaviour
     /// </summary>
     private void EndAttack()
     {
+        Debug.Log("Ending Attack");
         GameManager.instance.CanSelectePiece = true;
         GameManager.instance.CurrentPiece = _PieceAttacking;
         BtnAttackUI.SetActive(false); // turn off attack button 
@@ -168,7 +173,7 @@ public class Attack : MonoBehaviour
         _AttackDiceList.Clear();
         _AttackAmount = 0;
         _AppliedAttack = false;
-
+        _attackDiceModify = 0;
         _doneAttack = true;
     }
 
@@ -177,7 +182,9 @@ public class Attack : MonoBehaviour
         if (_HelpText) // display help message to roll dice
             _HelpText.text = "Roll to Attack";
         int currentAmountOfDice = AttackDicePanel.transform.childCount;
-        _AttackAmount = _PieceAttacking.Stat.Attack;
+        _AttackAmount = _PieceAttacking.Stat.CurrentAttack + _attackDiceModify;
+        if (_AttackAmount < 0) // if neg dice amount, cant have.
+            _AttackAmount = 0;
 
         // need to display more of lesss dice
         if (currentAmountOfDice != _AttackAmount)
@@ -250,14 +257,9 @@ public class Attack : MonoBehaviour
         }
     }
 
-    //TODO: Handle increasing attack dice when playing effect cards.
-    public void AddAttackDice()
-    {
-
-    }
-
     public void AttackDone()
     {
+        Debug.Log("Ending Attack");
         EndAttack();
     }
 
@@ -281,8 +283,28 @@ public class Attack : MonoBehaviour
                 amountOfDamageDone++;
             }
         }
-        PieceToAttack.DecreaseHealth(amountOfDamageDone); // apply damge
+        PieceToAttack.DecreaseHealth((int)((double)amountOfDamageDone * _PieceAttacking.AttackMultiplier)); // apply damge
         _AppliedAttack = true;
         TotalDamgeText.text = "Total Damge: " +amountOfDamageDone;
     }
+
+    /// <summary>
+    /// Applies any effects that are curently waiting to be used.
+    /// </summary>
+    private void ApplyEffects()
+    {
+        _PieceAttacking.ApplyEffectsStaggedForCurrentPhase();
+    }
+
+    /// <summary>
+    /// Increase of decrease the ammount of attack dice the character can roll with.
+    /// </summary>
+    /// <param name="numDice"></param>
+    public void ModifyAttack(int numDice)
+    {
+        Debug.Log("ModifyAttack Called, num of DIce increase: " + numDice);
+        _attackDiceModify = numDice;
+        
+    }
 }
+

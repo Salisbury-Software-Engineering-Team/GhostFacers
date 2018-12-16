@@ -90,17 +90,17 @@ public class UIStat : MonoBehaviour
         if (GameManager.instance.CurrentPiece != CurrentPiece) // current piece seleced changed
         {
             CurrentPiece = GameManager.instance.CurrentPiece;
-            CurrentPieceHealth = (CurrentPiece != null) ? CurrentPiece.Stat.Health : 0;
-            CurrentPieceAttack = (CurrentPiece != null) ? CurrentPiece.Stat.Attack : 0;
+            CurrentPieceHealth = (CurrentPiece != null) ? CurrentPiece.Stat.CurrentHealth : 0;
+            CurrentPieceAttack = (CurrentPiece != null) ? CurrentPiece.Stat.CurrentAttack : 0;
             return true;
         }
         else if (CurrentPiece != null) // current piece did not change and is not null
         {
-            if (CurrentPiece.Stat.Health != CurrentPieceHealth) // health of current piece changed
+            if (CurrentPiece.Stat.CurrentHealth != CurrentPieceHealth) // health of current piece changed
             {
                 return true;
             }
-            else if (CurrentPiece.Stat.Attack != CurrentPieceAttack) // attack of current piece changed
+            else if (CurrentPiece.Stat.CurrentAttack != CurrentPieceAttack) // attack of current piece changed
             {
                 return true;
             }
@@ -113,7 +113,7 @@ public class UIStat : MonoBehaviour
     /// </summary>
     private void DisplayHealth(CharacterPiece piece, GameObject healthPanel)
     {
-        int health = CurrentPiece.Stat.Health;
+        int health = CurrentPiece.Stat.CurrentHealth;
         int currentChildCount = healthPanel.transform.childCount; // get the current amount of health being displayed
 
         // need to add or remove hearts
@@ -145,7 +145,7 @@ public class UIStat : MonoBehaviour
     /// </summary>
     private void DisplayAttack(CharacterPiece piece, GameObject attackPanel)
     {
-        int attack = piece.Stat.Attack; // attack points
+        int attack = piece.Stat.CurrentAttack; // attack points
         int currentChildCount = attackPanel.transform.childCount; // get the current amount of health being displayed
 
         // need to add or remove swords
@@ -193,8 +193,8 @@ public class UIStat : MonoBehaviour
             {
                 CurrentPieceTurn = GameManager.instance.Turn.Piece;
                 TurnStarted = true;
-                CurrentPieceTurnHealth = (CurrentPieceTurn != null) ? CurrentPieceTurn.Stat.Health : 0;
-                CurrentPieceTurnAttack = (CurrentPieceTurn != null) ? CurrentPieceTurn.Stat.Attack : 0;
+                CurrentPieceTurnHealth = (CurrentPieceTurn != null) ? CurrentPieceTurn.Stat.CurrentHealth : 0;
+                CurrentPieceTurnAttack = (CurrentPieceTurn != null) ? CurrentPieceTurn.Stat.CurrentAttack : 0;
                 
                 // Hide Panels b/c Turn started on selected piece
                 NamePanel.SetActive(false);
@@ -202,7 +202,7 @@ public class UIStat : MonoBehaviour
                 HealthPanel.SetActive(false);
                 return true;
             }
-            else if (CurrentPieceTurnHealth != CurrentPieceTurn.Stat.Health || CurrentPieceTurnAttack != CurrentPieceTurn.Stat.Attack)
+            else if (CurrentPieceTurnHealth != CurrentPieceTurn.Stat.CurrentHealth || CurrentPieceTurnAttack != CurrentPieceTurn.Stat.CurrentAttack)
             {
                 // attack or health has changed of current piece;
                 return true;

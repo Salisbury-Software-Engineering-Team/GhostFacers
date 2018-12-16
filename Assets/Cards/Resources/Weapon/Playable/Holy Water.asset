@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Holy Water
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Holy Water
-  artwork: {fileID: 21300000, guid: fabde8ca9d2ec6c48a7f58fdf4b2ef5d, type: 3}
+  artwork: {fileID: 21300000, guid: 8e1893708f7ebf84f9be87e57ac95f80, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Deal 2 damage to a demon
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: Deal 2 damage to any demon on the board.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 1

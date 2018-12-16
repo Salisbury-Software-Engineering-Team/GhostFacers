@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Sam's Shoe
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Sam's Shoe
-  artwork: {fileID: 21300000, guid: 452d4912b6d31124e8cce50411b9e7fc, type: 3}
+  artwork: {fileID: 21300000, guid: ad4513dcbdf8c9d43a9474a01a0024e4, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Add 2 to movement roll and attack
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: When this card is used, add 2 attack dice to the user's next attack.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 1

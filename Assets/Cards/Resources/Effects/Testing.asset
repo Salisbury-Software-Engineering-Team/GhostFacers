@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5b280b863f9a14992767b8da4f2ddd, type: 3}
+  m_Name: Testing
+  m_EditorClassIdentifier: 
+  Name: Testing
+  Description: Enter Description
+  _ActivatePhases: 06000000
+  didActivate: 0
+  isStagged: 0
+  canToggle: 0
+  baseNumUses: 1
+  effects:
+  - {fileID: 11400000, guid: d7c94619d70c2fc49979e3bb4353db3c, type: 2}
+  - {fileID: 11400000, guid: 68b9e7d2c8de88840be09825136fd85d, type: 2}
+  InstanceEffects:
+  - {fileID: 0}

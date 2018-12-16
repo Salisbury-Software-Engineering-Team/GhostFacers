@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
+  m_Name: Garth
+  m_EditorClassIdentifier: 
+  Summonable: 0
+  CardEffect: {fileID: 11400000, guid: 68b9e7d2c8de88840be09825136fd85d, type: 2}
+  Name: Garth
+  artwork: {fileID: 21300000, guid: 5a9beac7cc770e345b859469906c3daa, type: 3}
+  backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
+  CharacterOwner: {fileID: 0}
+  Description: Add 7 to Total Movement.
+  DeckType: 100
+  Stat: {fileID: 0}

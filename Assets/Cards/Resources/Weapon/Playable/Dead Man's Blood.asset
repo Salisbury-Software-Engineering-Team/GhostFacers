@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Name: Dead Man's Blood
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Dead Man's Blood
-  artwork: {fileID: 21300000, guid: 5ddf8cc9ee771214a8d193601e96d804, type: 3}
+  artwork: {fileID: 21300000, guid: 8d46145b3480a7c47918f8f4a317eed0, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Vampires stop moving for 3 turns
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: When this card is used, all vampires on the board skip their next 3
+    turns.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 1

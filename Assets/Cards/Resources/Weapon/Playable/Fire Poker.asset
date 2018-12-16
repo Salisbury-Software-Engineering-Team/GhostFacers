@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Name: Fire Poker
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Fire Poker
-  artwork: {fileID: 21300000, guid: 427dd5fc735f74a4eadc3ed2259fdc58, type: 3}
+  artwork: {fileID: 21300000, guid: 9fa9d0c3756fbd840acaa4c2eda8a363, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Pushes a ghost back 10 tiles and add 2 attack die
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: When the character holding this card attacks, add 2 to the attack roll.
+    If used against a ghost and the ghost is not killed, the ghost is pushed back
+    after the attack.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 3

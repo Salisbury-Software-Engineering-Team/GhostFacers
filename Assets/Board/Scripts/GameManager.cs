@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -11,8 +12,12 @@ public class GameManager : MonoBehaviour
     public bool CanSelectePiece; // Determine if piece can be selected
     public int TotalMovement; //testing for movement
     public SideType CurrentSide; // Current sides turn
-    public event Action<StartingZone, bool> DisplayStartingZone;
     public Transform CharacterPiecePrefab;
+
+    public Roll RollDice;
+
+    //Actions
+    public event Action<StartingZone, bool> DisplayStartingZone;
 
     [SerializeField] private List<Player> _GoodPlayers; // lIst of all good players
     [SerializeField] private List<Player> _EvilPlayers; // list of all Evil players
@@ -30,7 +35,30 @@ public class GameManager : MonoBehaviour
     private SideType _WinningSide; // winning side, compare to sideType enum to get a result. -1 = no winner
     private float _CameraDisForPiecePlacement = 200.0f;
 
-    [SerializeField] private CharacterPiece _currentPiece;
+    // get current turn phase
+    [SerializeField] private Phase _turnPhase;
+    public Phase TurnPhase { get { return _turnPhase; } }
+
+    [SerializeField] private CharacterPiece c;
+    [SerializeField] private CharacterPiece _currentPiece
+    {
+        set
+        {
+            if (c != value)
+            {
+                if (c)
+                {
+                    c.Deselected();
+                    c = value;
+                    if (c)
+                        c.Selectd();
+                }
+                else
+                    c = value;
+            }
+        }
+        get { return c; }
+    }
     public CharacterPiece CurrentPiece
     {
         get { return _currentPiece; }
@@ -77,6 +105,22 @@ public class GameManager : MonoBehaviour
     private bool _gameStarted;
     public bool GameStarted { get { return _gameStarted; } }
 
+    private Deck _cardDeck;
+    public Deck CardDeck { get { return _cardDeck; } }
+
+    private Action<Card> ChoiceEffectHandler;
+    private Card _choiceEffect;
+    public Card ChoiceEffect
+    {
+        set
+        {
+            _choiceEffect = value;
+            if (_choiceEffect)
+                ChoiceEffectHandler.Invoke(_choiceEffect);
+        }
+        get { return _choiceEffect; }
+    }
+
 	private void Awake()
     {
         if (instance == null)
@@ -104,6 +148,8 @@ public class GameManager : MonoBehaviour
         if (GameStarted && CheckForWinner())
             WinnerFound();
 
+        if (_turn.TurnPhase != Phase.None)
+            _turnPhase = _turn.TurnPhase;
     }
 
     private void Init()
@@ -116,6 +162,9 @@ public class GameManager : MonoBehaviour
         CanSelectePiece = false;
         _RollButton.gameObject.SetActive(false);
         _DontRollButton.gameObject.SetActive(false);
+        _turnPhase = Phase.Roll;
+        RollDice = this.GetComponent<Roll>();
+        _cardDeck = this.GetComponent<Deck>();
     }
 
     private IEnumerator StartGame()
@@ -126,6 +175,7 @@ public class GameManager : MonoBehaviour
         else // loaded game
             yield return SetupPiecesForContinuedGame();
         Debug.Log("Done Setingup the Game");
+        c = null;
         _currentPiece = null;
         _gameStarted = true;
         CanSelectePiece = true;
@@ -142,9 +192,13 @@ public class GameManager : MonoBehaviour
         {
             _currentPiece = null;
             if (CurrentSide == SideType.Good) // good turn
+            {
                 yield return GoodPlayersTurn();
+            }
             else // evils turn
+            {
                 yield return EvilPlayersTurn();
+            }
         }
         Debug.Log("Done Game" + _WinningSide);
     }
@@ -262,8 +316,6 @@ public class GameManager : MonoBehaviour
             // Piece belongs to Current Player
             if (CurrentPlayer != null && CurrentPlayer.Pieces != null && CurrentPlayer.Pieces.Contains(piece))
             {
-                // TODO: Display Current Players piece info **********************
-
                 if (piece.canMove && !_turnStarted) // piece can still roll.
                 {
                     _RollButton.gameObject.SetActive(true);
@@ -400,4 +452,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CurrentCharacterRoll(bool didRoll)
+    {
+        _currentPiece.RollDice(didRoll);
+    }
+
+    public void CurrentCharacterMovement()
+    {
+
+    }
+
+    public void CurrentCharacterAttack()
+    {
+
+    }
+
+    /// <summary>
+    /// Only allow one listener to be added to the effectchoicehandler
+    /// </summary>
+    /// <param name="action"></param>
+    public void AddEffectChoiceListener(Action<Card> action)
+    {
+        if (ChoiceEffectHandler == null)
+            ChoiceEffectHandler += (c) => action(c);
+    }
 }

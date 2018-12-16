@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Name: First Blade
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: First Blade
-  artwork: {fileID: 21300000, guid: 55a343caac63f6242b8909ce097f89a6, type: 3}
+  artwork: {fileID: 21300000, guid: 4cda765b3c88c4f43a40c8710f43d4e3, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Automatically kills low level demons when attacking. Can only be used
-    by Dean. Can add 3 attack dice at the cost of 1 health
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: This card's effect can only be used by Dean. When this effect is used,
+    add 3 dice to the attack roll or automatically kill the target if it is a common
+    demon. Both effects are activated at the cost of 1 health.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 3

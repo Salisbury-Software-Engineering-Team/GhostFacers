@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Name: Dean's Pen
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Dean's Pen
-  artwork: {fileID: 21300000, guid: 9e9a34733047a9948ac5d71188c9f142, type: 3}
+  artwork: {fileID: 21300000, guid: c1fb8bfdf3273af4b88ab47e4974a12a, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Negates damage
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: When the character holding this card is attacked, this card makes the
+    attack damage 0.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 3

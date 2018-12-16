@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9542a55fa4011a5419d9491790b9b003, type: 3}
+  m_Name: Charlie
+  m_EditorClassIdentifier: 
+  Summonable: 0
+  CardEffect: {fileID: 11400000, guid: 35fda377eaf5801458853c0e6f3547c5, type: 2}
+  Name: Charlie
+  artwork: {fileID: 21300000, guid: d67b3318fa340244e983a17160ee2732, type: 3}
+  backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
+  CharacterOwner: {fileID: 0}
+  Description: Heal 3 Health, Add 1 Attack Dice
+  DeckType: 100
+  Stat: {fileID: 0}

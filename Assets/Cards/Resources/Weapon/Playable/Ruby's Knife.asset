@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Name: Ruby's Knife
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Ruby's Knife
-  artwork: {fileID: 21300000, guid: f41039b6a76d95b42854032c4cfa374f, type: 3}
+  artwork: {fileID: 21300000, guid: 079a5f7fa3ec1a64b9baaf249bcfd333, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Kills any common demon
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: When the character holding this card attacks a common demon, it is
+    automatically killed.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 3

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Archangel Blade
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Archangel Blade
-  artwork: {fileID: 21300000, guid: c6bdcf2e769d007469c05e573b127ec0, type: 3}
+  artwork: {fileID: 21300000, guid: db61477c4a02d664691242050108b219, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Can kill angels and archangels
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: The character holding this card can deal damage to archangels.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 3

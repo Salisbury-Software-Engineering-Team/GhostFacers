@@ -13,16 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   Movement: 0
-  Health: 8
+  Health: 6
   Attack: 2
   m_Health: 8
   m_Attack: 2
   m_Weapons: 0
   m_Help: 0
-  _weaponHand: []
-  _helpHand: []
+  WeaponHand: []
+  HelpHand: []
   ActiveEffects: []
-  AttackablePieces: 
+  AttackablePieces: 01000000
   DrawTypes: 
   Side: 2
   Type: 6

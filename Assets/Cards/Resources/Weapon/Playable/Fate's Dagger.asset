@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Name: Fate's Dagger
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Fate's Dagger
-  artwork: {fileID: 21300000, guid: 4b5488a77c20c1e41910b0be64f2c898, type: 3}
+  artwork: {fileID: 21300000, guid: 0d481e1088e7f6647bd6d0961b1fbc91, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: If your attack roll is 3, automatic kill for anything the cult can
-    kill
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: When the character holding this card attacks, the target is automatically
+    killed if 3 punch dice are rolled. Cannot kill Leviathans, Horsemen, or Archangels.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 3

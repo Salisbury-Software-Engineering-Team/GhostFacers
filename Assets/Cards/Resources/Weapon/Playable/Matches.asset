@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Matches
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Matches
-  artwork: {fileID: 21300000, guid: aa2f43b5d72440048ac4953d1cbca549, type: 3}
+  artwork: {fileID: 21300000, guid: 0d44716671961944494ea5d715609ada, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Use with Holy Water
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: This card can only be used with Holy Oil.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 1

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class TurnManager : MonoBehaviour
         get { return _piece; }
     }
 
-    //What phase the turn is curently in
+    //What the turn is curently in
     [SerializeField] private Phase _turnPhase;
     public Phase TurnPhase
     {
@@ -36,6 +37,7 @@ public class TurnManager : MonoBehaviour
     {
         GameManager.instance.TurnStarted = true;
         StartCoroutine(TurnLoop(move));
+        DisplayRollAmount();
     }
 
     IEnumerator TurnLoop(int move)
@@ -50,7 +52,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Begin EndTurn");
         yield return EndTurnPhase();
         Debug.Log("Done Turn");
-        _turnPhase = Phase.None;
+        _turnPhase = Phase.Roll;
     }
 
     IEnumerator MovementPhase(int move)
@@ -63,7 +65,7 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
-            _HelpText.text = "Move Piece";
+            DisplayRollAmount();
             _piece.canMove = false;
             _turnPhase = Phase.Movement;
             _BtnDontMove.SetActive(true);
@@ -85,7 +87,7 @@ public class TurnManager : MonoBehaviour
         _HelpText.text = "Select Piece to Attack";
         _turnPhase = Phase.Attack;
         _Attack.SetupAttack(Piece); // start the attack
-        yield return new WaitUntil(() => _Attack.DoneAttack == true); // wait till attack sone
+        yield return new WaitUntil(() => _Attack.DoneAttack == true); // wait till attack done
     }
 
     IEnumerator EndTurnPhase()
@@ -110,6 +112,30 @@ public class TurnManager : MonoBehaviour
     public void Moving()
     {
         _BtnDontMove.SetActive(false);
+    }
+
+    private void ClearHelpText()
+    {
+        _HelpText.text = "";
+    }
+
+    /// <summary>
+    /// Display the current Rolled amount.
+    /// </summary>
+    private void DisplayRollAmount()
+    {
+        if (_HelpText)
+        {
+            String txt = "Total Rolled: ";
+            txt += + _piece.GetComponent<Roll>().Movement;
+            if (_piece.GetComponent<Roll>().modValue > 0)
+            {
+                txt += " ("+ _piece.GetComponent<Roll>().baseMovement+ " + " + _piece.GetComponent<Roll>().modValue + ")";
+            }
+            _HelpText.text = txt;
+        }
+        else
+            Debug.Log("Error on DiplayRollAmount(): NO gameObject for Txt display.");
     }
 
 }

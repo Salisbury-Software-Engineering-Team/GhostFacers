@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Name: Demon Blood
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Demon Blood
-  artwork: {fileID: 21300000, guid: 4b87d28815d9df14db189f16fb3244ce, type: 3}
+  artwork: {fileID: 21300000, guid: 32bde3ddb890d17409f94054bb508acd, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Add four attack dice but take 2 damage. Can only be used by Sam
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: This card's effect can only be used by Sam. When this effect is activated,
+    4 attack dice are added at the cost of 2 health.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 3

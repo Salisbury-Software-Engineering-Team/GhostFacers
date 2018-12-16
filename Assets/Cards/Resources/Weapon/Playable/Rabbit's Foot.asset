@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Name: Rabbit's Foot
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Rabbit's Foot
-  artwork: {fileID: 21300000, guid: 5d87385b12a98ac4b86b0051e46dc193, type: 3}
+  artwork: {fileID: 21300000, guid: c3410c87d49d48c45b33e8ec2eee5027, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Exchange for 3 weapon cards and lose one turn, or double your next
-    movement and attack rolls but lose the next card you get
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: This card can be exchanged for 3 weapon cards or to double the user's
+    next roll (attack or movement). When either effect is used, the user's next turn
+    is skipped.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 1

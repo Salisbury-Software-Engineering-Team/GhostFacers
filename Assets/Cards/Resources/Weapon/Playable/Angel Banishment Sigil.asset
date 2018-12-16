@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Name: Angel Banishment Sigil
   m_EditorClassIdentifier: 
   Summonable: 0
-  Name: Angel Banisment Sigil
-  artwork: {fileID: 21300000, guid: 93cd8abfc054a53419403f3351738aaf, type: 3}
+  CardEffect: {fileID: 0}
+  Name: Angel Banishment Sigil
+  artwork: {fileID: 21300000, guid: 53d30d449febe8147ba329c7c57ab0dd, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Oushes angels back 20 tiles
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: When this card is used, all angels on the board are pushed back by
+    20 tiles.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 1

@@ -30,6 +30,8 @@ public enum PieceType
     Angel,
     ArchAngel,
     Monster,
+    Leviathan,
+    Horseman,
 }
 
 public enum StartingZone
@@ -57,4 +59,5 @@ public enum Phase
     Attack,
     Defend,
     EndTurn,
+    Roll,
 }

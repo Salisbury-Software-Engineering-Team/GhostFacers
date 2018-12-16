@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Name: Salt Circle
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Salt Circle
-  artwork: {fileID: 21300000, guid: 41f3cfb8f4cc118418ec8ac9ff8acfd3, type: 3}
+  artwork: {fileID: 21300000, guid: a9d1fcd1ac1212a409c7e00cc874baea, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Place down in a tile (radius of 2). That tile cannot be touched or
-    crossed by a ghost.
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: When this card is used, select one tile on the board. That tile cannot
+    be touched or crossed by a ghost.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 1

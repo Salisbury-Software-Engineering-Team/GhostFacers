@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Name: Death's Scythe
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Death's Scythe
-  artwork: {fileID: 21300000, guid: f827b2feed3045144be75b587eaf43d4, type: 3}
-  backImage: {fileID: 21300000, guid: f827b2feed3045144be75b587eaf43d4, type: 3}
-  Description: Double normal damage. Can hurt any character
-  Deck: 200
+  artwork: {fileID: 21300000, guid: e0faf6575724f7148a3ab3aeeca80062, type: 3}
+  backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
+  CharacterOwner: {fileID: 0}
+  Description: The character holding this card deals doubThe character holding this
+    card can damage any character and deals double their attack roll.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 3

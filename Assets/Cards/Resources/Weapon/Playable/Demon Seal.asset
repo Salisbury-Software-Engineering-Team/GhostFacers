@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Name: Demon Seal
   m_EditorClassIdentifier: 
   Summonable: 0
+  CardEffect: {fileID: 0}
   Name: Demon Seal
-  artwork: {fileID: 21300000, guid: 4c5cfb490319b234abd79cd37a4963b7, type: 3}
+  artwork: {fileID: 21300000, guid: bb64ba356ba3b12439a43bb1c12062d1, type: 3}
   backImage: {fileID: 21300000, guid: ee11683acbb994243b6af5c6733a3853, type: 3}
-  Description: Holds a lesser demon in place until a demon or monster disturbs it.
-    Holds high demons for 2 turns
-  Deck: 200
+  CharacterOwner: {fileID: 0}
+  Description: Select one demon on the board. If it is a common demon, that demon's
+    turn is skipped until another demon or monster lands on a tile next to the demon.
+    If it is a high level demon, only their next 2 turns are skipped.
+  DeckType: 200
   Stat: {fileID: 0}
-  _EffectPhase: 1
