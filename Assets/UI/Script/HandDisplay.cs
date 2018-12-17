@@ -38,10 +38,10 @@ public class HandDisplay : MonoBehaviour
         // a piece is selected.
         if (_Piece)
         {
-            DisplayHandForAlly();
+            //DisplayHandForAlly();
             if (_Piece.Stat.Side == gm.CurrentSide)
             {
-                //DisplayHandForAlly();
+                DisplayHandForAlly();
             }
         }
         else

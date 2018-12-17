@@ -39,6 +39,13 @@ public class CharacterStat : ScriptableObject
     private double _attackDamageMultiplier = 0.0;
     public double AttackDamgeMultiplier { get { return _attackDamageMultiplier; } }
 
+    public void Init()
+    {
+        WeaponHand = new List<Card>();
+        HelpHand = new List<Card>();
+        ActiveEffects = new List<Effect>();
+    }
+
     /// <summary>
     /// Reset stats for a new game.
     /// </summary>

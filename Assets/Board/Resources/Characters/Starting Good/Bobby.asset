@@ -13,18 +13,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bobby
   Movement: 0
-  Health: 6
-  Attack: 1
+  CurrentHealth: 6
+  CurrentAttack: 1
   m_Health: 6
   m_Attack: 1
   m_Weapons: 1
   m_Help: 3
-  _weaponHand: []
-  _helpHand: []
+  WeaponHand: []
+  HelpHand: []
   ActiveEffects: []
-  AttackablePieces: 
+  AttackablePieces: 060000000700000008000000
   DrawTypes: 64000000c8000000
   Side: 1
   Type: 1
   Model: {fileID: 100000, guid: 4371eecbdd03fa647b3ccb48ff45749a, type: 3}
   PieceColor: {r: 0.7058823, g: 0.8052739, b: 1, a: 0}
+  canBePossessed: 1

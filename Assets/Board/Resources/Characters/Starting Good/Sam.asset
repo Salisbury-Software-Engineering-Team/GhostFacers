@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Sam
   Movement: 0
-  CurrentHealth: 0
-  CurrentAttack: 0
+  CurrentHealth: 14
+  CurrentAttack: 2
   m_Health: 14
   m_Attack: 2
   m_Weapons: 2
@@ -22,7 +22,7 @@ MonoBehaviour:
   WeaponHand: []
   HelpHand: []
   ActiveEffects: []
-  AttackablePieces: 06000000
+  AttackablePieces: 0600000008000000070000000500000004000000
   DrawTypes: 64000000c8000000
   Side: 1
   Type: 1

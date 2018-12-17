@@ -13,18 +13,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Dean
   Movement: 0
-  Health: 16
-  Attack: 3
+  CurrentHealth: 16
+  CurrentAttack: 3
   m_Health: 16
   m_Attack: 3
   m_Weapons: 3
   m_Help: 1
-  WeaponHand: []
+  WeaponHand:
+  - {fileID: 11400000, guid: 7b45feda03fe2874e980eca3cf04c560, type: 2}
   HelpHand: []
   ActiveEffects: []
-  AttackablePieces: 0600000000000000000000000000000000000000
+  AttackablePieces: 0600000008000000050000000400000002000000
   DrawTypes: 64000000c8000000
   Side: 1
   Type: 1
   Model: {fileID: 100000, guid: 4371eecbdd03fa647b3ccb48ff45749a, type: 3}
-  PieceColor: {r: 0.24826989, g: 0.4664718, b: 0.8235294, a: 0}
+  PieceColor: {r: 0.24826984, g: 0.8235294, b: 0.6092948, a: 0}
+  canBePossessed: 1

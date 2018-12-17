@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   Movement: 0
-  Health: 6
-  Attack: 2
+  CurrentHealth: 8
+  CurrentAttack: 2
   m_Health: 8
   m_Attack: 2
   m_Weapons: 0
@@ -22,9 +22,10 @@ MonoBehaviour:
   WeaponHand: []
   HelpHand: []
   ActiveEffects: []
-  AttackablePieces: 01000000
+  AttackablePieces: 0100000002000000050000000400000006000000
   DrawTypes: 
   Side: 2
-  Type: 6
+  Type: 8
   Model: {fileID: 100000, guid: 01da4aba589f4f3439b79d7ad203b0bb, type: 3}
   PieceColor: {r: 1, g: 0.7205882, b: 0.7205882, a: 0}
+  canBePossessed: 1

@@ -7,7 +7,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private bool _doneMoving = true;
     [SerializeField] private float speed = 1.0f;
     [SerializeField] private Transform _target;
-    public float targetChangeDis = 200.0f;
+    public float targetChangeDis = 20.0f;
     public Transform target
     {
         get { return _target; }
@@ -50,7 +50,7 @@ public class CameraMovement : MonoBehaviour
     float velocityX = 0.0f;
     float velocityY = 0.0f;
 
-    float hitDistanceCheck = 10.0f;
+    float hitDistanceCheck = 1.0f;
 
 
     // Use this for initialization

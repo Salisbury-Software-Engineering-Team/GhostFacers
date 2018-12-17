@@ -13,18 +13,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Pestilence
   Movement: 0
-  Health: 8
-  Attack: 1
+  CurrentHealth: 8
+  CurrentAttack: 1
   m_Health: 8
   m_Attack: 1
   m_Weapons: 0
   m_Help: 0
-  _weaponHand: []
-  _helpHand: []
+  WeaponHand: []
+  HelpHand: []
   ActiveEffects: []
-  AttackablePieces: 
+  AttackablePieces: 0100000002000000040000000500000006000000
   DrawTypes: 
   Side: 2
-  Type: 6
+  Type: 8
   Model: {fileID: 100000, guid: 01da4aba589f4f3439b79d7ad203b0bb, type: 3}
   PieceColor: {r: 0.29411763, g: 0.114619374, b: 0.114619374, a: 0}
+  canBePossessed: 1

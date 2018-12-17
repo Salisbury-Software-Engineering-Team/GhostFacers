@@ -42,11 +42,11 @@ public class CharacterPiece : MonoBehaviour
 
     private void Awake()
     {
-        Init();
         Destroy(CharacterVisPlaceholder);
         if (Stat != null) // creates character model based off of the stat model chosen
         {
             ChangeCharacterModel();
+            Init();
         }
     }
 
@@ -80,6 +80,7 @@ public class CharacterPiece : MonoBehaviour
         StaggedForDiscard = new List<Card>();
          doneMove = false;
         _Died = false;
+        Stat.Init();
     }
 
     private void Update()

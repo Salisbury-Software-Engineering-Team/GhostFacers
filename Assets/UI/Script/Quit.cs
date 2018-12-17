@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Quit : MonoBehaviour
 {
+    public GameObject MenuUI;
     public GameObject QuitUI;
 
     private void Start()
     {
-        QuitUI.SetActive(false);
+        MenuUI.SetActive(false);
 
     }
 
@@ -16,10 +17,13 @@ public class Quit : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!QuitUI.activeInHierarchy)
-                QuitUI.SetActive(true);
+            if (!MenuUI.activeInHierarchy)
+                MenuUI.SetActive(true);
             else
+            {
+                MenuUI.SetActive(false);
                 QuitUI.SetActive(false);
+            }
         }
     }
 

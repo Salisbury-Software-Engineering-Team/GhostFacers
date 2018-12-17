@@ -13,14 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Death
   Movement: 0
-  Health: 8
-  Attack: 4
+  CurrentHealth: 8
+  CurrentAttack: 4
   m_Health: 8
   m_Attack: 4
   m_Weapons: 0
   m_Help: 0
-  _weaponHand: []
-  _helpHand: []
+  WeaponHand: []
+  HelpHand: []
   ActiveEffects: []
   AttackablePieces: 0100000002000000030000000400000005000000
   DrawTypes: c8000000
@@ -28,3 +28,4 @@ MonoBehaviour:
   Type: 3
   Model: {fileID: 100000, guid: 01da4aba589f4f3439b79d7ad203b0bb, type: 3}
   PieceColor: {r: 1, g: 0, b: 0, a: 0}
+  canBePossessed: 1
